@@ -21,7 +21,6 @@ const App: React.FC = () => {
             <Settings />
           </header>
 
-          {/* <br /> */}
           <form
             onSubmit={() => console.log("form submitted")}
             className="flex flex-col"
