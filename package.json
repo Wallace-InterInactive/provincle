@@ -37,8 +37,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint src/**/*.ts* --quiet --fix",
-    "format": "npx prettier --write src/**/*.ts*"
+    "lint": "npx eslint 'src/**/*.{ts,tsx}' --quiet --fix",
+    "format": "npx prettier --write 'src/**/*.{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
