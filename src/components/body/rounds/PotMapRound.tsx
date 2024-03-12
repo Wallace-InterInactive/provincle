@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import GuessSubmit from "../GuessSubmit";
 import ProvinceInput from "../ProvinceInput";
 import VectorFrame from "../VectorFrame";
@@ -8,6 +8,8 @@ interface PotMapRoundProps {
 }
 
 const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
+  const [currentGuess, setCurrentGuess] = useState("");
+
   return (
     <div>
       <VectorFrame
@@ -23,7 +25,10 @@ const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
         className="flex flex-col"
       >
         <div className="flex flex-grow">
-          <ProvinceInput />
+          <ProvinceInput
+            currentGuess={currentGuess}
+            setCurrentGuess={setCurrentGuess}
+          />
           <GuessSubmit />
         </div>
       </form>

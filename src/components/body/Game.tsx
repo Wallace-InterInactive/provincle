@@ -1,5 +1,5 @@
 import React from "react";
-import getRandomElement from "src/services/DataBank";
+import { getRandomElement } from "src/services/DataBank";
 import PotMapRound from "./rounds/PotMapRound";
 
 interface GameProps {}
