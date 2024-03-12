@@ -31,6 +31,8 @@ const App: React.FC = () => {
             <Settings />
           </header>
 
+          {/* Game */}
+
           <form
             onSubmit={() => console.log("form submitted")}
             className="flex flex-col"
