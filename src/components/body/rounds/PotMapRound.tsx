@@ -16,6 +16,7 @@ const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
         imagePath={`
           ./provinces-and-territories/${props.code}/${props.code}-map.svg
         `}
+        altText={`map of ${props.code}`}
         invertColor={true}
         hideImage={false} // TODO: parameter
         gameOver={false} // TODO: parameter

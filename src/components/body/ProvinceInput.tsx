@@ -28,9 +28,7 @@ const ProvinceInput: React.FC<ProvinceInputProps> = props => {
           {suggestion}
         </div>
       )}
-      containerProps={{
-        className: "border-2 flex-auto relative",
-      }}
+      containerProps={{ className: "border-2 flex-auto relative" }}
       inputProps={{
         className: "w-full dark:bg-slate-800 dark:text-slate-100",
         placeholder: "Province, Territory",

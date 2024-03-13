@@ -2,6 +2,7 @@ import React from "react";
 
 interface VectorFrameProps {
   imagePath: string;
+  altText: string;
   invertColor: boolean;
   hideImage: boolean;
   gameOver: boolean;
@@ -17,7 +18,7 @@ const VectorFrame: React.FC<VectorFrameProps> = (props: VectorFrameProps) => {
           ${props.hideImage && !props.gameOver ? "h-0" : "h-full"}
         `}
         src={props.imagePath}
-        alt="The flag of Canada"
+        alt={props.altText}
       />
     </div>
   );
