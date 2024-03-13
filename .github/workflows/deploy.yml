@@ -5,12 +5,15 @@ on:
     branches:
       - potMap  # master, Change this to your main branch name
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Install dependencies
         run: yarn install  # Use yarn to install dependencies
