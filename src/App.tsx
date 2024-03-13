@@ -4,6 +4,7 @@ import Provincle from "./components/Provincle";
 import Help from "./components/header/Help";
 import Settings from "./components/header/Settings";
 import Game from "./components/body/Game";
+import ZZDebugResetWithRandom from "./components/body/ZZDebugResetWithRandom";
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             </h1>
 
             <Settings />
+            <ZZDebugResetWithRandom />
           </header>
           <Game />
         </div>
