@@ -32,4 +32,4 @@ Check out `/docs/dev.md` to get started with development.
 
 ### Tech Stack Used in this Project
 
-[![My Skills](https://skillicons.dev/icons?i=ts,react,tailwind,yarn&perline=4)](https://skillicons.dev)
+[![Project Tech Stack](https://skillicons.dev/icons?i=ts,react,tailwind,yarn&perline=4)](https://skillicons.dev)

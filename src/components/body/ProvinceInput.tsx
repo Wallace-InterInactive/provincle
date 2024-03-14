@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Autosuggest from "react-autosuggest";
-import { getPotNames } from "src/services/DataBank";
-import { sanitizeString } from "src/services/Utils";
+import { getPotNames } from "src/services/dataBank";
+import { sanitizeString } from "src/services/utils";
 
 interface ProvinceInputProps {
   currentGuess: string;
@@ -28,7 +28,7 @@ const ProvinceInput: React.FC<ProvinceInputProps> = props => {
           {suggestion}
         </div>
       )}
-      containerProps={{ className: "border-2 flex-auto relative" }}
+      containerProps={{ className: "border-2 rounded flex-auto relative mx-2" }}
       inputProps={{
         className: "w-full dark:bg-slate-800 dark:text-slate-100",
         placeholder: "Province, Territory",

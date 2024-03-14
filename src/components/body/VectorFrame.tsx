@@ -13,7 +13,7 @@ const VectorFrame: React.FC<VectorFrameProps> = (props: VectorFrameProps) => {
     <div className="my-1">
       <img
         className={`
-          max-h-52 m-auto transition-transform duration-700 ease-in 
+          max-h-52 m-auto my-5 transition-transform duration-700 ease-in 
           ${props.invertColor ? "dark:invert" : ""}
           ${props.hideImage && !props.gameOver ? "h-0" : "h-full"}
         `}

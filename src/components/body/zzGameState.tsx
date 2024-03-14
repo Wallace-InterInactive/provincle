@@ -1,4 +1,4 @@
-import { Guess } from "../gamedata/gamestate";
+import { Guess } from "../gamedata/gameState";
 import { GuessRow } from "./GuessRow";
 import React from "react";
 //import { SettingsData } from "../hooks/useSettings";

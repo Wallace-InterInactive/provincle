@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-//import { getTodaysQuiz, getRandomQuiz, getRandomElement } from "src/services/DataBank";
+//import { getTodaysQuiz, getRandomQuiz, getRandomElement } from
+//"src/services/DataBank";
 import {
   getTodaysQuiz,
   getRandomQuiz,
   getRandomElement,
-} from "src/services/DataBank";
+} from "src/services/dataBank";
 import PotMapRound from "./rounds/PotMapRound";
 //import { DateTime } from "luxon";  // TBD
 //import { useGamestate } from "../hooks/useGamestate";
@@ -20,7 +21,8 @@ const Game: React.FC<GameProps> = () => {
   }
   //const [currentGuess, setCurrentGuess] = useState("");
   console.log(
-    `debug: q:${quizzId} tq:${getTodaysQuiz()} rq:${getRandomQuiz()} re:${getRandomElement()}`
+    `debug: q:${quizzId} tq:${getTodaysQuiz()}
+    rq:${getRandomQuiz()} re:${getRandomElement()}`
   );
 
   return <PotMapRound code={quizzId} />;

@@ -1,4 +1,4 @@
-import { Guess } from "../gamedata/gamestate";
+import { Guess } from "../gamedata/gameState";
 import { GuessRow } from "./GuessRow";
 import React from "react";
 //import { SettingsData } from "../hooks/useSettings";
@@ -9,7 +9,6 @@ interface GuessesProps {
   //settingsData: SettingsData;
 }
 
-//export function TextGuesses({ rowCount, guesses /*, settingsData */ }: TextGuessesProps) {
 export const Guesses: React.FC<GuessesProps> = (props: GuessesProps) => {
   return (
     <div>

@@ -1,4 +1,4 @@
-import { Guess } from "../gamedata/gamestate";
+import { Guess } from "../gamedata/gameState";
 import React from "react";
 //import React, { useEffect, useState } from "react";
 //import CountUp from "react-countup";
@@ -12,10 +12,9 @@ interface GuessRowProps {
   //settingsData: SettingsData;
 }
 
-//export function TextGuessRow({ guess /*, settingsData */ }: TextGuessRowProps) {
 export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
   //const { distanceUnit, theme } = settingsData;
-  //const proximity = guess != null ? computeProximityPercent(guess.distance) : 0;
+  //const proximity=guess != null ? computeProximityPercent(guess.distance) : 0;
   //const squares = generateSquareCharacters(proximity, theme);
   //const [animationState, setAnimationState] =
   //  useState<AnimationState>("NOT_STARTED");
@@ -31,12 +30,22 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
     default: //case "ENDED":
       return (
         <>
-          <div className="flex items-center justify-center border-2 h-8 col-span-3 animate-reveal">
+          <div
+            className={`
+            flex items-center justify-center border-2 h-8 col-span-3
+            animate-reveal
+          `}
+          >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
               {props.guess?.name}
             </p>
           </div>
-          <div className="flex items-center justify-center border-2 h-8 col-span-2 animate-reveal">
+          <div
+            className={`
+            flex items-center justify-center border-2 h-8 col-span-2
+            animate-reveal
+          `}
+          >
             {props.guess && props.guess.result}
           </div>
         </>
@@ -67,7 +76,8 @@ const DIRECTION_ARROWS: Record<Direction, string> = {
       return (
         <>
           <div
-            className={`flex text-2xl w-full justify-evenly items-center col-span-6 border-2 h-8`}
+            className={`flex text-2xl w-full justify-evenly
+              items-center col-span-6 border-2 h-8`}
           >
             {squares.map((character, index) => (
               <div

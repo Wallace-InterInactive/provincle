@@ -3,8 +3,8 @@ import GuessSubmit from "../GuessSubmit";
 import ProvinceInput from "../ProvinceInput";
 import VectorFrame from "../VectorFrame";
 import { Guesses } from "../Guesses";
-import { getDataBank } from "src/services/DataBank";
-import { Guess } from "../../gamedata/gamestate";
+import { getDataBank } from "src/services/dataBank";
+import { Guess } from "../../gamedata/gameState";
 
 interface PotMapRoundProps {
   code: string;
@@ -14,7 +14,6 @@ const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
   const [currentGuess, setCurrentGuess] = useState("");
   const maxGuessCount: number = getDataBank()[props.code].neighbors.length;
 
-  //const myGuessListarrayOfObjects: Guess[] = Array.from({ length: maxGuessCount }, (_, i) => new Guess());
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const myGuessListarrayOfObjects: Guess[] = Array.from(
     { length: maxGuessCount },

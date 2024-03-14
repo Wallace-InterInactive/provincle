@@ -1,4 +1,4 @@
-import accentsMap from "./AccentsMap";
+import accentsMap from "./accentsMap";
 
 export function sanitizeString(str: string): string {
   let retVal = str.trim().toLowerCase();

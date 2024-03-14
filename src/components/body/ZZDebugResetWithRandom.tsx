@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { getRandomElement, getRandomQuiz } from "src/services/DataBank";
-import { useGamestate } from "../../hooks/useGamestate";
+import { getRandomElement, getRandomQuiz } from "src/services/dataBank";
+import { useGameState } from "../../hooks/useGameState";
 
 interface ZZDebugResetWithRandomProps {}
 
 const ZZDebugResetWithRandom: React.FC<ZZDebugResetWithRandomProps> = () => {
   const dayString = useMemo(getRandomElement, []);
-  useGamestate(dayString);
+  useGameState(dayString);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [quizId, setQuizzId] = useState("");
 
