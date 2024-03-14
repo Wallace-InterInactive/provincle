@@ -34,6 +34,12 @@ const getPotNames = (): string[] => {
 
 const getDataBank = (): DataBank => {
   return dataBank;
-}
+};
 
-export { getTodaysQuiz, getRandomQuiz, getRandomElement, getPotNames, getDataBank };
+export {
+  getTodaysQuiz,
+  getRandomQuiz,
+  getRandomElement,
+  getPotNames,
+  getDataBank,
+};

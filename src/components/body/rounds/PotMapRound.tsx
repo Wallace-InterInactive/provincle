@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GuessSubmit from "../GuessSubmit";
 import ProvinceInput from "../ProvinceInput";
 import VectorFrame from "../VectorFrame";
-import { TextGuesses } from "../TextGuesses";
+import { Guesses } from "../Guesses";
 import { getDataBank } from "src/services/DataBank";
 import { Guess } from "../../gamedata/gamestate";
 
@@ -16,7 +16,12 @@ const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
 
   //const myGuessListarrayOfObjects: Guess[] = Array.from({ length: maxGuessCount }, (_, i) => new Guess());
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const myGuessListarrayOfObjects: Guess[] = Array.from({ length: maxGuessCount }, (_, i) => { return {name:`guess-${i}`, answer:"", result:""} } );
+  const myGuessListarrayOfObjects: Guess[] = Array.from(
+    { length: maxGuessCount },
+    (_, i) => {
+      return { name: `guess-${i}`, answer: "", result: "" };
+    }
+  );
 
   return (
     <div>
@@ -41,7 +46,7 @@ const PotMapRound: React.FC<PotMapRoundProps> = (props: PotMapRoundProps) => {
           <GuessSubmit />
         </div>
         <div className="flex flex-grow">
-          <TextGuesses
+          <Guesses
             rowCount={maxGuessCount}
             guesses={myGuessListarrayOfObjects}
             //guesses={Guess[maxGuessCount]}

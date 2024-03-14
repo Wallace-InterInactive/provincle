@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 //import { getTodaysQuiz, getRandomQuiz, getRandomElement } from "src/services/DataBank";
-import { getTodaysQuiz, getRandomQuiz, getRandomElement } from "src/services/DataBank";
+import {
+  getTodaysQuiz,
+  getRandomQuiz,
+  getRandomElement,
+} from "src/services/DataBank";
 import PotMapRound from "./rounds/PotMapRound";
 //import { DateTime } from "luxon";  // TBD
 //import { useGamestate } from "../hooks/useGamestate";
@@ -12,10 +16,12 @@ const Game: React.FC<GameProps> = () => {
   const [quizzId, setQuizId] = useState("");
   //const [quizzId] = useState("provincle-todays-quiz");
   if (quizzId == "") {
-    setQuizId("sk")
+    setQuizId("sk");
   }
   //const [currentGuess, setCurrentGuess] = useState("");
-  console.log(`debug: q:${quizzId} tq:${getTodaysQuiz()} rq:${getRandomQuiz()} re:${getRandomElement()}`)
+  console.log(
+    `debug: q:${quizzId} tq:${getTodaysQuiz()} rq:${getRandomQuiz()} re:${getRandomElement()}`
+  );
 
   return <PotMapRound code={quizzId} />;
 };

@@ -18,7 +18,7 @@ export interface GameRound {
   name: string;
   quiz: Quiz;
   expected: string;
-  attempts: string[];   // pass attemps[-1] == expected, fail if attempts.length >= quiz.maxAttemps;
+  attempts: string[]; // pass attemps[-1] == expected, fail if attempts.length >= quiz.maxAttemps;
 }
 
 export interface GameState {
