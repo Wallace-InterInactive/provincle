@@ -15,7 +15,12 @@ export function GameState({ rowCount, guesses }: GameStateProps) {
     <div>
       <div className="grid grid-cols-7 gap-1 text-center">
         {Array.from(Array(rowCount).keys()).map(index => (
-          <GuessRow key={index} guess={guesses[index]} />
+          <GuessRow
+            key={index}
+            guess={guesses[index]}
+            distance={"1234 km"}
+            direction={"⬆️"}
+          />
         ))}
       </div>
     </div>

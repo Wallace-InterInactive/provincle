@@ -9,6 +9,8 @@ import React from "react";
 
 interface GuessRowProps {
   guess: Guess; //  guess?: Guess;
+  distance: string;
+  direction: string;
   //settingsData: SettingsData;
 }
 
@@ -24,7 +26,9 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
     case "NOT_STARTED":
       return (
         <div
-          className={`col-span-7 border-2 h-8 bg-gray-200 dark:bg-slate-600`}
+          className={`
+            col-span-10 border-2 rounded h-8 bg-gray-200 dark:bg-slate-600
+          `}
         />
       );
     default: //case "ENDED":
@@ -32,21 +36,33 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
         <>
           <div
             className={`
-            flex items-center justify-center border-2 h-8 col-span-3
-            animate-reveal
-          `}
+              flex items-center justify-center border-2 rounded h-8 col-span-5
+              animate-reveal
+            `}
           >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
               {props.guess?.name}
+              {/* {props.distance}
+              {props.direction} */}
             </p>
           </div>
           <div
             className={`
-            flex items-center justify-center border-2 h-8 col-span-2
-            animate-reveal
-          `}
+              flex items-center justify-center border-2 rounded h-8 col-span-1
+              animate-reveal
+            `}
           >
-            {props.guess && props.guess.result}
+            {" "}
+            {props.distance}
+            {/* {props.guess && props.guess.result} */}
+          </div>
+          <div
+            className={`
+              flex items-center justify-center border-2 rounded h-8 col-span-1
+              animate-reveal
+            `}
+          >
+            {props.direction}
           </div>
         </>
       );

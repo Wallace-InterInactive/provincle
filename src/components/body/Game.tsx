@@ -1,31 +1,19 @@
 import React, { useState } from "react";
-//import { getTodaysQuiz, getRandomQuiz, getRandomElement } from
-//"src/services/DataBank";
-import {
-  getTodaysQuiz,
-  getRandomQuiz,
-  getRandomElement,
-} from "src/services/dataBank";
 import PotMapRound from "./rounds/PotMapRound";
-//import { DateTime } from "luxon";  // TBD
-//import { useGamestate } from "../hooks/useGamestate";
+import PotContext from "src/contexts/PotContext";
+import { getRandomPotCode } from "src/services/dataBank";
 
 interface GameProps {}
 
 const Game: React.FC<GameProps> = () => {
-  //const pot = getRandomElement();
-  const [quizzId, setQuizId] = useState("");
-  //const [quizzId] = useState("provincle-todays-quiz");
-  if (quizzId == "") {
-    setQuizId("sk");
-  }
-  //const [currentGuess, setCurrentGuess] = useState("");
-  console.log(
-    `debug: q:${quizzId} tq:${getTodaysQuiz()}
-    rq:${getRandomQuiz()} re:${getRandomElement()}`
-  );
+  const [code, setCode] = useState(getRandomPotCode());
+  const codeValue = { code, setCode };
 
-  return <PotMapRound code={quizzId} />;
+  return (
+    <PotContext.Provider value={codeValue}>
+      <PotMapRound />
+    </PotContext.Provider>
+  );
 };
 
 export default Game;

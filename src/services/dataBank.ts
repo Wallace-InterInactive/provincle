@@ -14,7 +14,7 @@ const dataBank: DataBank = jsonData.dataBank;
 const codes: string[] = Object.keys(jsonData.dataBank);
 const potNames: string[] = codes.map(code => dataBank[code].name);
 
-const getRandomElement = (): string => {
+const getRandomPotCode = (): string => {
   return codes[Math.floor(Math.random() * codes.length)];
 };
 
@@ -39,7 +39,7 @@ const getDataBank = (): DataBank => {
 export {
   getTodaysQuiz,
   getRandomQuiz,
-  getRandomElement,
+  getRandomPotCode,
   getPotNames,
   getDataBank,
 };

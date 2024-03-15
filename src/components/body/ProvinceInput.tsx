@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Autosuggest from "react-autosuggest";
+import CurrentGuessContext from "src/contexts/CurrentGuessContext";
 import { getPotNames } from "src/services/dataBank";
 import { sanitizeString } from "src/services/utils";
 
-interface ProvinceInputProps {
-  currentGuess: string;
-  setCurrentGuess: (guess: string) => void;
-}
+interface ProvinceInputProps {}
 
-const ProvinceInput: React.FC<ProvinceInputProps> = props => {
+const ProvinceInput: React.FC<ProvinceInputProps> = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const { currentGuess, setCurrentGuess } = useContext(CurrentGuessContext);
 
   return (
     <Autosuggest
@@ -32,8 +31,8 @@ const ProvinceInput: React.FC<ProvinceInputProps> = props => {
       inputProps={{
         className: "w-full dark:bg-slate-800 dark:text-slate-100",
         placeholder: "Province, Territory",
-        value: props.currentGuess,
-        onChange: (_e, { newValue }) => props.setCurrentGuess(newValue),
+        value: currentGuess /*props.currentGuess*/,
+        onChange: (_e, { newValue }) => setCurrentGuess(newValue),
       }}
       renderSuggestionsContainer={({ containerProps, children }) => (
         <div
