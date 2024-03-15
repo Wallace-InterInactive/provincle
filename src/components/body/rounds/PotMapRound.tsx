@@ -36,7 +36,6 @@ const PotMapRound: React.FC<PotMapRoundProps> = () => {
           <GuessSubmit />
         </div>
 
-        <p>Current Guess: {currentGuess}</p>
         {/* <div className="flex flex-grow">
           <Guesses
             rowCount={maxGuessCount}

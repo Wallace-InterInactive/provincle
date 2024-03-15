@@ -26,19 +26,19 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
     case "NOT_STARTED":
       return (
         <div
-          className={`
-            col-span-10 border-2 rounded h-8 bg-gray-200 dark:bg-slate-600
-          `}
+          className={
+            "col-span-10 border-2 rounded h-8 bg-gray-200 dark:bg-slate-600"
+          }
         />
       );
     default: //case "ENDED":
       return (
         <>
           <div
-            className={`
-              flex items-center justify-center border-2 rounded h-8 col-span-5
-              animate-reveal
-            `}
+            className={
+              "flex items-center justify-center border-2 rounded h-8" +
+              "col-span-5 animate-reveal"
+            }
           >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
               {props.guess?.name}
@@ -47,20 +47,20 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
             </p>
           </div>
           <div
-            className={`
-              flex items-center justify-center border-2 rounded h-8 col-span-1
-              animate-reveal
-            `}
+            className={
+              "flex items-center justify-center border-2 rounded h-8 " +
+              "col-span-1 animate-reveal"
+            }
           >
             {" "}
             {props.distance}
             {/* {props.guess && props.guess.result} */}
           </div>
           <div
-            className={`
-              flex items-center justify-center border-2 rounded h-8 col-span-1
-              animate-reveal
-            `}
+            className={
+              "flex items-center justify-center border-2 rounded h-8 " +
+              "col-span-1 animate-reveal"
+            }
           >
             {props.direction}
           </div>
