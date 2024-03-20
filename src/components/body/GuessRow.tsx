@@ -1,6 +1,9 @@
+import {
+  calculateDistance,
+  getDirectionFromSolution,
+} from "src/services/utils";
 import { Guess } from "../gamedata/gameState";
 import React from "react";
-//import React, { useEffect, useState } from "react";
 //import CountUp from "react-countup";
 //import { SettingsData } from "../hooks/useSettings";
 
@@ -8,9 +11,8 @@ import React from "react";
 //type AnimationState = "NOT_STARTED" | "RUNNING" | "ENDED";
 
 interface GuessRowProps {
-  guess: Guess; //  guess?: Guess;
-  distance: string;
-  direction: string;
+  key: number;
+  guess: Guess;
   //settingsData: SettingsData;
 }
 
@@ -22,50 +24,47 @@ export const GuessRow: React.FC<GuessRowProps> = (props: GuessRowProps) => {
   //  useState<AnimationState>("NOT_STARTED");
 
   //switch (animationState) {
-  switch (props.guess.result) {
-    case "NOT_STARTED":
-      return (
+
+  if (false /* "NOT_STARTED" === props.guess.result */) {
+    return (
+      <div
+        className={
+          "col-span-10 border-2 rounded h-8 bg-gray-200 dark:bg-slate-600"
+        }
+      />
+    );
+  } /* "ENDED" */ else {
+    return (
+      <>
         <div
           className={
-            "col-span-10 border-2 rounded h-8 bg-gray-200 dark:bg-slate-600"
+            "flex col-span-7 items-center justify-center border-2 rounded h-8" +
+            "animate-reveal"
           }
-        />
-      );
-    default: //case "ENDED":
-      return (
-        <>
-          <div
-            className={
-              "flex items-center justify-center border-2 rounded h-8" +
-              "col-span-5 animate-reveal"
-            }
-          >
-            <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-              {props.guess?.name}
-              {/* {props.distance}
-              {props.direction} */}
-            </p>
-          </div>
-          <div
-            className={
-              "flex items-center justify-center border-2 rounded h-8 " +
-              "col-span-1 animate-reveal"
-            }
-          >
-            {" "}
-            {props.distance}
-            {/* {props.guess && props.guess.result} */}
-          </div>
-          <div
-            className={
-              "flex items-center justify-center border-2 rounded h-8 " +
-              "col-span-1 animate-reveal"
-            }
-          >
-            {props.direction}
-          </div>
-        </>
-      );
+        >
+          <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+            {props.guess.name}
+          </p>
+        </div>
+
+        <div
+          className={
+            "flex col-span-2 items-center justify-center border-2 rounded " +
+            "h-8 animate-reveal"
+          }
+        >
+          {calculateDistance("", props.guess.name)}
+        </div>
+        <div
+          className={
+            "flex col-span-1 items-center justify-center border-2 rounded " +
+            "h-8 animate-reveal"
+          }
+        >
+          {getDirectionFromSolution("", props.guess.name)}
+        </div>
+      </>
+    );
   }
 };
 

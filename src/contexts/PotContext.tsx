@@ -1,10 +1,10 @@
 import { createContext } from "react";
 
-const PotContextType = createContext({
+const PotContext = createContext({
   code: "",
   setCode: (newCode: string) => {
     console.log(newCode);
   },
 });
 
-export default PotContextType;
+export default PotContext;

@@ -18,8 +18,8 @@ export function GameState({ rowCount, guesses }: GameStateProps) {
           <GuessRow
             key={index}
             guess={guesses[index]}
-            distance={"1234 km"}
-            direction={"⬆️"}
+            // distance={"1234 km"}
+            // direction={"⬆️"}
           />
         ))}
       </div>

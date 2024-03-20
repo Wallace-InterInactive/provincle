@@ -18,6 +18,10 @@ const getRandomPotCode = (): string => {
   return codes[Math.floor(Math.random() * codes.length)];
 };
 
+const getNameByPotCode = (code: string): string => {
+  return dataBank[code].name;
+};
+
 const getTodaysQuizId = (): number => {
   return 0;
 };
@@ -40,6 +44,7 @@ export {
   getTodaysQuiz,
   getRandomQuiz,
   getRandomPotCode,
+  getNameByPotCode,
   getPotNames,
   getDataBank,
 };

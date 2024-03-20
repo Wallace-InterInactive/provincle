@@ -1,8 +1,20 @@
-import React from "react";
+import React /*, { useContext } */ from "react";
+// import CurrentGuessContext from "src/contexts/CurrentGuessContext";
 
-interface GuessSubmitProps {}
+interface GuessSubmitProps {
+  handleAddNewGuess: (answer: string, result: string) => void;
+}
 
-const GuessSubmit: React.FC<GuessSubmitProps> = () => {
+const GuessSubmit: React.FC<GuessSubmitProps> = props => {
+  // const { currentGuess } = useContext(CurrentGuessContext);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+    // const answer = `2nd ${currentGuess}`;
+    // const result = `3rd ${currentGuess}`;
+    props.handleAddNewGuess("", "");
+  };
+
   return (
     <button
       type="submit"
@@ -10,6 +22,7 @@ const GuessSubmit: React.FC<GuessSubmitProps> = () => {
         "border-2 rounded uppercase flex-shrink-0 dark:bg-slate-800 px-2" +
         "font-semibold"
       }
+      onClick={handleClick}
     >
       🍁 Guess
     </button>
