@@ -2,7 +2,12 @@
   "name": "provincle",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://wallace-interinactive.github.io/provincle",
   "dependencies": {
+    "@babel/core": "7.24.0",
+    "@babel/plugin-syntax-flow": "7.23.3",
+    "@babel/plugin-transform-react-jsx": "7.23.4",
+    "@testing-library/dom": "9.3.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -11,12 +16,16 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "react": "^18.2.0",
+    "react-autosuggest": "^10.1.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.4.2",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.23.4",
+    "@types/react-autosuggest": "^10.1.11",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
@@ -30,10 +39,13 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "yarn": "^1.22.22"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "REACT_APP_BASE_URL=http://localhost:3000/provincle react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

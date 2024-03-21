@@ -3,8 +3,7 @@ import "./App.css";
 import Provincle from "./components/Provincle";
 import Help from "./components/header/Help";
 import Settings from "./components/header/Settings";
-import ProvinceInput from "./components/body/ProvinceInput";
-import GuessSubmit from "./components/body/GuessSubmit";
+import Game from "./components/body/Game";
 
 const App: React.FC = () => {
   return (
@@ -22,26 +21,16 @@ const App: React.FC = () => {
             <h1
               className={
                 "text-4xl font-bold uppercase" +
-                "tracking-wide text-center my-1 flex-auto"
+                "tracking-wide text-center mx-10 my-2 flex-auto"
               }
             >
               🇨🇦 <Provincle />
             </h1>
 
             <Settings />
+            {/* <ZZDebugResetWithRandom /> */}
           </header>
-
-          {/* Game */}
-
-          <form
-            onSubmit={() => console.log("form submitted")}
-            className="flex flex-col"
-          >
-            <div className="flex flex-grow">
-              <ProvinceInput />
-              <GuessSubmit />
-            </div>
-          </form>
+          <Game />
         </div>
       </div>
 
