@@ -1,0 +1,39 @@
+{
+  "potcode":"ma",
+  "score":0,
+  "gameRounds":[
+    {
+      "id":"pot-map",
+      "name":"PoT.. shilouette",
+      "solution":"*Quebec",
+      "Question/description":"what is qqq",
+      "maxAttempts":3,
+      "guesses":[
+        "Manitoba",
+        "pear",
+        "orange"
+      ]
+    },
+    {
+      "id":"pot-capital",
+      "name":"PoT Capital",
+      "solution":"*Manila",
+      "Question/description":"what is qqq",
+      "maxAttempts":2,
+      "guesses":[
+        "Vancouver",
+        "Montreal"
+      ]
+    },
+    {
+      "id":"i2",
+      "name":"PoT-Major-League-Team",
+      "solution":"*Winnipeg Jets",
+      "Question/description":"what is qqq",
+      "maxAttempts":2,
+      "guesses":[
+        
+      ]
+    }
+  ]
+}
