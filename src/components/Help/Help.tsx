@@ -1,8 +1,4 @@
-import React from "react";
-
-interface HelpProps {}
-
-const Help: React.FC<HelpProps> = () => {
+export function Help() {
   return (
     <button
       className="mx-3 text-xl"
@@ -12,6 +8,4 @@ const Help: React.FC<HelpProps> = () => {
       ❓
     </button>
   );
-};
-
-export default Help;
+}

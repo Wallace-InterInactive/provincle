@@ -1,8 +1,4 @@
-import React from "react";
-
-interface SettingsProps {}
-
-const Settings: React.FC<SettingsProps> = () => {
+export function Settings() {
   return (
     <button
       className="mx-3 text-xl"
@@ -12,6 +8,4 @@ const Settings: React.FC<SettingsProps> = () => {
       ⚙️
     </button>
   );
-};
-
-export default Settings;
+}

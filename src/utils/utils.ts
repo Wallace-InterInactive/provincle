@@ -1,5 +1,5 @@
-import accentsMap from "./accentsMap";
-import { getNameByPotCode } from "./dataBank";
+import accentsMap from "./accentsMap.ts";
+import { getNameByPotCode } from "./dataBank.ts";
 
 export function sanitizeString(str: string): string {
   let retVal = str.trim().toLowerCase();
