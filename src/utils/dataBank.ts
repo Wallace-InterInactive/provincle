@@ -1,26 +1,103 @@
+const dataBank = {
+  on: {
+    name: "Ontario",
+    neighbors: ["nu", "qc", "mb"],
+    capital: ["Toronto"],
+  },
+  qc: {
+    name: "Québec",
+    neighbors: ["nu", "nl", "pe", "nb", "on"],
+    capital: ["Quebec City", "Ville de Québec"],
+  },
+  ns: {
+    name: "Nova Scotia",
+    neighbors: ["nl", "nb", "pe"],
+    capital: ["Halifax"],
+  },
+  nb: {
+    name: "New Brunswick",
+    neighbors: ["pe", "ns", "qc"],
+    capital: ["Fredericton"],
+  },
+  mb: {
+    name: "Manitoba",
+    neighbors: ["nu", "on", "sa", "nt"],
+    capital: ["Winnipeg"],
+  },
+  bc: {
+    name: "British Columbia",
+    neighbors: ["yt", "nt", "ab"],
+    capital: ["Victoria"],
+  },
+  pe: {
+    name: "Prince Edward Island",
+    neighbors: ["qc", "nl", "ns", "nb"],
+    capital: ["Charlottetown"],
+  },
+  sk: {
+    name: "Saskatchewan",
+    neighbors: ["nt", "nu", "mb", "ab"],
+    capital: ["Regina"],
+  },
+  ab: {
+    name: "Alberta",
+    neighbors: ["nt", "sk", "bc"],
+    capital: ["Edmonton"],
+  },
+  nl: {
+    name: "Newfoundland and Labrador",
+    neighbors: ["nu", "ns", "pe", "qc"],
+    capital: ["St. John's"],
+  },
+  nt: {
+    name: "Northwest Territories",
+    neighbors: ["nu", "mb", "sa", "ab", "bc", "yt"],
+    capital: ["Yellowknife"],
+  },
+  yt: {
+    name: "Yukon",
+    neighbors: ["nt", "bc"],
+    capital: ["Whitehorse"],
+  },
+  nu: {
+    name: "Nunavut",
+    neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
+    capital: ["Iqaluit"],
+  },
+};
+
+export const potCodes = Object.keys(dataBank);
+export const potNames = Object.keys(dataBank).map(
+  potCode => dataBank[potCode].name
+);
+
+export default dataBank;
+
+/*
 import jsonData from "../dataBank.json";
 
-interface DataBank {
-  [key: string]: {
-    name: string;
-    neighbors: string[];
-    capital: string[];
-  };
-}
+
+// interface DataBank {
+//   [key: string]: {
+//     name: string;
+//     neighbors: string[];
+//     capital: string[];
+//   };
+// }
 
 //function getDayString(): string { return "2024-03-13"; }
 
-const dataBank: DataBank = jsonData.dataBank;
-const codes: string[] = Object.keys(jsonData.dataBank);
-const potNames: string[] = codes.map(code => dataBank[code].name);
+const dataBank = jsonData.dataBank;
+const codes = Object.keys(jsonData.dataBank);
+const potNames = codes.map(code => dataBank[code].name);
 
 const getRandomPotCode = (): string => {
   return codes[Math.floor(Math.random() * codes.length)];
 };
 
-const getNameByPotCode = (code: string): string => {
-  return dataBank[code].name;
-};
+// const getNameByPotCode = (code: string): string => {
+//   return dataBank[code].name;
+// };
 
 const getTodaysQuizId = (): number => {
   return 0;
@@ -36,15 +113,17 @@ const getPotNames = (): string[] => {
   return potNames;
 };
 
-const getDataBank = (): DataBank => {
-  return dataBank;
-};
+// const getDataBank = (): DataBank => {
+//   return dataBank;
+// };
 
 export {
   getTodaysQuiz,
   getRandomQuiz,
   getRandomPotCode,
-  getNameByPotCode,
-  getPotNames,
-  getDataBank,
+  // getNameByPotCode,
+  // getPotNames,
+  dataBank
+  // getDataBank,
 };
+*/

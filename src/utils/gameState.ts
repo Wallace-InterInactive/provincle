@@ -1,3 +1,4 @@
+/*
 export interface Guess {
   name: string;
   answer: string;
@@ -26,3 +27,38 @@ export interface GameState {
   currentQuizId: string;
   gameRoundList: GameRound[];
 }
+*/
+
+/* ========================= */
+
+export interface newGameState {
+  potCode: string;
+  currentRound: number;
+  //  currentRoundIsFinished: boolean;
+  //  rounds: Round[];
+}
+
+//export interface Round {
+//  name: string;
+//  solution: string;
+//  maxAttempts: number;
+//  currentGuess: string;
+//  guesses: string[];
+//}
+
+const defaultNewGameState: newGameState = {
+  potCode: "qc",
+  currentRound: 0,
+  //  currentRoundIsFinished: false,
+  //  rounds: [
+  //    {
+  //      name: "map",
+  //      solution: "qc",
+  //      maxAttempts: 3,
+  //      currentGuess: "",
+  //      guesses: [],
+  //    },
+  //  ],
+};
+
+export default defaultNewGameState;

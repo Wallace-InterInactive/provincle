@@ -1,5 +1,5 @@
 import accentsMap from "./accentsMap.ts";
-import { getNameByPotCode } from "./dataBank.ts";
+import { potNames } from "./dataBank.ts";
 
 export function sanitizeString(str: string): string {
   let retVal = str.trim().toLowerCase();
@@ -12,9 +12,12 @@ export function sanitizeString(str: string): string {
   return retVal;
 }
 
-export function guessedIt(code: string, currentGuess: string): boolean {
+export function isValidPot(currentGuess: string): boolean {
+  const sanitized = sanitizeString(currentGuess);
   return (
-    sanitizeString(getNameByPotCode(code)) === sanitizeString(currentGuess)
+    undefined !== sanitized &&
+    "" !== sanitized &&
+    potNames.some(name => sanitizeString(name) === sanitized)
   );
 }
 
@@ -22,7 +25,6 @@ export function calculateDistance(
   solutionCode: string,
   guessCode: string
 ): string {
-  console.log(solutionCode, guessCode);
   return "4321 km";
 }
 
@@ -30,6 +32,5 @@ export function getDirectionFromSolution(
   solutionCode: string,
   guessCode: string
 ): string {
-  console.log(solutionCode, guessCode);
-  return "➡️";
+  return "↗️";
 }
