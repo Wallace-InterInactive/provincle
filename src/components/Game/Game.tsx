@@ -157,7 +157,6 @@ export function Game() {
             </div>
           </div>
         ) : (
-          // TODO: currentRoundStatus is not up to date, the below code is never displayed
           <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4">
             <span
               className={`col-span-1 justify-center font-semibold border-4 border-${currentRoundStatus === "won" ? "green" : "red"}-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue`}
