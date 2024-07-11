@@ -36,3 +36,17 @@ export function getDirectionFromSolution(
   console.log(`getDirectionFromSolution(${solutionCode}, ${guessCode})`);
   return "↗️";
 }
+
+export function getPotMapSvgUrl(potCode: string): string {
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
+    import.meta.url
+  ).href;
+}
+
+export function getPotFlagSvgUrl(potCode: string): string {
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
+    import.meta.url
+  ).href;
+}

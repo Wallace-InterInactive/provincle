@@ -31,6 +31,8 @@ export interface GameState {
 
 /* ========================= */
 
+import { getTodaysPotCode } from "./dataBank.ts";
+
 export interface newGameState {
   potCode: string;
   currentRound: number;
@@ -47,7 +49,7 @@ export interface newGameState {
 //}
 
 const defaultNewGameState: newGameState = {
-  potCode: "qc",
+  potCode: getTodaysPotCode(),
   currentRound: 0,
   //  currentRoundIsFinished: false,
   //  rounds: [

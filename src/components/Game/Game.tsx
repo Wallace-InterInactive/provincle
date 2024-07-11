@@ -1,4 +1,3 @@
-import potSvg from "../../assets/provinces-and-territories/qc/qc-map.svg";
 import Autosuggest from "react-autosuggest";
 import { FormEvent, useState, useEffect } from "react";
 import dataBank, { potNames } from "../../utils/dataBank.ts";
@@ -7,6 +6,7 @@ import {
   isValidPot,
   calculateDistance,
   getDirectionFromSolution,
+  getPotMapSvgUrl,
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundStatus } from "../../utils/GameRoundStatus.ts";
@@ -62,7 +62,7 @@ export function Game() {
       console.log(`Game over! (${currentRoundStatus})`);
     }
     setCurrentGuess("");
-  }, [guesses, currentRoundStatus]);
+  }, [guesses]);
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -100,7 +100,7 @@ export function Game() {
     <div>
       <div>
         <img
-          src={potSvg}
+          src={getPotMapSvgUrl(potCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -166,11 +166,15 @@ export function Game() {
         ) : (
           <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4">
             <span
-              className={`col-span-1 justify-center font-semibold border-4 border-${currentRoundStatus === "won" ? "green" : "red"}-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue`}
+              className={`col-span-1 justify-center font-semibold border-4 border-green-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue ${currentRoundStatus === "won" ? "" : "hidden"}`}
             >
               {dataBank[potCode].name}
             </span>
-            {/* rounded animate-slide-out flex border-2 h-8 col-span-1 animate-reveal */}
+            <span
+              className={`col-span-1 justify-center font-semibold border-4 border-red-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue ${currentRoundStatus === "lost" ? "" : "hidden"}`}
+            >
+              {dataBank[potCode].name}
+            </span>
           </div>
         )}
 

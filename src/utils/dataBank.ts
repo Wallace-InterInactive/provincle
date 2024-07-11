@@ -77,6 +77,32 @@ export const potNames = Object.keys(dataBank).map(
   potCode => dataBank[potCode].name
 );
 
+function getCurrentDateString(): string {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  return `${year}-${month}-${day}`;
+}
+
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    // TODO: replace this ole for loop
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
+  return hash;
+}
+
+export function getTodaysPotCode(): string {
+  const dateString = getCurrentDateString();
+  const hash = hashString(dateString);
+  const index = Math.abs(hash) % potCodes.length;
+  return potCodes[index];
+}
+
 export default dataBank;
 
 /*
