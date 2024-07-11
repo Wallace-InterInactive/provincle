@@ -25,6 +25,7 @@ export function calculateDistance(
   solutionCode: string,
   guessCode: string
 ): string {
+  console.log(`calculateDistance(${solutionCode}, ${guessCode})`);
   return "4321 km";
 }
 
@@ -32,5 +33,6 @@ export function getDirectionFromSolution(
   solutionCode: string,
   guessCode: string
 ): string {
+  console.log(`getDirectionFromSolution(${solutionCode}, ${guessCode})`);
   return "↗️";
 }

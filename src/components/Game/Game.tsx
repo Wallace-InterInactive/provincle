@@ -22,19 +22,25 @@ export function Game() {
     }));
   };
 
+  // TODO: remove ts-ignore
+  // @ts-ignore
   const { potCode, currentRound } = newGameState;
 
+  // TODO: remove ts-ignore
+  // @ts-ignore
   const setPotCode = (newPotCode: string): void => {
     updateGameState("potCode", newPotCode);
   };
 
+  // TODO: remove ts-ignore
+  // @ts-ignore
   const setCurrentRound = (newCurrentRound: number): void => {
     updateGameState("currentRound", newCurrentRound);
   };
 
-  const setRounds = (newRounds: Round[]): void => {
-    updateGameState("rounds", newRounds);
-  };
+  //  const setRounds = (newRounds: Round[]): void => {
+  //    updateGameState("rounds", newRounds);
+  //  };
 
   const maxAttempts = 3;
   //let currentRoundStatus: GameRoundStatus = "pending";
@@ -47,6 +53,7 @@ export function Game() {
   // TODO: these two can and should be extracted to the input component easily (can be defined there)
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
+
   const [currentRoundStatus, setCurrentRoundStatus] =
     useState<GameRoundStatus>("pending");
 

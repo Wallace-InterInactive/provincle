@@ -1,4 +1,10 @@
-const dataBank = {
+export interface PotData {
+  name: string;
+  neighbors: string[];
+  capital: string[];
+}
+
+const dataBank: Record<string, PotData> = {
   on: {
     name: "Ontario",
     neighbors: ["nu", "qc", "mb"],
