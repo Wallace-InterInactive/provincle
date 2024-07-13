@@ -9,7 +9,7 @@ import {
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
-import { GameRoundStatus } from "../../utils/GameRoundStatus.ts";
+import { GameRoundStatus } from "../../utils/dataBank.ts";
 
 export function Game() {
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
@@ -148,7 +148,7 @@ export function Game() {
           <button
             type="submit"
             onClick={handleGuessButtonClicked}
-            className="border-2 rounded uppercase flex-shrink-0 px-2 font-semibold"
+            className="border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold"
           >
             🍁 Guess
           </button>
@@ -188,7 +188,7 @@ export function Game() {
               </div>
               <div className="flex items-center justify-center border-2 h-8 col-span-2 animate-reveal rounded">
                 <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {calculateDistance(potCode, guesses[i]) ?? "-"}
+                  {calculateDistance(potCode, guesses[i])} km
                 </p>
               </div>
               <div className="flex items-center justify-center border-2 h-8 col-span-1 animate-reveal rounded">
