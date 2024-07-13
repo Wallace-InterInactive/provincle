@@ -4,6 +4,7 @@ export function Help() {
       className="mx-3 text-xl"
       type="button"
       onClick={() => console.log("clicked HELP")}
+      data-testid="help"
     >
       ❓
     </button>
