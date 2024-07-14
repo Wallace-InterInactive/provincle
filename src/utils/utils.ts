@@ -52,7 +52,7 @@ const directoinCodeToHtml = new Map<string, string>([
   ["NE", "&nearr;"],
   ["SW", "&swarr;"],
   ["SE", "&searr;"],
-  ["*", "\&#x25CE;"],
+  ["*", "&#x25CE;"],
   // Add more mappings as needed
 ]);
 

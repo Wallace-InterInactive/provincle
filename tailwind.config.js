@@ -8,14 +8,15 @@ export default {
         "custom-dark-blue": "rgb(9, 64, 115)",
       },
       keyframes: {
-        'rotate-x': {
-          '0%': { transform: 'rotateX(0deg)' },
-          '100%': { transform: 'rotateX(360deg)' },
+        "rotate-x": {
+          "0%": { transform: "rotateX(0deg)" },
+          "100%": { transform: "rotateX(360deg)" },
         },
       },
       animation: {
-        'spin-x': 'rotate-x 5s ease-in-out infinite', // Adjust duration as needed
-      },    },
+        "spin-x": "rotate-x 5s ease-in-out infinite", // Adjust duration as needed
+      },
+    },
   },
   plugins: [],
 };
