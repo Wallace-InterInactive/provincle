@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { Coordinates } from "../../utils/dataBank.ts";
 import { calculateDirection } from "../../utils/geo.ts";
+
 
 describe("test geographical calculations", () => {
   it("TODO: test calculateDistanceInMeters", () => {
@@ -7,17 +9,11 @@ describe("test geographical calculations", () => {
   });
 
   it("returns a hard coded value", () => {
-    expect(
-      calculateDirection(
-        {
-          latitude: 0,
-          longitude: 0,
-        },
-        {
-          latitude: 0,
-          longitude: 0,
-        }
-      )
-    ).toBe("NNW");
+    const coord : Coordinates =         {
+      latitude: 0,
+      longitude: 0,
+    };
+
+    expect(calculateDirection( coord, coord )).toBe("*");
   });
 });

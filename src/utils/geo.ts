@@ -27,10 +27,24 @@ export function calculateDistanceInMeters(
   return earthRadiusMeters * c;
 }
 
+export function calculateDistanceInKM(
+  from: Coordinates,
+  to: Coordinates
+): number {
+  return Math.floor(calculateDistanceInMeters(from, to) / 1000);
+}
+
 export function calculateDirection(
   from: Coordinates,
   to: Coordinates
 ): CardinalDirection {
-  console.log(from, to);
-  return "NNW";
+  let ret : CardinalDirection = "*";
+  // I don't like the func from ChatGPT, so postpone to proceed with this
+  if (from.latitude < to.latitude) {
+    ret = "W"
+  } else if (from.latitude > to.latitude) {
+    ret = "E"
+  }
+  console.log(from, to, " ==> ", ret);
+  return ret;
 }

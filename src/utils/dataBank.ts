@@ -1,14 +1,13 @@
 export type GameRoundStatus = "won" | "lost" | "pending";
 
-export type CardinalDirection =
-  | "WNW"
-  | "NNW"
-  | "NNE"
-  | "ENE"
-  | "ESE"
-  | "SSE"
-  | "SSW"
-  | "WSW";
+// data sources
+// - https://en.wikipedia.org/wiki/Geography_of_Canada
+// - https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
+// - https://latlong.info/canada/alberta#info
+
+export type CardinalDirection = "*"
+  | "N" | "W" | "S" | "E"
+  | "NW" | "NE" | "SW" | "SE" ;
 
 export interface Coordinates {
   latitude: number;

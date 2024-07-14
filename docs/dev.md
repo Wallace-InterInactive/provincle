@@ -9,3 +9,11 @@
   - **note**: *always* run `format` before committing a change
 - `deploy`: deploy the current state to GitHub Pages
   - see: https://wallace-interinactive.github.io/provincle/
+
+## onetime setup development env, onetime
+
+```shell
+brew install vite
+npm install -g typescript
+npm install --include=dev
+```
