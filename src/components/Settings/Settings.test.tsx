@@ -1,8 +1,10 @@
-import { expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Settings } from "./Settings.tsx";
 import { render, screen } from "@testing-library/react";
 
-it("render the game title", () => {
-  render(<Settings />);
-  expect(screen.getByTestId("settings")).toBeTypeOf("object");
+describe("test the settings functionality", () => {
+  it("renders the Settings component", () => {
+    render(<Settings />);
+    expect(screen.getByTestId("settings")).toBeTypeOf("object");
+  });
 });

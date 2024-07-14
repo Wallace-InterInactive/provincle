@@ -19,8 +19,8 @@ refer it in your README.md
 
 This software includes paid third-party assets that are subject to restrictions.
 You are **not permitted** to copy, sell, or redistribute the vector images of
-the provinces and territories located under `src/provinces-and-territories`.
-All credit for the map assets goes to
+the provinces and territories located under
+`src/assets/provinces-and-territories`. All credit for the map assets goes to
 [xileodesigns](https://www.etsy.com/shop/xileodesigns).
 
 If you wish to use these assets, please purchase them from the
@@ -28,8 +28,8 @@ If you wish to use these assets, please purchase them from the
 
 ## 💻 Development
 
-Check out `/docs/dev.md` to get started with development.
+Check out `docs/dev.md` to get started with development.
 
 ### Tech Stack Used in this Project
 
-[![Project Tech Stack](https://skillicons.dev/icons?i=ts,react,tailwind,yarn&perline=4)](https://skillicons.dev)
+[![Project Tech Stack](https://skillicons.dev/icons?i=ts,react,tailwind,vite,vitest,yarn&perline=3)](https://skillicons.dev)

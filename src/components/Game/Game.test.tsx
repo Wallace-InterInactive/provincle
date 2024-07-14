@@ -1,5 +1,7 @@
-import { expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
-it("asd", () => {
-  expect(1).toBe(1);
+describe("test the Game component", () => {
+  it("asd", () => {
+    expect(1).toBe(1);
+  });
 });
