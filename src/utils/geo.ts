@@ -1,4 +1,4 @@
-import { CardinalDirection, Coordinates } from "./dataBank.ts";
+import dataBank, { CardinalDirection, Coordinates } from "./dataBank.ts";
 
 const earthRadiusMeters = 6371e3;
 
@@ -47,4 +47,15 @@ export function calculateDirection(
   }
   console.log(from, to, " ==> ", ret);
   return ret;
+}
+
+export function calculateDirectionOf(
+  from: string,
+  to: string
+): CardinalDirection {
+  // LOVAS.contains
+  return calculateDirection(
+    dataBank[from].coordinates,
+    dataBank[to].coordinates
+  );
 }

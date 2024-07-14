@@ -153,6 +153,16 @@ export const potNames = Object.keys(dataBank).map(
   potCode => dataBank[potCode].name
 );
 
+export function getPotCode(potName: string): string {
+  let ret: string = "invalid";
+  for (const [key, data] of Object.entries(dataBank)) {
+    if (data.name === potName) {
+      return key;
+    }
+  }
+  return ret;
+}
+
 function getCurrentDateString(): string {
   const today = new Date();
   const year = today.getFullYear();

@@ -70,13 +70,13 @@ describe("isValidPot only accepts existing provinces or territories", () => {
 
 describe("calculateDistance returns the distance between to pots", () => {
   it("returns a hard coded value", () => {
-    expect(calculateDistance("", "")).toBe(1234);
+    expect(calculateDistance("", "")).toBe(0);
   });
 });
 
 describe("getDirectionFromSolution returns the direction from the input to the solution", () => {
   it("returns a hard coded value", () => {
-    expect(getDirectionFromSolution("", "")).toBe("↗️");
+    expect(getDirectionFromSolution("", "")).toBe("*");
   });
 });
 

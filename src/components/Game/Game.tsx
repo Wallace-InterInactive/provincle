@@ -1,6 +1,6 @@
 import Autosuggest from "react-autosuggest";
 import { FormEvent, useState, useEffect } from "react";
-import dataBank, { potNames } from "../../utils/dataBank.ts";
+import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
@@ -179,21 +179,24 @@ export function Game() {
         )}
 
         {Array.from({ length: maxAttempts }, (_, i) => {
+          const guessCode = getPotCode(guesses[i]);
+          //   {calculateDistance(potCode, guesses[i])} km
+          //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
           return guesses[i] ? (
             <div className="grid grid-cols-6 gap-1 text-center py-0.5">
               <div className="flex items-center justify-center border-2 h-8 col-span-3 animate-reveal rounded">
                 <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {guesses[i] ?? "-"}
+                  {guesses[i] || "-"}
                 </p>
               </div>
               <div className="flex items-center justify-center border-2 h-8 col-span-2 animate-reveal rounded">
                 <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {calculateDistance(potCode, guesses[i])} km
+                  {calculateDistance(potCode, guessCode)} km
                 </p>
               </div>
               <div className="flex items-center justify-center border-2 h-8 col-span-1 animate-reveal rounded">
                 <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
+                  {getDirectionFromSolution(potCode, guessCode) || "-"}
                 </p>
               </div>
             </div>

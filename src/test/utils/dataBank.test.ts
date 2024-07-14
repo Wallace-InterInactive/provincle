@@ -9,9 +9,18 @@ describe("getTodaysPortCode should return a pot code from the dataBank", () => {
 });
 
 describe("check geo distances", () => {
+  //console.log(dataBank);
+  console.log("lovas1 - " + JSON.stringify(dataBank.on));
+  console.log("lovas2 - " + JSON.stringify(dataBank["on"]));
   it("returns 0 for same self-compare", () => {
     expect(
       calculateDistanceInKM(dataBank.on.coordinates, dataBank.on.coordinates)
+    ).toBe(0);
+    expect(
+      calculateDistanceInKM(
+        dataBank["on"].coordinates,
+        dataBank["on"].coordinates
+      )
     ).toBe(0);
     expect(
       calculateDistanceInKM(dataBank.ab.coordinates, dataBank.ab.coordinates)
