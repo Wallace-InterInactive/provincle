@@ -1,3 +1,5 @@
+export type GameRoundStatus = "won" | "lost" | "pending";
+
 export interface PotData {
   name: string;
   neighbors: string[];

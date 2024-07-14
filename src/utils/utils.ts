@@ -13,6 +13,10 @@ export function sanitizeString(str: string): string {
 }
 
 export function isValidPot(currentGuess: string): boolean {
+  if (!currentGuess) {
+    return false;
+  }
+
   const sanitized = sanitizeString(currentGuess);
   return (
     undefined !== sanitized &&
@@ -24,9 +28,9 @@ export function isValidPot(currentGuess: string): boolean {
 export function calculateDistance(
   solutionCode: string,
   guessCode: string
-): string {
+): number {
   console.log(`calculateDistance(${solutionCode}, ${guessCode})`);
-  return "4321 km";
+  return 1234;
 }
 
 export function getDirectionFromSolution(
