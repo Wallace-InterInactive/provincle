@@ -5,9 +5,16 @@ export type GameRoundStatus = "won" | "lost" | "pending";
 // - https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
 // - https://latlong.info/canada/alberta#info
 
-export type CardinalDirection = "*"
-  | "N" | "W" | "S" | "E"
-  | "NW" | "NE" | "SW" | "SE" ;
+export type CardinalDirection =
+  | "*"
+  | "N"
+  | "W"
+  | "S"
+  | "E"
+  | "NW"
+  | "NE"
+  | "SW"
+  | "SE";
 
 export interface Coordinates {
   latitude: number;

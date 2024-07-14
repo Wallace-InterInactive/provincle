@@ -38,12 +38,12 @@ export function calculateDirection(
   from: Coordinates,
   to: Coordinates
 ): CardinalDirection {
-  let ret : CardinalDirection = "*";
+  let ret: CardinalDirection = "*";
   // I don't like the func from ChatGPT, so postpone to proceed with this
   if (from.latitude < to.latitude) {
-    ret = "W"
+    ret = "W";
   } else if (from.latitude > to.latitude) {
-    ret = "E"
+    ret = "E";
   }
   console.log(from, to, " ==> ", ret);
   return ret;
