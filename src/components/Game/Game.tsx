@@ -10,6 +10,7 @@ import {
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundStatus } from "../../utils/dataBank.ts";
+import he from 'he';
 
 export function Game() {
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
@@ -196,7 +197,7 @@ export function Game() {
               </div>
               <div className="flex items-center justify-center border-2 h-8 col-span-1 animate-reveal rounded">
                 <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {getDirectionFromSolution(potCode, guessCode) || "-"}
+                  {he.decode(getDirectionFromSolution(potCode, guessCode) || "*")}
                 </p>
               </div>
             </div>

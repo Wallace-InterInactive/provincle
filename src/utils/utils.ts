@@ -44,10 +44,15 @@ export function calculateDistance(
 // TODO some UI or i18n module
 const directoinCodeToHtml = new Map<string, string>([
   //: Record<string, string> = {
-  ["N", "icon-north"], // add more here? "↗️"
-  ["S", "icon-south"],
-  ["W", "icon-west"],
-  ["E", "icon-east"],
+  ["N", "&uarr;"], // add more here? "↗️"
+  ["S", "&darr;"],
+  ["W", "&larr;"],
+  ["E", "&uarr;"],
+  ["NW", "&nwarr;"],
+  ["NE", "&nearr;"],
+  ["SW", "&swarr;"],
+  ["SE", "&searr;"],
+  ["*", "\&#x25CE;"],
   // Add more mappings as needed
 ]);
 
