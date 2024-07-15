@@ -158,16 +158,16 @@ export function Game() {
       <div>
         {currentRoundStatus === "pending" ? (
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-            <div className="col-span-6 transition-all duration-300 mb-0 font-bold uppercase text-sm h-8 bg-gray-200 hover:bg-gray-200 cursor-pointer dark:bg-slate-600 dark:hover:bg-slate-500 rounded flex justify-center items-center">
+            <div className="my-div-1">
               <span className="opacity-70">
                 GUESS {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
         ) : (
-          <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4 w-full h-full rounded-md animate-spin-x">
+          <div className="my-span-2">
             <span
-              className={`col-span-1 justify-center font-bold border-md border rounded-md mx-4 my-4 px-2 py-2 ${currentRoundStatus === "won" ? "text-white bg-green-700" : "text-custom-dark-blue bg-custom-light-blue"}`}
+              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
             >
               {dataBank[potCode].name}
             </span>
@@ -180,25 +180,25 @@ export function Game() {
           //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
           return guesses[i] ? (
             <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-              <div className="flex items-center justify-center border-2 h-8 col-span-3 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="my-guess-div">
+                <p className="my-guess-p">
                   {guesses[i] || "-"}
                 </p>
               </div>
-              <div className="flex items-center justify-center border-2 h-8 col-span-2 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="my-guess-div">
+                <p className="my-guess-p">
                   {calculateDistance(potCode, guessCode)} km
                 </p>
               </div>
-              <div className="flex items-center justify-center border-2 h-8 col-span-1 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="my-guess-div">
+                <p className="my-guess-p">
                   {he.decode(getDirectionFromSolution(potCode, guessCode) || "*")}
                 </p>
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-              <div className="col-span-6 transition-all duration-300 mb-0 h-6 bg-gray-200 border-slate-300 bg-opacity-50 dark:bg-opacity-50 border-dashed dark:bg-slate-700 dark:border-slate-700 border rounded flex justify-center items-center">
+              <div className="my-div-2">
                 <span className="opacity-70"></span>
               </div>
             </div>
