@@ -165,9 +165,9 @@ export function Game() {
             </div>
           </div>
         ) : (
-          <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4 w-full h-full rounded-full animate-spin-x">
+          <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4 w-full h-full rounded-md animate-spin-x">
             <span
-              className={`col-span-1 justify-center font-semibold border-4 ${currentRoundStatus === "won" ? "border-green-500" : "border-red-500"} border-green-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue`}
+              className={`col-span-1 justify-center font-bold border-md border rounded-md mx-4 my-4 px-2 py-2 ${currentRoundStatus === "won" ? "text-white bg-green-700" : "text-custom-dark-blue bg-custom-light-blue"}`}
             >
               {dataBank[potCode].name}
             </span>
