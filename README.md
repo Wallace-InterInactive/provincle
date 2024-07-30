@@ -28,6 +28,8 @@ If you wish to use these assets, please purchase them from the
 
 ### Resources from Wikipedia copyrights to be investigated
 
+- https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
+  - area, population, border?
 - https://en.wikipedia.org/wiki/List_of_Canadian_flags
 - https://en.wikipedia.org/wiki/List_of_Canadian_provincial_and_territorial_symbols
 
