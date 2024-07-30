@@ -26,6 +26,7 @@ export interface PotData {
   neighbors: string[];
   capital: string[];
   coordinates: Coordinates;
+  population: number;
 }
 
 const dataBank: Record<string, PotData> = {
@@ -37,6 +38,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 49.25,
       longitude: -84.5,
     },
+    population: 15996989,
   },
   qc: {
     name: "Québec",
@@ -46,6 +48,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 52,
       longitude: -72,
     },
+    population: 9030684,
   },
   ns: {
     name: "Nova Scotia",
@@ -55,6 +58,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 45,
       longitude: -63,
     },
+    population: 1072545,
   },
   nb: {
     name: "New Brunswick",
@@ -64,6 +68,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 46.5,
       longitude: -66,
     },
+    population: 850894,
   },
   mb: {
     name: "Manitoba",
@@ -73,6 +78,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 55,
       longitude: -97,
     },
+    population: 1484135,
   },
   bc: {
     name: "British Columbia",
@@ -82,6 +88,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 54,
       longitude: -125,
     },
+    population: 5646467,
   },
   pe: {
     name: "Prince Edward Island",
@@ -91,6 +98,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 46.4,
       longitude: -63.2,
     },
+    population: 177081,
   },
   sk: {
     name: "Saskatchewan",
@@ -100,6 +108,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 54,
       longitude: -106.000556,
     },
+    population: 1231043,
   },
   ab: {
     name: "Alberta",
@@ -109,6 +118,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 55.991667,
       longitude: -114.376667,
     },
+    population: 4849906,
   },
   nl: {
     name: "Newfoundland and Labrador",
@@ -118,6 +128,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 53.23,
       longitude: -59.999167,
     },
+    population: 541391,
   },
   nt: {
     name: "Northwest Territories",
@@ -127,6 +138,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 67,
       longitude: -121,
     },
+    population: 44920,
   },
   yt: {
     name: "Yukon",
@@ -136,6 +148,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 63,
       longitude: -135,
     },
+    population: 45750,
   },
   nu: {
     name: "Nunavut",
@@ -145,6 +158,7 @@ const dataBank: Record<string, PotData> = {
       latitude: 70.166667,
       longitude: -90.733333,
     },
+    population: 40758,
   },
 };
 
@@ -182,11 +196,19 @@ function hashString(str: string): number {
   return hash;
 }
 
-export function getTodaysPotCode(): string {
+export function getTodaysPotCodeIndex(): number {
   const dateString = getCurrentDateString();
   const hash = hashString(dateString);
   const index = Math.abs(hash) % potCodes.length;
-  return potCodes[index];
+  return index;
+}
+export function getTodaysPotCode(): string {
+  return potCodes[getTodaysPotCodeIndex()];
+}
+
+export function getPseudoRandomPotCode(n: number): string {
+  const idx2 = (getTodaysPotCodeIndex() + n) % potCodes.length;
+  return potCodes[idx2];
 }
 
 export default dataBank;

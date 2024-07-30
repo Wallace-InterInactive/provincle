@@ -50,7 +50,7 @@ export interface newGameState {
 
 const defaultNewGameState: newGameState = {
   potCode: getTodaysPotCode(),
-  currentRound: 0,
+  currentRound: 1,
   //  currentRoundIsFinished: false,
   //  rounds: [
   //    {
