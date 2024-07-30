@@ -26,6 +26,14 @@ the provinces and territories located under
 If you wish to use these assets, please purchase them from the
 [original source](https://www.etsy.com/listing/827132841/13-individual-canada-canadian-province).
 
+### Resources from Wikipedia copyrights to be investigated
+
+- https://en.wikipedia.org/wiki/List_of_Canadian_flags
+- https://en.wikipedia.org/wiki/List_of_Canadian_provincial_and_territorial_symbols
+
+- They are noted as 'public domain'
+  - eg. see https://commons.wikimedia.org/wiki/File:Flag_of_Alberta.svg?uselang=en#Licensing
+
 ## 💻 Development
 
 Check out `docs/dev.md` to get started with development.
