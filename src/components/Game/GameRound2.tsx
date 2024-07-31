@@ -5,7 +5,7 @@ import { getPotFlagSvgUrl } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
-import '../../ImageGrid.css';
+import "../../ImageGrid.css";
 
 const GameRound2: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
 //export function Game() {

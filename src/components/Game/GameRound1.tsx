@@ -14,7 +14,7 @@ import {
 import defaultNewGameState from "../../utils/gameState.ts";
 //import { GameRoundStatus, getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
-import he from 'he';
+import he from "he";
 
 const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
 
