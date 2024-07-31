@@ -32,6 +32,7 @@ If you wish to use these assets, please purchase them from the
   - area, population, border?
 - https://en.wikipedia.org/wiki/List_of_Canadian_flags
 - https://en.wikipedia.org/wiki/List_of_Canadian_provincial_and_territorial_symbols
+- https://en.wikipedia.org/wiki/Road_signs_in_Canada
 
 - They are noted as 'public domain'
   - eg. see https://commons.wikimedia.org/wiki/File:Flag_of_Alberta.svg?uselang=en#Licensing

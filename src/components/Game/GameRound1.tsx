@@ -211,6 +211,9 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                 <div key={i} className="grid grid-cols-6 gap-1 text-center py-0.5">
                   <div className="my-div-2">
                     <span className="opacity-70"></span>
+                    <p className="my-guess-p">⬆️ ↗️ ➡️</p>
+                    <p className="my-guess-p">... &#x2B06; &#x2197; &#x27A1; &#x2198; &#x2B07; &#x2199; &#x2B05; &#x2196;
+                    </p>
                   </div>
                 </div>
               );
