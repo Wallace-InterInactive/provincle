@@ -198,7 +198,7 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                     </p>
                   </div>
                   <div className="my-guess-div">
-                    <img src={arrowImageUrl} className={"transform " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
+                    <img src={arrowImageUrl} className={"rotate-45 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
                     {/* add commented-outs here, TO BE DELETED
                      getcalculateDirectionOf(potCode, guessCode)
                     */}
@@ -211,9 +211,8 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                 <div key={i} className="grid grid-cols-6 gap-1 text-center py-0.5">
                   <div className="my-div-2">
                     <span className="opacity-70"></span>
-                    <p className="my-guess-p">⬆️ ↗️ ➡️</p>
-                    <p className="my-guess-p">... &#x2B06; &#x2197; &#x27A1; &#x2198; &#x2B07; &#x2199; &#x2B05; &#x2196;
-                    </p>
+                    <p className="my-guess-p">⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️</p>
+                    <p className="my-guess-p">... &#x2B06; &#x2197; &#x27A1; &#x2198; &#x2B07; &#x2199; &#x2B05; &#x2196;</p>
                   </div>
                 </div>
               );

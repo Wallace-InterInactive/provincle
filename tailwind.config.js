@@ -7,6 +7,9 @@ export default {
         "custom-light-blue": "rgb(192, 223, 251)",
         "custom-dark-blue": "rgb(9, 64, 115)",
       },
+      fontFamily: {
+        roboto: ["Roboto", "Arial", "sans-serif"],
+      },
       keyframes: {
         "rotate-x": {
           "0%": { transform: "rotateX(0deg)" },
