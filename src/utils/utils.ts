@@ -44,16 +44,32 @@ export function calculateDistance(
 // TODO some UI or i18n module
 const directoinCodeToHtml = new Map<string, string>([
   //: Record<string, string> = {
-  ["N", "&uarr;"], // add more here? "↗️"
+  ["N", "&uarr;"],
   ["S", "&darr;"],
   ["W", "&larr;"],
-  ["E", "&uarr;"],
+  ["E", "&rarr;"],
   ["NW", "&nwarr;"],
   ["NE", "&nearr;"],
   ["SW", "&swarr;"],
   ["SE", "&searr;"],
   ["*", "&#x25CE;"],
   // Add more mappings as needed
+]);
+export const arrowImageUrl: string = new URL(
+  "../assets/misc/arrow-up.png",
+  import.meta.url
+).href;
+const directionImgRotate = new Map<string, number>([
+  //: Record<string, string> = {
+  ["N", 0],
+  ["S", 180],
+  ["W", 270],
+  ["E", 90],
+  ["NW", 315],
+  ["NE", 45],
+  ["SW", 225],
+  ["SE", 135],
+  ["*", 0],
 ]);
 
 export function getDirectionFromSolution(
@@ -68,6 +84,16 @@ export function getDirectionFromSolution(
 
   const dir = calculateDirectionOf(solutionCode, guessCode);
   return directoinCodeToHtml.get(dir) || "*";
+}
+export function getImgRotateFromSolution(
+  solutionCode: string,
+  guessCode: string
+): number {
+  const dir = calculateDirectionOf(solutionCode, guessCode);
+  return directionImgRotate.get(dir) || 0;
+}
+export function getCssRotate(angle: number): string {
+  return `rotate-${angle}`;
 }
 
 export function getPotMapSvgUrl(potCode: string): string {

@@ -16,6 +16,16 @@ export default {
       animation: {
         "spin-x": "rotate-x 5s ease-in-out infinite", // Adjust duration as needed
       },
+      rotate: {
+        90: "90deg",
+        180: "180deg",
+        270: "270deg",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      rotate: ["responsive", "hover", "focus"],
     },
   },
   plugins: [],

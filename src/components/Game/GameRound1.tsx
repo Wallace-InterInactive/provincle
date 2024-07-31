@@ -6,6 +6,9 @@ import {
   isValidPot,
   calculateDistance,
   getDirectionFromSolution,
+  arrowImageUrl,
+  getImgRotateFromSolution,
+  getCssRotate,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
@@ -195,6 +198,10 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                     </p>
                   </div>
                   <div className="my-guess-div">
+                    <img src={arrowImageUrl} className={"transform " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
+                    {/* add commented-outs here, TO BE DELETED
+                     getcalculateDirectionOf(potCode, guessCode)
+                    */}
                     <p className="my-guess-p">
                       {he.decode(getDirectionFromSolution(potCode, guessCode) || "*")}
                     </p>
