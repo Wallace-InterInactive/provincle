@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.my-guess-div {
+  @apply flex items-center justify-center border-2 h-8 col-span-2  rounded
+    /* animate-reveal */;
+}
+.my-guess-p {
+  @apply text-ellipsis overflow-hidden whitespace-nowrap;
+}
+.my-span-2 {
+  @apply mx-1 my-1 px-4 justify-center items-center text-base text-center overflow-hidden gap-1 py-4 w-full h-full rounded-md;
+}
+.my-span-3 {
+  @apply col-span-1 justify-center font-bold border border rounded-md mx-4 my-4 px-2 py-2 text-white;
+}
+
+.my-div-1 {
+  @apply col-span-6 transition-all duration-300 mb-0 font-bold uppercase text-sm h-8 bg-gray-200 hover:bg-gray-200 cursor-pointer dark:bg-slate-600 dark:hover:bg-slate-500 rounded flex justify-center items-center;
+}
+.my-div-2 {
+  @apply col-span-6 transition-all duration-300 mb-0 h-6 bg-gray-200 border-slate-300 bg-opacity-50 dark:bg-opacity-50 border-dashed dark:bg-slate-700 dark:border-slate-700 border rounded flex justify-center items-center;
+}

@@ -1,17 +1,13 @@
-import Autosuggest from "react-autosuggest";
-import { FormEvent, useState, useEffect } from "react";
-import dataBank, { potNames } from "../../utils/dataBank.ts";
-import {
-  sanitizeString,
-  isValidPot,
-  calculateDistance,
-  getDirectionFromSolution,
-  getPotMapSvgUrl,
-} from "../../utils/utils.ts";
+import { useState } from "react";
+//import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
+import GameRound_Pot from "./GameRound_Pot.tsx";
+import GameRound_Flag from "./GameRound_Flag.tsx";
+import GameRound_Finale from "./GameRound_Finale.tsx";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundStatus } from "../../utils/dataBank.ts";
 
 export function Game() {
+  const maxRounds = 10;
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,6 +21,7 @@ export function Game() {
   // TODO: remove ts-ignore
   // @ts-ignore
   const { potCode, currentRound } = newGameState;
+  const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
   // TODO: remove ts-ignore
   // @ts-ignore
@@ -38,174 +35,119 @@ export function Game() {
     updateGameState("currentRound", newCurrentRound);
   };
 
-  //  const setRounds = (newRounds: Round[]): void => {
-  //    updateGameState("rounds", newRounds);
-  //  };
-
-  const maxAttempts = 3;
-  //let currentRoundStatus: GameRoundStatus = "pending";
-  const [guesses, setGuesses] = useState<string[]>([]);
-
-  const addGuess = (guess: string): void => {
-    setGuesses([...guesses, guess]);
-  };
-
-  // TODO: these two can and should be extracted to the input component easily (can be defined there)
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [currentGuess, setCurrentGuess] = useState("");
-
   const [currentRoundStatus, setCurrentRoundStatus] =
     useState<GameRoundStatus>("pending");
+  // note: currentRound == 1 comes from gameState.ts default
 
-  useEffect(() => {
-    if (guesses.length === maxAttempts) {
-      console.log(`Game over! (${currentRoundStatus})`);
-    }
-    setCurrentGuess("");
-  }, [guesses]);
-
-  const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-
-    if (!isValidPot(currentGuess)) {
-      console.log("Unknown province or territory!");
-      return;
-    }
-
-    if (guesses.includes(currentGuess)) {
-      console.log("Already Guessed!");
-      return;
-    }
-
-    if (
-      sanitizeString(dataBank[potCode].name) === sanitizeString(currentGuess)
-    ) {
-      console.log("You guessed it!");
-      setCurrentRoundStatus("won");
-    } else if (guesses.length + 1 === maxAttempts) {
-      setCurrentRoundStatus("lost");
+  const handleNextButtonClicked = (): void => {
+    console.log("Next button clicked.");
+    setCurrentRound(currentRound + 1);
+    setCurrentRoundStatus("pending");
+    //setGuesses([]);  // -- rounds might have to reset themselves
+    console.log(`lovas: round: ${currentRound}, status: ${currentRoundStatus}`);
+  };
+  const handleGiveUpButtonClicked = (): void => {
+    console.log("GiveUp button clicked.");
+    if (giveupCnt >= 1) {
+      setGiveupCnt(0);
+      handleNextButtonClicked();
     } else {
-      console.log("You didn't guess it!");
+      setGiveupCnt(giveupCnt + 1);
     }
-
-    addGuess(currentGuess);
-    console.log("currentRoundStatus:", currentRoundStatus);
   };
-
-  const handleGuessButtonClicked = (): void => {
-    console.log("Guess button clicked.");
-  };
+  function nextRoundButton() {
+    return (
+      <div className="container flex flex-col items-center">
+        {currentRoundStatus !== "pending" ? (
+          <button
+            onClick={handleNextButtonClicked}
+            className={
+              "border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold" +
+              getColorOfStatus()
+            }
+          >
+            🍁 Proceed to next question 🍁
+          </button>
+        ) : (
+          <button
+            onClick={handleGiveUpButtonClicked}
+            className="border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
+          >
+            😱 Give up, skip question! (clicked: {giveupCnt}) 😱
+          </button>
+        )}
+      </div>
+    );
+  }
+  function getColorOfStatus() {
+    return currentRoundStatus === "won"
+      ? " bg-green-700"
+      : currentRoundStatus === "lost"
+        ? " bg-red-600"
+        : ""; // not changed, or could be set to gray
+  }
 
   return (
     <div>
       <div>
-        <img
-          src={getPotMapSvgUrl(potCode)}
-          alt="silhouette of a province or territory"
-          className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
-        />
-      </div>
-      <form
-        onSubmit={handleFormSubmission}
-        className={`flex flex-col dark:bg-slate-800 py-0.5 ${currentRoundStatus !== "pending" ? "hidden" : ""}`}
-      >
-        <div className="flex flex-grow">
-          <Autosuggest
-            id="map-autosuggest"
-            suggestions={suggestions}
-            getSuggestionValue={suggestion => suggestion}
-            inputProps={{
-              value: currentGuess,
-              placeholder: "Province, Territory",
-              onChange: (_e, { newValue }) => setCurrentGuess(newValue),
-              className: "w-full dark:bg-slate-800 dark:text-slate-100",
-            }}
-            onSuggestionsFetchRequested={({ value }) =>
-              setSuggestions(
-                potNames.filter((potName: string) =>
-                  sanitizeString(potName).includes(sanitizeString(value))
-                )
-              )
-            }
-            onSuggestionsClearRequested={() => setSuggestions([])}
-            renderSuggestion={suggestion => (
-              <div className="border-2 dark:bg-slate-800 dark:text-slate-100">
-                {suggestion}
-              </div>
-            )}
-            renderSuggestionsContainer={({ containerProps, children }) => (
-              <div
-                {...containerProps}
-                className={`${containerProps.className} absolute bottom-full w-full bg-white mb-1 divide-x-2 max-h-52 overflow-auto`}
-              >
-                {children}
-              </div>
-            )}
-            containerProps={{
-              className: "border-2 rounded flex-auto relative p-1 mr-1",
-            }}
+        {currentRound === 1 ? (
+          <GameRound_Pot
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
           />
-          <button
-            type="submit"
-            onClick={handleGuessButtonClicked}
-            className="border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold"
-          >
-            🍁 Guess
-          </button>
-        </div>
-      </form>
-      <div>
-        {currentRoundStatus === "pending" ? (
-          <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-            <div className="col-span-6 transition-all duration-300 mb-0 font-bold uppercase text-sm h-8 bg-gray-200 hover:bg-gray-200 cursor-pointer dark:bg-slate-600 dark:hover:bg-slate-500 rounded flex justify-center items-center">
-              <span className="opacity-70">
-                GUESS {guesses.length + 1} / {maxAttempts}
-              </span>
-            </div>
-          </div>
+        ) : currentRound === 2 ? (
+          <GameRound_Flag
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 3 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 4 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 5 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 6 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 7 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 8 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 9 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
+        ) : currentRound === 10 ? (
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : (
-          <div className="mx-1 my-1 px-4 justify-center items-center text-md text-center overflow-hidden gap-1 py-4">
-            <span
-              className={`col-span-1 justify-center font-semibold border-4 border-green-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue ${currentRoundStatus === "won" ? "" : "hidden"}`}
-            >
-              {dataBank[potCode].name}
-            </span>
-            <span
-              className={`col-span-1 justify-center font-semibold border-4 border-red-500 rounded-xl mx-4 my-4 px-2 py-2 bg-custom-light-blue text-custom-dark-blue ${currentRoundStatus === "lost" ? "" : "hidden"}`}
-            >
-              {dataBank[potCode].name}
-            </span>
-          </div>
+          <GameRound_Finale
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         )}
-
-        {Array.from({ length: maxAttempts }, (_, i) => {
-          return guesses[i] ? (
-            <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-              <div className="flex items-center justify-center border-2 h-8 col-span-3 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {guesses[i] ?? "-"}
-                </p>
-              </div>
-              <div className="flex items-center justify-center border-2 h-8 col-span-2 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {calculateDistance(potCode, guesses[i])} km
-                </p>
-              </div>
-              <div className="flex items-center justify-center border-2 h-8 col-span-1 animate-reveal rounded">
-                <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-                  {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-              <div className="col-span-6 transition-all duration-300 mb-0 h-6 bg-gray-200 border-slate-300 bg-opacity-50 dark:bg-opacity-50 border-dashed dark:bg-slate-700 dark:border-slate-700 border rounded flex justify-center items-center">
-                <span className="opacity-70"></span>
-              </div>
-            </div>
-          );
-        })}
       </div>
+      {currentRound < maxRounds ? nextRoundButton() : <div />}
     </div>
   );
 }

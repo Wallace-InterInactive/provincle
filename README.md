@@ -26,6 +26,31 @@ the provinces and territories located under
 If you wish to use these assets, please purchase them from the
 [original source](https://www.etsy.com/listing/827132841/13-individual-canada-canadian-province).
 
+# The Game
+
+Guess the province or territory of Canada! We call them _pots_ for now on.
+- province or territory
+- neighboring pots
+- capital city
+- flag of pot
+- major league teams
+- population
+- most populous cities
+- area (land, water, combined, land-water ratio)
+- official/native languages
+- road sign (specific to _pot_)
+
+### Resources from Wikipedia copyrights to be investigated
+
+- https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
+  - area, population, border?
+- https://en.wikipedia.org/wiki/List_of_Canadian_flags
+- https://en.wikipedia.org/wiki/List_of_Canadian_provincial_and_territorial_symbols
+- https://en.wikipedia.org/wiki/Road_signs_in_Canada
+
+- They are noted as 'public domain'
+  - eg. see https://commons.wikimedia.org/wiki/File:Flag_of_Alberta.svg?uselang=en#Licensing
+
 ## 💻 Development
 
 Check out `docs/dev.md` to get started with development.

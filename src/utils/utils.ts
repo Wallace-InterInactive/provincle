@@ -1,5 +1,6 @@
 import accentsMap from "./accentsMap.ts";
-import { potNames } from "./dataBank.ts";
+import dataBank, { potNames } from "./dataBank.ts";
+import { calculateDirectionOf, calculateDistanceInKM } from "./geo.ts";
 
 export function sanitizeString(str: string): string {
   let retVal = str.trim().toLowerCase();
@@ -25,20 +26,78 @@ export function isValidPot(currentGuess: string): boolean {
   );
 }
 
+// TODO, setting for Mi/km
 export function calculateDistance(
   solutionCode: string,
   guessCode: string
 ): number {
   console.log(`calculateDistance(${solutionCode}, ${guessCode})`);
-  return 1234;
+  if (solutionCode === "" || guessCode === "") {
+    return 0;
+  }
+  return calculateDistanceInKM(
+    dataBank[solutionCode].coordinates,
+    dataBank[guessCode].coordinates
+  );
 }
+
+// TODO some UI or i18n module
+const directionCodeToHtml = new Map<string, string>([
+  //: Record<string, string> = {
+  ["N", "⬆️"],
+  ["S", "⬇️"],
+  ["W", "⬅️"],
+  ["E", "➡️"],
+  ["NW", "↖️"],
+  ["NE", "↗️"],
+  ["SW", "↙️"],
+  ["SE", "↘️"],
+  ["*", "🎯"],
+  // Add more mappings as needed
+  // note: https://emojipedia.org/search?q=arrow
+  //   ⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️ 📍 🏁 🎯
+  // note: https://www.toptal.com/designers/htmlarrows/arrows/
+  //   &uarr; &rarr; &darr; &larr; &nwarr; &nearr; &swarr; &searr; &#x25CE;
+]);
+export const arrowImageUrl: string = new URL(
+  "../assets/misc/arrow-up.png",
+  import.meta.url
+).href;
+const directionImgRotate = new Map<string, number>([
+  //: Record<string, string> = {
+  ["N", 0],
+  ["S", 180],
+  ["W", 270],
+  ["E", 90],
+  ["NW", 315],
+  ["NE", 45],
+  ["SW", 225],
+  ["SE", 135],
+  ["*", 0],
+]);
 
 export function getDirectionFromSolution(
   solutionCode: string,
   guessCode: string
 ): string {
   console.log(`getDirectionFromSolution(${solutionCode}, ${guessCode})`);
-  return "↗️";
+  if (solutionCode === "" || guessCode == "") {
+    // TODO: write a nicer input validation
+    return "*";
+  }
+
+  const dir = calculateDirectionOf(solutionCode, guessCode);
+  return directionCodeToHtml.get(dir) || "*";
+}
+export function getImgRotateFromSolution(
+  solutionCode: string,
+  guessCode: string
+): number {
+  const dir = calculateDirectionOf(solutionCode, guessCode);
+  return directionImgRotate.get(dir) || 0;
+}
+export function getCssRotate(angle: number): string {
+  return `rotate-${angle}`;
 }
 
 export function getPotMapSvgUrl(potCode: string): string {
@@ -53,4 +112,13 @@ export function getPotFlagSvgUrl(potCode: string): string {
     `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
     import.meta.url
   ).href;
+}
+
+// TODO: some theme handling would be nice
+export function getBgOfStatus(currentRoundStatus: string) {
+  return currentRoundStatus === "won"
+    ? " bg-green-700"
+    : currentRoundStatus === "lost"
+      ? " bg-red-600"
+      : ""; // not changed, or could be set to gray
 }
