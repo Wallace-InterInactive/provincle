@@ -108,7 +108,7 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                {t("guess")} {guesses.length + 1} / {maxAttempts}
+                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>

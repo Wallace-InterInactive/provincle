@@ -12,7 +12,8 @@ i18next
     resources: {
       en: {
         base: {
-          guess: "Guess",
+          guessVerb: "Guess",
+          guessNoun: "Guess",
           giveUp: "Give up",
           nextRound: "Next Round",
           province: "Province",
@@ -25,7 +26,8 @@ i18next
       },
       fr: {
         base: {
-          guess: "Deviner",
+          guessVerb: "Deviner",
+          guessNoun: "Devine",
           giveUp: "Abandonner",
           nextRound: "Prochaine Manche",
           province: "Province",
@@ -38,7 +40,8 @@ i18next
       },
       LOLcalize: {
         base: {
-          guess: "LOLGuess",
+          guessVerb: "LOLGuess",
+          guessNoun: "LOLGuess",
           giveUp: "LOLGive up",
           nextRound: "LOLNext Round",
           province: "LOLProvince",

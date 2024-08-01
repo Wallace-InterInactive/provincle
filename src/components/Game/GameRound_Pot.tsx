@@ -164,7 +164,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
             onClick={handleGuessButtonClicked}
             className="border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold"
           >
-            🍁 {t("guess")}
+            🍁 {t("guessVerb")}
           </button>
         </div>
       </form>
@@ -174,7 +174,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                {t("guess")} {guesses.length + 1} / {maxAttempts}
+                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
