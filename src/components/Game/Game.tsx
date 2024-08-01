@@ -5,8 +5,12 @@ import GameRound_Flag from "./GameRound_Flag.tsx";
 import GameRound_Finale from "./GameRound_Finale.tsx";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundStatus } from "../../utils/dataBank.ts";
+import { useTranslation } from "react-i18next";
 
 export function Game() {
+  const { t } = useTranslation();
+  // const t = i18n.getFixedT("LOLcalize");
+
   const maxRounds = 10;
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
 
@@ -46,6 +50,7 @@ export function Game() {
     //setGuesses([]);  // -- rounds might have to reset themselves
     console.log(`lovas: round: ${currentRound}, status: ${currentRoundStatus}`);
   };
+
   const handleGiveUpButtonClicked = (): void => {
     console.log("GiveUp button clicked.");
     if (giveupCnt >= 1) {
@@ -55,6 +60,7 @@ export function Game() {
       setGiveupCnt(giveupCnt + 1);
     }
   };
+
   function nextRoundButton() {
     return (
       <div className="container flex flex-col items-center">
@@ -66,19 +72,20 @@ export function Game() {
               getColorOfStatus()
             }
           >
-            🍁 Proceed to next question 🍁
+            🍁 {t("nextRound")} 🍁
           </button>
         ) : (
           <button
             onClick={handleGiveUpButtonClicked}
             className="border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
           >
-            😱 Give up, skip question! (clicked: {giveupCnt}) 😱
+            😱 {t("giveUp")} (clicked: {giveupCnt}) 😱
           </button>
         )}
       </div>
     );
   }
+
   function getColorOfStatus() {
     return currentRoundStatus === "won"
       ? " bg-green-700"

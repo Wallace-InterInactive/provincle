@@ -6,11 +6,15 @@ import defaultNewGameState from "../../utils/gameState.ts";
 import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 import "../../ImageGrid.css";
+import { useTranslation } from "react-i18next";
 
 const GameRound_Flag: React.FC<GameRoundProps> = ({
   currentRoundStatus,
   setCurrentRoundStatus,
 }) => {
+  const { t } = useTranslation();
+  // const t = i18n.getFixedT("LOLcalize");
+
   //export function Game() {
 
   //const [newGameState, setNewGameState] = useState(defaultNewGameState);
@@ -63,7 +67,7 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
     <div>
       <div className="gap-1 text-center">
         <p>
-          Select the flag of <i>{dataBank[potCode].name}</i>
+          {t("gamePotRoundInstruction")} <i>{dataBank[potCode].name}</i>
         </p>
       </div>
       <div>
@@ -104,7 +108,7 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                GUESS {guesses.length + 1} / {maxAttempts}
+                {t("guess")} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
@@ -115,4 +119,5 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
     </div>
   );
 };
+
 export default GameRound_Flag;
