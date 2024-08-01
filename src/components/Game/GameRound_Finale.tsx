@@ -1,14 +1,13 @@
 import { useState } from "react";
 import dataBank from "../../utils/dataBank.ts";
-import {
-  getPotMapSvgUrl,
-} from "../../utils/utils.ts";
+import { getPotMapSvgUrl } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 
-const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus /*, setCurrentRoundStatus*/ }) => {
-
-//export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
+const GameRound_Finale: React.FC<GameRoundProps> = ({
+  currentRoundStatus /*, setCurrentRoundStatus*/,
+}) => {
+  //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState] = useState(defaultNewGameState);
 
   // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
@@ -24,7 +23,7 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus /*, set
           src={getPotMapSvgUrl(potCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
-          />
+        />
       </div>
       {/* page part 2: the input field */}
       {/* page part 3a: feedback part, won/lost/etc */}
@@ -36,17 +35,22 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus /*, set
             {dataBank[potCode].name}
           </span>
         </div>
-      {/* page part 3b: feedback: list of submitted guesses  */}
+        {/* page part 3b: feedback: list of submitted guesses  */}
         <div className="grid grid-cols-4 gap-1 text-center py-0.5">
           <div className="my-guess-div">
-            <a className="my-guess-p" href="#">WikiPedia</a>
+            <a className="my-guess-p" href="#">
+              WikiPedia
+            </a>
           </div>
           <div className="my-guess-div">
-            <a className="my-guess-p" href="#">Google Maps</a>
+            <a className="my-guess-p" href="#">
+              Google Maps
+            </a>
           </div>
         </div>
         <div className="gap-1 text-center py-0.5">
-          <br /><p>Your game stats...</p>
+          <br />
+          <p>Your game stats...</p>
         </div>
         <div className="grid grid-cols-6 gap-1 text-center py-0.5">
           <div className="my-guess-div">
@@ -62,5 +66,5 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus /*, set
       </div>
     </div>
   );
-}
+};
 export default GameRound_Finale;

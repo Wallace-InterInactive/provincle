@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest --config ./vitest.config.ts",
     "cover": "vitest --config ./vitest.config.ts run --coverage --coverage.extension=ts --coverage.extension=tsx",
-    "format": "prettier --write src/**/*.{ts,tsx} && prettier --write src/components/**/*.test.tsx && prettier --write src/test/**/*.{ts,tsx} && prettier --write ./*.{js,cjs,ts}"
+    "format": "prettier --write . src"
   },
   "dependencies": {
     "he": "^1.2.0",

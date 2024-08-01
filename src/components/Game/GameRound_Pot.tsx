@@ -13,9 +13,11 @@ import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 import he from "he";
 
-const GameRound_Pot: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
-
-//export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
+const GameRound_Pot: React.FC<GameRoundProps> = ({
+  currentRoundStatus,
+  setCurrentRoundStatus,
+}) => {
+  //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -110,7 +112,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurren
           src={getPotMapSvgUrl(potCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
-          />
+        />
       </div>
       {/* page part 2: the input field */}
       <form
@@ -181,44 +183,49 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurren
             </span>
           </div>
         )}
-      {/* page part 3b: feedback: list of submitted guesses  */}
-          <div>
-            {Array.from({ length: maxAttempts }, (_, i) => {
-              const guessCode = getPotCode(guesses[i]);
-              //   {calculateDistance(potCode, guesses[i])} km
-              //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
-              return guesses[i] ? (
-                <div key={i} className="grid grid-cols-6 gap-1 text-center py-0.5">
-                  <div className="my-guess-div">
-                    <p className="my-guess-p">
-                      {guesses[i] || "-"}
-                    </p>
-                  </div>
-                  <div className="my-guess-div">
-                    <p className="my-guess-p">
-                      {calculateDistance(potCode, guessCode)} km
-                    </p>
-                  </div>
-                  <div className="my-guess-div">
-                    {/* add commented-outs here, TO BE DELETED
+        {/* page part 3b: feedback: list of submitted guesses  */}
+        <div>
+          {Array.from({ length: maxAttempts }, (_, i) => {
+            const guessCode = getPotCode(guesses[i]);
+            //   {calculateDistance(potCode, guesses[i])} km
+            //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
+            return guesses[i] ? (
+              <div
+                key={i}
+                className="grid grid-cols-6 gap-1 text-center py-0.5"
+              >
+                <div className="my-guess-div">
+                  <p className="my-guess-p">{guesses[i] || "-"}</p>
+                </div>
+                <div className="my-guess-div">
+                  <p className="my-guess-p">
+                    {calculateDistance(potCode, guessCode)} km
+                  </p>
+                </div>
+                <div className="my-guess-div">
+                  {/* add commented-outs here, TO BE DELETED
                     <img src={arrowImageUrl} className={"rotate-90 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
                      getcalculateDirectionOf(potCode, guessCode)
                     */}
-                    <p className="my-guess-p text-xl">
-                      {he.decode(getDirectionFromSolution(potCode, guessCode) || "*")}
-                    </p>
-                  </div>
+                  <p className="my-guess-p text-xl">
+                    {he.decode(
+                      getDirectionFromSolution(potCode, guessCode) || "*"
+                    )}
+                  </p>
                 </div>
-              ) : (
-                <div key={i} className="grid grid-cols-6 gap-1 text-center py-0.5">
-                  <div className="my-div-2">
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+              </div>
+            ) : (
+              <div
+                key={i}
+                className="grid grid-cols-6 gap-1 text-center py-0.5"
+              >
+                <div className="my-div-2"></div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
-}
+};
 export default GameRound_Pot;

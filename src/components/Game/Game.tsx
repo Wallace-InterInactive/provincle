@@ -50,7 +50,7 @@ export function Game() {
     console.log("GiveUp button clicked.");
     if (giveupCnt >= 1) {
       setGiveupCnt(0);
-      handleNextButtonClicked()
+      handleNextButtonClicked();
     } else {
       setGiveupCnt(giveupCnt + 1);
     }
@@ -58,10 +58,13 @@ export function Game() {
   function nextRoundButton() {
     return (
       <div className="container flex flex-col items-center">
-      {currentRoundStatus !== "pending" ? (
-        <button
+        {currentRoundStatus !== "pending" ? (
+          <button
             onClick={handleNextButtonClicked}
-            className={"border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold" + getColorOfStatus()}
+            className={
+              "border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold" +
+              getColorOfStatus()
+            }
           >
             🍁 Proceed to next question 🍁
           </button>
@@ -70,74 +73,81 @@ export function Game() {
             onClick={handleGiveUpButtonClicked}
             className="border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
           >
-            😱 Give up, skip  question! (clicked: {giveupCnt}) 😱
+            😱 Give up, skip question! (clicked: {giveupCnt}) 😱
           </button>
-        ) 
-      }
-    </div>
-    )
+        )}
+      </div>
+    );
   }
   function getColorOfStatus() {
-    return currentRoundStatus === "won" ? " bg-green-700"
-         : currentRoundStatus === "lost" ? " bg-red-600"
-         : "";  // not changed, or could be set to gray
+    return currentRoundStatus === "won"
+      ? " bg-green-700"
+      : currentRoundStatus === "lost"
+        ? " bg-red-600"
+        : ""; // not changed, or could be set to gray
   }
 
-  
   return (
     <div>
       <div>
         {currentRound === 1 ? (
           <GameRound_Pot
-            currentRoundStatus={currentRoundStatus} 
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 2 ? (
           <GameRound_Flag
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 3 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 4 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 5 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 6 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 7 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 8 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 9 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : currentRound === 10 ? (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         ) : (
           <GameRound_Finale
             currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus} />
+            setCurrentRoundStatus={setCurrentRoundStatus}
+          />
         )}
       </div>
-      {currentRound < maxRounds ? (
-        nextRoundButton()
-      ) : (
-        <div />
-      )}
+      {currentRound < maxRounds ? nextRoundButton() : <div />}
     </div>
   );
 }

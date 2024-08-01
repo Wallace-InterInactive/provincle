@@ -7,8 +7,11 @@ import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 import "../../ImageGrid.css";
 
-const GameRound_Flag: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
-//export function Game() {
+const GameRound_Flag: React.FC<GameRoundProps> = ({
+  currentRoundStatus,
+  setCurrentRoundStatus,
+}) => {
+  //export function Game() {
 
   //const [newGameState, setNewGameState] = useState(defaultNewGameState);
   // left here just to remember the setXXX if needed later
@@ -37,11 +40,11 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurre
   }, [guesses]);
 
   //const handleGuessButtonClickedRound2 = (guess:number): void => {
-  const handleGuessButtonClickedRound2 = (e:any): void => {
+  const handleGuessButtonClickedRound2 = (e: any): void => {
     // TODO: get the id of the image clicked at...
-    const guess=`${e.target.id}`;
+    const guess = `${e.target.id}`;
     console.log(`Guess button clicked: $lt;${e.target.id}??&gt;`);
-    
+
     //if (guesses.includes(currentGuess)) { TODO
     //setCurrentGuess(guess);  // TODO?
     // set border to green/red
@@ -52,36 +55,48 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurre
       setCurrentRoundStatus("won"); // TODO
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost"); // TODO
-    };
+    }
     console.log(`current guess ${guess}`);
-  }
+  };
 
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>Select the flag of <i>{dataBank[potCode].name}</i></p>
+        <p>
+          Select the flag of <i>{dataBank[potCode].name}</i>
+        </p>
       </div>
       <div>
-          <div id="main" className="grid image-grid justify-items-stretch grid-cols-2"> 
-            {Array.from({ length: 6 }, (_, i) => {
-              return (
-                <div className="image-item justify-self-auto rounded-lg m-4">
-                  <img
-                    src={getPotFlagSvgUrl(getPseudoRandomPotCode(i))}
-                    alt="flag of a pot"
-                    className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in h-20"
-                    onClick={handleGuessButtonClickedRound2}
-                    id={`guess-${getPseudoRandomPotCode(i)}`}
-                  />
-                  {currentRoundStatus === "pending" ? (
-                    <div />
-                  ) : (
-                    <p className={"visible rounded-2xl -m-1 bg-gray-500" + getBgOfStatus(currentRoundStatus)}>{dataBank[getPseudoRandomPotCode(i)].name}</p>
-                  )}
-                </div> 
-                )
-            })}
-          </div>
+        <div
+          id="main"
+          className="grid image-grid justify-items-stretch grid-cols-2"
+        >
+          {Array.from({ length: 6 }, (_, i) => {
+            return (
+              <div className="image-item justify-self-auto rounded-lg m-4">
+                <img
+                  src={getPotFlagSvgUrl(getPseudoRandomPotCode(i))}
+                  alt="flag of a pot"
+                  className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in h-20"
+                  onClick={handleGuessButtonClickedRound2}
+                  id={`guess-${getPseudoRandomPotCode(i)}`}
+                />
+                {currentRoundStatus === "pending" ? (
+                  <div />
+                ) : (
+                  <p
+                    className={
+                      "visible rounded-2xl -m-1 bg-gray-500" +
+                      getBgOfStatus(currentRoundStatus)
+                    }
+                  >
+                    {dataBank[getPseudoRandomPotCode(i)].name}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <br />
       <div>
@@ -99,5 +114,5 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurre
       </div>
     </div>
   );
-}
+};
 export default GameRound_Flag;
