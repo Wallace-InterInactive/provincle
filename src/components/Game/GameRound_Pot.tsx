@@ -16,7 +16,7 @@ import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 import he from "he";
 
-const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
+const GameRound_Pot: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
 
 //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState, setNewGameState] = useState(defaultNewGameState);
@@ -49,6 +49,7 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
   const maxAttempts = 3;
   //let currentRoundStatus: GameRoundStatus = "pending";
   const [guesses, setGuesses] = useState<string[]>([]);
+  //const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
   const addGuess = (guess: string): void => {
     setGuesses([...guesses, guess]);
@@ -102,7 +103,11 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
 
   return (
     <div>
-      {/* page part 1: the problem statement */}
+      {/* page part 1: the problem statement - not shown on original Worldle on 1st round
+      <div className="gap-1 text-center">
+        <p>Name the province or territory</p>
+      </div>
+       */}
       <div>
         <img
           src={getPotMapSvgUrl(potCode)}
@@ -198,11 +203,11 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                     </p>
                   </div>
                   <div className="my-guess-div">
-                    <img src={arrowImageUrl} className={"rotate-45 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
                     {/* add commented-outs here, TO BE DELETED
+                    <img src={arrowImageUrl} className={"rotate-90 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
                      getcalculateDirectionOf(potCode, guessCode)
                     */}
-                    <p className="my-guess-p">
+                    <p className="my-guess-p text-xl">
                       {he.decode(getDirectionFromSolution(potCode, guessCode) || "*")}
                     </p>
                   </div>
@@ -210,9 +215,6 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
               ) : (
                 <div key={i} className="grid grid-cols-6 gap-1 text-center py-0.5">
                   <div className="my-div-2">
-                    <span className="opacity-70"></span>
-                    <p className="my-guess-p">⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️</p>
-                    <p className="my-guess-p">... &#x2B06; &#x2197; &#x27A1; &#x2198; &#x2B07; &#x2199; &#x2B05; &#x2196;</p>
                   </div>
                 </div>
               );
@@ -222,4 +224,4 @@ const GameRound1: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
     </div>
   );
 }
-export default GameRound1;
+export default GameRound_Pot;

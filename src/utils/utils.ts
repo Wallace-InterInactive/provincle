@@ -44,16 +44,20 @@ export function calculateDistance(
 // TODO some UI or i18n module
 const directoinCodeToHtml = new Map<string, string>([
   //: Record<string, string> = {
-  ["N", "&uarr;"],
-  ["S", "&darr;"],
-  ["W", "&larr;"],
-  ["E", "&rarr;"],
-  ["NW", "&nwarr;"],
-  ["NE", "&nearr;"],
-  ["SW", "&swarr;"],
-  ["SE", "&searr;"],
-  ["*", "&#x25CE;"],
+  ["N", "⬆️"],
+  ["S", "⬇️"],
+  ["W", "⬅️"],
+  ["E", "➡️"],
+  ["NW", "↖️"],
+  ["NE", "↗️"],
+  ["SW", "↙️"],
+  ["SE", "↘️"],
+  ["*", "🎯"],
   // Add more mappings as needed
+  // note: https://emojipedia.org/search?q=arrow
+  //   ⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️ 📍 🏁 🎯
+  // note: https://www.toptal.com/designers/htmlarrows/arrows/
+  //   &uarr; &rarr; &darr; &larr; &nwarr; &nearr; &swarr; &searr; &#x25CE;
 ]);
 export const arrowImageUrl: string = new URL(
   "../assets/misc/arrow-up.png",
@@ -108,4 +112,11 @@ export function getPotFlagSvgUrl(potCode: string): string {
     `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
     import.meta.url
   ).href;
+}
+
+// TODO: some theme handling would be nice
+export function getBgOfStatus(currentRoundStatus: string) {
+  return currentRoundStatus === "won" ? " bg-green-700"
+       : currentRoundStatus === "lost" ? " bg-red-600"
+       : "";  // not changed, or could be set to gray
 }

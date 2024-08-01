@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import dataBank from "../../utils/dataBank.ts";
 //import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
-import { getPotFlagSvgUrl } from "../../utils/utils.ts";
+import { getPotFlagSvgUrl, getBgOfStatus } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 import "../../ImageGrid.css";
 
-const GameRound2: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
+const GameRound_Flag: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
 //export function Game() {
 
   //const [newGameState, setNewGameState] = useState(defaultNewGameState);
@@ -47,12 +47,20 @@ const GameRound2: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
     // set border to green/red
 
     addGuess(guess);
-    setCurrentRoundStatus("pending"); // TODO
+    //TODO
+    if (`guess-${potCode}` == guess) {
+      setCurrentRoundStatus("won"); // TODO
+    } else if (guesses.length + 1 === maxAttempts) {
+      setCurrentRoundStatus("lost"); // TODO
+    };
     console.log(`current guess ${guess}`);
-  };
+  }
 
   return (
     <div>
+      <div className="gap-1 text-center">
+        <p>Select the flag of <i>{dataBank[potCode].name}</i></p>
+      </div>
       <div>
           <div id="main" className="grid image-grid justify-items-stretch grid-cols-2"> 
             {Array.from({ length: 6 }, (_, i) => {
@@ -65,7 +73,11 @@ const GameRound2: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
                     onClick={handleGuessButtonClickedRound2}
                     id={`guess-${getPseudoRandomPotCode(i)}`}
                   />
-                  <p className="visible">tbh: {getPseudoRandomPotCode(i)} : {dataBank[getPseudoRandomPotCode(i)].name}</p>
+                  {currentRoundStatus === "pending" ? (
+                    <div />
+                  ) : (
+                    <p className={"visible rounded-2xl -m-1 bg-gray-500" + getBgOfStatus(currentRoundStatus)}>{dataBank[getPseudoRandomPotCode(i)].name}</p>
+                  )}
                 </div> 
                 )
             })}
@@ -82,23 +94,10 @@ const GameRound2: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRo
             </div>
           </div>
         ) : (
-          <div className="my-span-2">
-            <span
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
-            >
-              {dataBank[potCode].name}
-            </span>
-          </div>
+          <div />
         )}
-          <div>
-                <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-                  <div className="my-div-2">status
-                    <span className="opacity-70"></span>
-                  </div>
-                </div>
-          </div>
       </div>
     </div>
   );
 }
-export default GameRound2;
+export default GameRound_Flag;
