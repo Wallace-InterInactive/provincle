@@ -39,7 +39,7 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({
         <div className="grid grid-cols-4 gap-1 text-center py-0.5">
           <div className="my-guess-div">
             <a className="my-guess-p" href="#">
-              WikiPedia
+              Wikipedia
             </a>
           </div>
           <div className="my-guess-div">

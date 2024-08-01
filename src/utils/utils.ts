@@ -42,7 +42,7 @@ export function calculateDistance(
 }
 
 // TODO some UI or i18n module
-const directoinCodeToHtml = new Map<string, string>([
+const directionCodeToHtml = new Map<string, string>([
   //: Record<string, string> = {
   ["N", "⬆️"],
   ["S", "⬇️"],
@@ -87,7 +87,7 @@ export function getDirectionFromSolution(
   }
 
   const dir = calculateDirectionOf(solutionCode, guessCode);
-  return directoinCodeToHtml.get(dir) || "*";
+  return directionCodeToHtml.get(dir) || "*";
 }
 export function getImgRotateFromSolution(
   solutionCode: string,
