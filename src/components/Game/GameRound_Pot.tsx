@@ -6,9 +6,6 @@ import {
   isValidPot,
   calculateDistance,
   getDirectionFromSolution,
-  arrowImageUrl,
-  getImgRotateFromSolution,
-  getCssRotate,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";

@@ -1,13 +1,12 @@
 import { useState } from "react";
-import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
+import dataBank from "../../utils/dataBank.ts";
 import {
-  getPotFlagSvgUrl,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
 import defaultNewGameState from "../../utils/gameState.ts";
 import { GameRoundProps } from "./GameRoundProps.ts";
 
-const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus, setCurrentRoundStatus }) => {
+const GameRound_Finale: React.FC<GameRoundProps> = ({ currentRoundStatus /*, setCurrentRoundStatus*/ }) => {
 
 //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState] = useState(defaultNewGameState);

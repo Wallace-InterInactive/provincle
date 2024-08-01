@@ -116,7 +116,9 @@ export function getPotFlagSvgUrl(potCode: string): string {
 
 // TODO: some theme handling would be nice
 export function getBgOfStatus(currentRoundStatus: string) {
-  return currentRoundStatus === "won" ? " bg-green-700"
-       : currentRoundStatus === "lost" ? " bg-red-600"
-       : "";  // not changed, or could be set to gray
+  return currentRoundStatus === "won"
+    ? " bg-green-700"
+    : currentRoundStatus === "lost"
+      ? " bg-red-600"
+      : ""; // not changed, or could be set to gray
 }
