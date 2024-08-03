@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Coordinates } from "../../utils/dataBank.ts";
+import { Coordinates } from "../../types/data.ts";
 import { calculateDirection } from "../../utils/geo.ts";
 
 describe("test geographical calculations", () => {

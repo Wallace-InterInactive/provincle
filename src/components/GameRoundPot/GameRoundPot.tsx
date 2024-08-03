@@ -8,17 +8,20 @@ import {
   getDirectionFromSolution,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
-import defaultNewGameState from "../../utils/gameState.ts";
-//import { GameRoundStatus, getPseudoRandomPotCode } from "../../utils/dataBank.ts";
-import { GameRoundProps } from "./GameRoundProps.ts";
+import defaultGameState from "../../utils/gameState.ts";
 import he from "he";
+import { useTranslation } from "react-i18next";
+import { GameRoundProps } from "../../types/GameRoundProps.ts";
 
-const GameRound_Pot: React.FC<GameRoundProps> = ({
+function GameRoundPot({
   currentRoundStatus,
   setCurrentRoundStatus,
-}) => {
+}: GameRoundProps) {
+  const { t } = useTranslation();
+  // const t = i18n.getFixedT("LOLcalize");
+
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [newGameState, setNewGameState] = useState(defaultNewGameState);
+  const [newGameState, setNewGameState] = useState(defaultGameState);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const updateGameState = (key: string, val: any): void => {
@@ -126,7 +129,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
             getSuggestionValue={suggestion => suggestion}
             inputProps={{
               value: currentGuess,
-              placeholder: "Province, Territory",
+              placeholder: `${t("province")}, ${t("territory")}`,
               onChange: (_e, { newValue }) => setCurrentGuess(newValue),
               className: "w-full dark:bg-slate-800 dark:text-slate-100",
             }}
@@ -160,7 +163,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
             onClick={handleGuessButtonClicked}
             className="border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold"
           >
-            🍁 Guess
+            🍁 {t("guessVerb")}
           </button>
         </div>
       </form>
@@ -170,7 +173,7 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                GUESS {guesses.length + 1} / {maxAttempts}
+                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
@@ -227,5 +230,6 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
       </div>
     </div>
   );
-};
-export default GameRound_Pot;
+}
+
+export default GameRoundPot;

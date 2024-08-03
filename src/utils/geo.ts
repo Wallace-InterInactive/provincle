@@ -1,4 +1,5 @@
-import dataBank, { CardinalDirection, Coordinates } from "./dataBank.ts";
+import { CardinalDirection, Coordinates } from "../types/data.ts";
+import dataBank from "./dataBank.ts";
 
 const earthRadiusMeters = 6371e3;
 

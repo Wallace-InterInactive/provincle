@@ -1,33 +1,9 @@
-export type GameRoundStatus = "won" | "lost" | "pending";
+import { PotData } from "../types/data.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
 // - https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
 // - https://latlong.info/canada/alberta#info
-
-export type CardinalDirection =
-  | "*"
-  | "N"
-  | "W"
-  | "S"
-  | "E"
-  | "NW"
-  | "NE"
-  | "SW"
-  | "SE";
-
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
-export interface PotData {
-  name: string;
-  neighbors: string[];
-  capital: string[];
-  coordinates: Coordinates;
-  population: number;
-}
 
 const dataBank: Record<string, PotData> = {
   on: {
@@ -168,13 +144,12 @@ export const potNames = Object.keys(dataBank).map(
 );
 
 export function getPotCode(potName: string): string {
-  let ret: string = "invalid";
   for (const [key, data] of Object.entries(dataBank)) {
     if (data.name === potName) {
       return key;
     }
   }
-  return ret;
+  return "invalid";
 }
 
 function getCurrentDateString(): string {
@@ -199,9 +174,9 @@ function hashString(str: string): number {
 export function getTodaysPotCodeIndex(): number {
   const dateString = getCurrentDateString();
   const hash = hashString(dateString);
-  const index = Math.abs(hash) % potCodes.length;
-  return index;
+  return Math.abs(hash) % potCodes.length;
 }
+
 export function getTodaysPotCode(): string {
   return potCodes[getTodaysPotCodeIndex()];
 }

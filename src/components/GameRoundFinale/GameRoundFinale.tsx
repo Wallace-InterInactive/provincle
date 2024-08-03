@@ -1,14 +1,18 @@
 import { useState } from "react";
 import dataBank from "../../utils/dataBank.ts";
 import { getPotMapSvgUrl } from "../../utils/utils.ts";
-import defaultNewGameState from "../../utils/gameState.ts";
-import { GameRoundProps } from "./GameRoundProps.ts";
+import defaultGameState from "../../utils/gameState.ts";
+import { useTranslation } from "react-i18next";
+import { GameRoundProps } from "../../types/GameRoundProps.ts";
 
-const GameRound_Finale: React.FC<GameRoundProps> = ({
+function GameRoundFinale({
   currentRoundStatus /*, setCurrentRoundStatus*/,
-}) => {
+}: GameRoundProps) {
+  const { t } = useTranslation();
+  // const t = i18n.getFixedT("LOLcalize");
+
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [newGameState] = useState(defaultNewGameState);
+  const [newGameState] = useState(defaultGameState);
 
   // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
   // TODO: remove ts-ignore
@@ -50,14 +54,14 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({
         </div>
         <div className="gap-1 text-center py-0.5">
           <br />
-          <p>Your game stats...</p>
+          <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
         <div className="grid grid-cols-6 gap-1 text-center py-0.5">
           <div className="my-guess-div">
-            <p className="my-guess-p">province</p>
+            <p className="my-guess-p">{t("provinceOrTerritory")}</p>
           </div>
           <div className="my-guess-div">
-            <p className="my-guess-p">attempts N</p>
+            <p className="my-guess-p">{t("attempts")} N</p>
           </div>
           <div className="my-guess-div">
             <p className="my-guess-p">;)</p>
@@ -66,5 +70,6 @@ const GameRound_Finale: React.FC<GameRoundProps> = ({
       </div>
     </div>
   );
-};
-export default GameRound_Finale;
+}
+
+export default GameRoundFinale;

@@ -1,4 +1,5 @@
-import { GameRoundStatus } from "../../utils/dataBank.ts";
+import React from "react";
+import { GameRoundStatus } from "./data.ts";
 
 export interface GameRoundProps {
   currentRoundStatus: GameRoundStatus;
