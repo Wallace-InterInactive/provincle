@@ -4,14 +4,14 @@ import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
-  calculateDistance,
-  getDirectionFromSolution,
   getPotMapSvgUrl,
+  getDistanceWithUnitBySetting,
+  getDirectionEmoji,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
-import he from "he";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
+import { PotCode } from "../../types/data.ts";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -85,7 +85,8 @@ function GameRoundPot({
     }
 
     if (
-      sanitizeString(dataBank[potCode].name) === sanitizeString(currentGuess)
+      sanitizeString(dataBank[potCode as PotCode].name) ===
+      sanitizeString(currentGuess)
     ) {
       console.log("You guessed it!");
       setCurrentRoundStatus("won");
@@ -112,7 +113,7 @@ function GameRoundPot({
        */}
       <div>
         <img
-          src={getPotMapSvgUrl(potCode)}
+          src={getPotMapSvgUrl(potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -182,7 +183,7 @@ function GameRoundPot({
             <span
               className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
             >
-              {dataBank[potCode].name}
+              {dataBank[potCode as PotCode].name}
             </span>
           </div>
         )}
@@ -202,7 +203,10 @@ function GameRoundPot({
                 </div>
                 <div className="my-guess-div">
                   <p className="my-guess-p">
-                    {calculateDistance(potCode, guessCode)} km
+                    {getDistanceWithUnitBySetting(
+                      guessCode as PotCode,
+                      potCode as PotCode
+                    )}
                   </p>
                 </div>
                 <div className="my-guess-div">
@@ -211,8 +215,9 @@ function GameRoundPot({
                      getcalculateDirectionOf(potCode, guessCode)
                     */}
                   <p className="my-guess-p text-xl">
-                    {he.decode(
-                      getDirectionFromSolution(potCode, guessCode) || "*"
+                    {getDirectionEmoji(
+                      guessCode as PotCode,
+                      potCode as PotCode
                     )}
                   </p>
                 </div>

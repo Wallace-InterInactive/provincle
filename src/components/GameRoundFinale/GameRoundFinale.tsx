@@ -4,6 +4,7 @@ import { getPotMapSvgUrl } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
+import { PotCode } from "../../types/data.ts";
 
 function GameRoundFinale({
   currentRoundStatus /*, setCurrentRoundStatus*/,
@@ -24,7 +25,7 @@ function GameRoundFinale({
       {/* page part 1: the problem statement */}
       <div>
         <img
-          src={getPotMapSvgUrl(potCode)}
+          src={getPotMapSvgUrl(potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -36,7 +37,7 @@ function GameRoundFinale({
           <span
             className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
           >
-            {dataBank[potCode].name}
+            {dataBank[potCode as PotCode].name}
           </span>
         </div>
         {/* page part 3b: feedback: list of submitted guesses  */}

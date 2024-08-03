@@ -11,6 +11,21 @@ export type CardinalDirection =
   | "SW"
   | "SE";
 
+export type PotCode =
+  | "on"
+  | "qc"
+  | "ns"
+  | "nb"
+  | "mb"
+  | "bc"
+  | "pe"
+  | "sk"
+  | "ab"
+  | "nl"
+  | "nt"
+  | "yt"
+  | "nu";
+
 export interface Coordinates {
   latitude: number;
   longitude: number;

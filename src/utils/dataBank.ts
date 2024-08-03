@@ -1,11 +1,11 @@
-import { PotData } from "../types/data.ts";
+import { PotCode, PotData } from "../types/data.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
 // - https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
 // - https://latlong.info/canada/alberta#info
 
-const dataBank: Record<string, PotData> = {
+const dataBank: Record<PotCode, PotData> = {
   on: {
     name: "Ontario",
     neighbors: ["nu", "qc", "mb"],
@@ -138,9 +138,9 @@ const dataBank: Record<string, PotData> = {
   },
 };
 
-export const potCodes = Object.keys(dataBank);
-export const potNames = Object.keys(dataBank).map(
-  potCode => dataBank[potCode].name
+export const potCodes = Object.keys(dataBank) as PotCode[];
+export const potNames = (Object.keys(dataBank) as PotCode[]).map(
+  (potCode: PotCode) => dataBank[potCode].name
 );
 
 export function getPotCode(potName: string): string {

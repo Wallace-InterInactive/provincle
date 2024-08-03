@@ -6,6 +6,7 @@ import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
+import { PotCode } from "../../types/data.ts";
 
 function GameRoundFlag({
   currentRoundStatus,
@@ -66,7 +67,8 @@ function GameRoundFlag({
     <div>
       <div className="gap-1 text-center">
         <p>
-          {t("gamePotRoundInstruction")} <i>{dataBank[potCode].name}</i>
+          {t("gamePotRoundInstruction")}{" "}
+          <i>{dataBank[potCode as PotCode].name}</i>
         </p>
       </div>
       <div>
@@ -78,7 +80,7 @@ function GameRoundFlag({
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img
-                  src={getPotFlagSvgUrl(getPseudoRandomPotCode(i))}
+                  src={getPotFlagSvgUrl(getPseudoRandomPotCode(i) as PotCode)}
                   alt="flag of a pot"
                   className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in h-20"
                   onClick={handleGuessButtonClickedRound2}
@@ -88,12 +90,9 @@ function GameRoundFlag({
                   <div />
                 ) : (
                   <p
-                    className={
-                      "visible rounded-2xl -m-1 bg-gray-500" +
-                      getBgOfStatus(currentRoundStatus)
-                    }
+                    className={`visible rounded-2xl -m-1 ${getBgOfStatus(currentRoundStatus)}`}
                   >
-                    {dataBank[getPseudoRandomPotCode(i)].name}
+                    {dataBank[getPseudoRandomPotCode(i) as PotCode].name}
                   </p>
                 )}
               </div>

@@ -85,7 +85,7 @@ export function Game() {
     );
   }
 
-  function getColorOfStatus() {
+  function getColorOfStatus(): string {
     return currentRoundStatus === "won"
       ? " bg-green-700"
       : currentRoundStatus === "lost"

@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
-  calculateDistance,
-  getDirectionFromSolution,
+  getBgOfStatus,
+  getDirectionEmoji,
+  getDistanceWithUnitBySetting,
   getPotFlagSvgUrl,
   getPotMapSvgUrl,
   isValidPot,
   sanitizeString,
 } from "../../utils/utils.ts";
+import { PotCode } from "../../types/data.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {
@@ -68,16 +70,32 @@ describe("isValidPot only accepts existing provinces or territories", () => {
   });
 });
 
-describe("calculateDistance returns the distance between to pots", () => {
-  it("returns a hard coded value", () => {
-    expect(calculateDistance("", "")).toBe(0);
+// describe("calculateDistance returns the distance between to pots", () => {
+//   it("returns a hard coded value", () => {
+//     expect(calculateDistance("", "")).toBe(0);
+//   });
+// });
+
+// describe("getDirectionFromSolution returns the direction from the input to the solution", () => {
+//   it("returns a hard coded value", () => {
+//     expect(getDirectionFromSolution("", "")).toBe("*");
+//   });
+// });
+
+describe("getDistanceWithUnitBySetting returns the formatted distance", () => {
+  it("should return 0 when the user guessed it", () => {
+    const pot: PotCode = "bc";
+    expect(getDistanceWithUnitBySetting(pot, pot)).toBe("0 km");
   });
+  // TODO: add more tests
 });
 
-describe("getDirectionFromSolution returns the direction from the input to the solution", () => {
-  it("returns a hard coded value", () => {
-    expect(getDirectionFromSolution("", "")).toBe("*");
+describe("getDirectionEmoji returns the correct arrow emoji based on the cardinal direction", () => {
+  it("should return 🎯 when the player guessed it", () => {
+    const pot: PotCode = "yt";
+    expect(getDirectionEmoji(pot, pot)).toBe("🎯");
   });
+  // TODO: add more tests
 });
 
 describe("getPotMapSvgUrl returns the href of the map SVG of the given potCode", () => {
@@ -93,5 +111,19 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
     const pattern: RegExp =
       /\/assets\/provinces-and-territories\/qc\/qc-flag\.svg$/;
     expect(getPotFlagSvgUrl("qc")).toMatch(pattern);
+  });
+});
+
+describe("getBgOfStatus returns the correct class name based on status", () => {
+  it("should return the correct value when the game is in progress", () => {
+    expect(getBgOfStatus("pending")).toBe("bg-gray-500");
+  });
+
+  it("should return the correct value when the game was lost", () => {
+    expect(getBgOfStatus("lost")).toBe("bg-red-600");
+  });
+
+  it("should return the correct value when the game was won", () => {
+    expect(getBgOfStatus("won")).toBe("bg-green-700");
   });
 });
