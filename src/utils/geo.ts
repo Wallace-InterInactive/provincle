@@ -1,5 +1,5 @@
-import { CardinalDirection, Coordinates } from "../types/data.ts";
-import dataBank from "./dataBank.ts";
+import { CardinalDirection, Coordinates, PotCode } from "../types/data.ts";
+import { directionsFromTo } from "./dataBank.ts";
 
 const earthRadiusMeters = 6371e3;
 
@@ -28,28 +28,32 @@ export function calculateDistanceInMeters(
   return earthRadiusMeters * c;
 }
 
-export function calculateDistanceInKM(
+export function calculateDistanceInKm(
   from: Coordinates,
   to: Coordinates
 ): number {
   return Math.floor(calculateDistanceInMeters(from, to) / 1000);
 }
 
-export function calculateDirection(
+export function calculateDistanceInMi(
   from: Coordinates,
   to: Coordinates
-): CardinalDirection {
-  let ret: CardinalDirection = "*";
-  // I don't like the func from ChatGPT, so postpone to proceed with this
-  if (from.latitude < to.latitude) {
-    ret = "W";
-  } else if (from.latitude > to.latitude) {
-    ret = "E";
-  }
-  console.log(from, to, " ==> ", ret);
-  return ret;
+): number {
+  return Math.floor(calculateDistanceInMeters(from, to) / 1609.344);
 }
 
+export function calculateDirection(
+  from: PotCode,
+  to: PotCode
+): CardinalDirection {
+  if (from === to) {
+    return "*";
+  }
+  return directionsFromTo[from][to] as CardinalDirection;
+}
+
+// =================== deprecated functions with no usage =================== //
+/*
 export function calculateDirectionOf(
   from: string,
   to: string
@@ -61,7 +65,7 @@ export function calculateDirectionOf(
   );
 }
 
-// ChatGpt code, to be reviewd, to be used in the arrow-angle
+// ChatGpt code, to be reviewed, to be used in the arrow-angle
 function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
@@ -85,3 +89,4 @@ export function calculateBearing(
 
   return bearing;
 }
+*/
