@@ -1,3 +1,31 @@
+import { getTodaysPotCode } from "./dataBank.ts";
+import { GameState } from "../types/data.ts";
+
+//export interface Round {
+//  name: string;
+//  solution: string;
+//  maxAttempts: number;
+//  currentGuess: string;
+//  guesses: string[];
+//}
+
+const defaultGameState: GameState = {
+  potCode: getTodaysPotCode(),
+  currentRound: 1,
+  //  currentRoundIsFinished: false,
+  //  rounds: [
+  //    {
+  //      name: "map",
+  //      solution: "qc",
+  //      maxAttempts: 3,
+  //      currentGuess: "",
+  //      guesses: [],
+  //    },
+  //  ],
+};
+
+export default defaultGameState;
+
 /*
 export interface Guess {
   name: string;
@@ -30,37 +58,3 @@ export interface GameState {
 */
 
 /* ========================= */
-
-import { getTodaysPotCode } from "./dataBank.ts";
-
-export interface newGameState {
-  potCode: string;
-  currentRound: number;
-  //  currentRoundIsFinished: boolean;
-  //  rounds: Round[];
-}
-
-//export interface Round {
-//  name: string;
-//  solution: string;
-//  maxAttempts: number;
-//  currentGuess: string;
-//  guesses: string[];
-//}
-
-const defaultNewGameState: newGameState = {
-  potCode: getTodaysPotCode(),
-  currentRound: 1,
-  //  currentRoundIsFinished: false,
-  //  rounds: [
-  //    {
-  //      name: "map",
-  //      solution: "qc",
-  //      maxAttempts: 3,
-  //      currentGuess: "",
-  //      guesses: [],
-  //    },
-  //  ],
-};
-
-export default defaultNewGameState;

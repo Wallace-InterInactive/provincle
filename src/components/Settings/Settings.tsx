@@ -1,9 +1,11 @@
+import { toggleLanguage } from "../../utils/settings.ts";
+
 export function Settings() {
   return (
     <button
       className="mx-3 text-xl"
       type="button"
-      onClick={() => console.log("clicked SETTINGS")}
+      onClick={() => toggleLanguage()}
       data-testid="settings"
     >
       ⚙️

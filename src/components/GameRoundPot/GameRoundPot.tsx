@@ -8,21 +8,20 @@ import {
   getDirectionFromSolution,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
-import defaultNewGameState from "../../utils/gameState.ts";
-//import { GameRoundStatus, getPseudoRandomPotCode } from "../../utils/dataBank.ts";
-import { GameRoundProps } from "./GameRoundProps.ts";
+import defaultGameState from "../../utils/gameState.ts";
 import he from "he";
 import { useTranslation } from "react-i18next";
+import { GameRoundProps } from "../../types/GameRoundProps.ts";
 
-const GameRound_Pot: React.FC<GameRoundProps> = ({
+function GameRoundPot({
   currentRoundStatus,
   setCurrentRoundStatus,
-}) => {
+}: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [newGameState, setNewGameState] = useState(defaultNewGameState);
+  const [newGameState, setNewGameState] = useState(defaultGameState);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const updateGameState = (key: string, val: any): void => {
@@ -231,5 +230,6 @@ const GameRound_Pot: React.FC<GameRoundProps> = ({
       </div>
     </div>
   );
-};
-export default GameRound_Pot;
+}
+
+export default GameRoundPot;

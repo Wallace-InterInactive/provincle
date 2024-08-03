@@ -1,18 +1,17 @@
 import { useState } from "react";
-//import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
-import GameRound_Pot from "./GameRound_Pot.tsx";
-import GameRound_Flag from "./GameRound_Flag.tsx";
-import GameRound_Finale from "./GameRound_Finale.tsx";
-import defaultNewGameState from "../../utils/gameState.ts";
-import { GameRoundStatus } from "../../utils/dataBank.ts";
+import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
+import { GameRoundStatus } from "../../types/data.ts";
+import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
+import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
+import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 
 export function Game() {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
 
   const maxRounds = 10;
-  const [newGameState, setNewGameState] = useState(defaultNewGameState);
+  const [newGameState, setNewGameState] = useState(defaultGameState);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const updateGameState = (key: string, val: any): void => {
@@ -98,57 +97,57 @@ export function Game() {
     <div>
       <div>
         {currentRound === 1 ? (
-          <GameRound_Pot
+          <GameRoundPot
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 2 ? (
-          <GameRound_Flag
+          <GameRoundFlag
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 3 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 4 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 5 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 6 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 7 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 8 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 9 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 10 ? (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : (
-          <GameRound_Finale
+          <GameRoundFinale
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />

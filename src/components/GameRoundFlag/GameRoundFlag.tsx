@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
 import dataBank from "../../utils/dataBank.ts";
-//import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
 import { getPotFlagSvgUrl, getBgOfStatus } from "../../utils/utils.ts";
-import defaultNewGameState from "../../utils/gameState.ts";
+import defaultGameState from "../../utils/gameState.ts";
 import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
-import { GameRoundProps } from "./GameRoundProps.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
+import { GameRoundProps } from "../../types/GameRoundProps.ts";
 
-const GameRound_Flag: React.FC<GameRoundProps> = ({
+function GameRoundFlag({
   currentRoundStatus,
   setCurrentRoundStatus,
-}) => {
+}: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
 
@@ -19,7 +18,7 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
 
   //const [newGameState, setNewGameState] = useState(defaultNewGameState);
   // left here just to remember the setXXX if needed later
-  const [newGameState] = useState(defaultNewGameState);
+  const [newGameState] = useState(defaultGameState);
 
   // TODO: move to props and set by Game.tsx?
   // TODO: remove ts-ignore
@@ -118,6 +117,6 @@ const GameRound_Flag: React.FC<GameRoundProps> = ({
       </div>
     </div>
   );
-};
+}
 
-export default GameRound_Flag;
+export default GameRoundFlag;
