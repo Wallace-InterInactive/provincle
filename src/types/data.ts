@@ -45,3 +45,9 @@ export interface GameState {
   //  currentRoundIsFinished: boolean;
   //  rounds: Round[];
 }
+
+export type DirectionsFromTo = {
+  [key in PotCode]: {
+    [key in PotCode]?: CardinalDirection;
+  };
+};

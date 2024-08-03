@@ -1,4 +1,5 @@
-import { CardinalDirection, Coordinates } from "../types/data.ts";
+import { CardinalDirection, Coordinates, PotCode } from "../types/data.ts";
+import { directionsFromTo } from "./dataBank.ts";
 
 const earthRadiusMeters = 6371e3;
 
@@ -42,13 +43,13 @@ export function calculateDistanceInMi(
 }
 
 export function calculateDirection(
-  from: Coordinates,
-  to: Coordinates
+  from: PotCode,
+  to: PotCode
 ): CardinalDirection {
   if (from === to) {
     return "*";
   }
-  return "SE";
+  return directionsFromTo[from][to] as CardinalDirection;
 }
 
 // =================== deprecated functions with no usage =================== //

@@ -67,8 +67,8 @@ export function getDirectionEmoji(
   toSolution: PotCode
 ): string {
   const direction: CardinalDirection = calculateDirection(
-    dataBank[fromGuess].coordinates,
-    dataBank[toSolution].coordinates
+    fromGuess,
+    toSolution
   );
   return directionEmojiMap.get(direction) as string;
 }

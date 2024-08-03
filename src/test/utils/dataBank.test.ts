@@ -1,10 +1,25 @@
 import { describe, expect, it } from "vitest";
-import dataBank, { getTodaysPotCode, potCodes } from "../../utils/dataBank.ts";
-import { calculateDirection, calculateDistanceInKm } from "../../utils/geo.ts";
+import dataBank, {
+  getPotCode,
+  getPseudoRandomPotCode,
+  getTodaysPotCode,
+  potCodes,
+} from "../../utils/dataBank.ts";
+import { calculateDistanceInKm } from "../../utils/geo.ts";
 
-describe("getTodaysPortCode should return a pot code from the dataBank", () => {
+describe("test functions in dataBank", () => {
   it("returns a potCode from the dataBank", () => {
     expect(potCodes).toContain(getTodaysPotCode());
+  });
+
+  it("returns a potCode from the dataBank ", () => {
+    expect(potCodes).toContain(getPseudoRandomPotCode(3));
+  });
+
+  it("should return the code of the pot", () => {
+    expect(getPotCode("Saskatchewan")).toBe("sk");
+    expect(getPotCode("Québec")).toBe("qc");
+    expect(getPotCode("Alaska")).toBe("invalid");
   });
 });
 
@@ -42,25 +57,4 @@ describe("check geo distances", () => {
       calculateDistanceInKm(dataBank.mb.coordinates, dataBank.nu.coordinates)
     ).toBe(1714);
   });
-});
-
-describe("check geo directions", () => {
-  it("returns * for same self-compare", () => {
-    expect(
-      calculateDirection(dataBank.on.coordinates, dataBank.on.coordinates)
-    ).toBe("*");
-    expect(
-      calculateDirection(dataBank.ab.coordinates, dataBank.ab.coordinates)
-    ).toBe("*");
-  });
-  /*
-  it("check some random", () => {
-    expect(
-      calculateDirection(dataBank.ab.coordinates, dataBank.on.coordinates)
-    ).toBe("E");
-    expect(
-      calculateDirection(dataBank.on.coordinates, dataBank.ab.coordinates)
-    ).toBe("W");
-  });
-   */
 });
