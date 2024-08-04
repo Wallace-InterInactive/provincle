@@ -152,12 +152,12 @@ export function getPotCode(potName: string): string {
   return "invalid";
 }
 
-function getCurrentDateString(): string {
+export function getCurrentDateString(): string {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
   const day = today.getDate();
-  return `${year}-${month}-${day}`;
+  return `${year}-0${month}-0${day}`;
 }
 
 function hashString(str: string): number {
@@ -171,6 +171,12 @@ function hashString(str: string): number {
   return hash;
 }
 
+export function getPseudoRandomNumber(): number {
+  const dateString = getCurrentDateString();
+  const hash = hashString(dateString);
+  return Math.abs(hash);
+}
+
 export function getTodaysPotCodeIndex(): number {
   const dateString = getCurrentDateString();
   const hash = hashString(dateString);
@@ -182,7 +188,7 @@ export function getTodaysPotCode(): string {
 }
 
 export function getPseudoRandomPotCode(n: number): string {
-  const idx2 = (getTodaysPotCodeIndex() + n) % potCodes.length;
+  const idx2 = (getTodaysPotCodeIndex() + n) % potCodes.length; // TODO: improve or delete
   return potCodes[idx2];
 }
 

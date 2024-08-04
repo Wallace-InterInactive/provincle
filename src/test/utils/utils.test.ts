@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  getBgOfStatus,
+  getColorOfStatus,
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
   getPotFlagSvgUrl,
@@ -114,16 +114,16 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
   });
 });
 
-describe("getBgOfStatus returns the correct class name based on status", () => {
+describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getBgOfStatus("pending")).toBe("bg-gray-500");
+    expect(getColorOfStatus("pending")).toBe("gray-500");
   });
 
   it("should return the correct value when the game was lost", () => {
-    expect(getBgOfStatus("lost")).toBe("bg-red-600");
+    expect(getColorOfStatus("lost")).toBe("red-600");
   });
 
   it("should return the correct value when the game was won", () => {
-    expect(getBgOfStatus("won")).toBe("bg-green-700");
+    expect(getColorOfStatus("won")).toBe("green-700");
   });
 });

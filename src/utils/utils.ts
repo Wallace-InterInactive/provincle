@@ -87,12 +87,12 @@ export function getPotFlagSvgUrl(potCode: PotCode): string {
   ).href;
 }
 
-export function getBgOfStatus(currentRoundStatus: GameRoundStatus): string {
+export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
   return currentRoundStatus === "won"
-    ? "bg-green-700"
+    ? "green-700"
     : currentRoundStatus === "lost"
-      ? "bg-red-600"
-      : "bg-gray-500";
+      ? "red-600"
+      : "gray-500";
 }
 
 // =================== deprecated functions with no usage =================== //
