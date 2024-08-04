@@ -32,4 +32,17 @@ export default {
     },
   },
   plugins: [],
+  /** check if safelist really needed, colors seemed to "get lost" sporadically */
+  purge: {
+    content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+    options: {
+      safelist: [
+        "border-green-700",
+        "border-red-600",
+        "bg-green-700",
+        "bg-red-600",
+        "bg-gray-500",
+      ],
+    },
+  },
 };

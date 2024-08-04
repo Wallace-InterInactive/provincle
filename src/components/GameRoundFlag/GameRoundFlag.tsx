@@ -88,12 +88,20 @@ function GameRoundFlag({
           className="grid image-grid justify-items-stretch grid-cols-2"
         >
           {Array.from({ length: numFlagsToShow }, (_, i) => {
-            // todo: i0 to ensure that myPotList[i0.. +6] to contains gameState.potCode
+            // todo: extract these out
+            // note: i0 is to ensure that myPotList[i0.. +6] to contains gameState.potCode
+            // class...  transition-transform duration-500 ease-in
             const i0: number =
               myPotList.indexOf(gameState.potCode) < numFlagsToShow
                 ? 0
                 : myPotList.indexOf(gameState.potCode) - 4;
-            const aPot: PotCode = myPotList[i0 + i] as PotCode;
+            const i1 = (i0 + i) % myPotList.length;
+            const aPot: PotCode = myPotList[i1] as PotCode;
+            const myBorder: string = !guesses.includes(aPot)
+              ? "border-4 border-black"
+              : aPot === gameState.potCode
+                ? "border-4 border-green-700"
+                : "border-4 border-red-600";
             const bgColor: string =
               aPot === gameState.potCode
                 ? getColorOfStatus("won")
@@ -105,7 +113,7 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className="max-h-52 m-auto p-1 my-5 transition-transform duration-500 ease-in h-20"
+                  className={`max-h-52 m-auto p-1 my-5 h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
@@ -113,7 +121,7 @@ function GameRoundFlag({
                   <div />
                 ) : (
                   <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
-                    {dataBank[myPotList[i0 + i] as PotCode].name}
+                    {dataBank[myPotList[i1] as PotCode].name}
                   </p>
                 )}
               </div>
