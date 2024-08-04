@@ -1,40 +1,44 @@
 import { useState, useEffect } from "react";
-import dataBank from "../../utils/dataBank.ts";
-import { getPotFlagSvgUrl, getBgOfStatus } from "../../utils/utils.ts";
+import dataBank, { potCodes } from "../../utils/dataBank.ts";
+import { getPotFlagSvgUrl, getColorOfStatus } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
-import { getPseudoRandomPotCode } from "../../utils/dataBank.ts";
+import { getPseudoRandomNumber } from "../../utils/dataBank.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
+
+const maxAttempts = 3;
+const numFlagsToShow = 6;
+
+function shuffle<T>(alist: T[]) {
+  let hash = getPseudoRandomNumber();
+  for (let i1 = 0; i1 < alist.length; i1++) {
+    // todo: numShuffle, numFlagsToShow
+    const i2 = Math.floor(hash % alist.length);
+    [alist[i1], alist[i2]] = [alist[i2], alist[i1]];
+    hash = Math.floor(hash / 7); // todo: 7
+  }
+}
 
 function GameRoundFlag({
   currentRoundStatus,
   setCurrentRoundStatus,
 }: GameRoundProps) {
   const { t } = useTranslation();
+  const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
+  const myPotList: string[] = Array.from(
+    { length: potCodes.length },
+    (_, i) => potCodes[i]
+  );
+  shuffle(myPotList);
   // const t = i18n.getFixedT("LOLcalize");
 
-  //export function Game() {
-
-  //const [newGameState, setNewGameState] = useState(defaultNewGameState);
-  // left here just to remember the setXXX if needed later
-  const [newGameState] = useState(defaultGameState);
-
-  // TODO: move to props and set by Game.tsx?
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const { potCode, currentRound } = newGameState;
-
-  const maxAttempts = 3;
-  //let currentRoundStatus: GameRoundStatus = "pending";
   const [guesses, setGuesses] = useState<string[]>([]);
 
   const addGuess = (guess: string): void => {
     setGuesses([...guesses, guess]);
   };
-
-  //const [currentGuess, setCurrentGuess] = useState("");
 
   useEffect(() => {
     if (guesses.length === maxAttempts) {
@@ -43,24 +47,31 @@ function GameRoundFlag({
     //setCurrentGuess("");
   }, [guesses]);
 
+  function changeHtmlItemClass(name: string, value: string) {
+    const element = document.getElementById(name);
+    if (element) {
+      element.className += ` ${value}`;
+    }
+  }
+
   //const handleGuessButtonClickedRound2 = (guess:number): void => {
-  const handleGuessButtonClickedRound2 = (e: any): void => {
+  const handleFlagGuessClicked = (e: any): void => {
     // TODO: get the id of the image clicked at...
-    const guess = `${e.target.id}`;
+    const guessedItem = `${e.target.id}`;
+    const winning = `guess-${gameState.potCode}` == guessedItem;
     console.log(`Guess button clicked: $lt;${e.target.id}??&gt;`);
 
-    //if (guesses.includes(currentGuess)) { TODO
-    //setCurrentGuess(guess);  // TODO?
-    // set border to green/red
-
-    addGuess(guess);
-    //TODO
-    if (`guess-${potCode}` == guess) {
-      setCurrentRoundStatus("won"); // TODO
+    console.log(`current guess ${guessedItem}`);
+    addGuess(guessedItem.split("-")[1]);
+    if (`guess-${gameState.potCode}` == guessedItem) {
+      setCurrentRoundStatus("won");
     } else if (guesses.length + 1 === maxAttempts) {
-      setCurrentRoundStatus("lost"); // TODO
+      setCurrentRoundStatus("lost");
     }
-    console.log(`current guess ${guess}`);
+    changeHtmlItemClass(
+      guessedItem,
+      `border-4 border-${winning ? "green-500" : "red-500"}`
+    ); // border-${getColorOfStatus("won")}
   };
 
   return (
@@ -68,7 +79,7 @@ function GameRoundFlag({
       <div className="gap-1 text-center">
         <p>
           {t("gamePotRoundInstruction")}{" "}
-          <i>{dataBank[potCode as PotCode].name}</i>
+          <i>{dataBank[gameState.potCode as PotCode].name}</i>
         </p>
       </div>
       <div>
@@ -76,23 +87,33 @@ function GameRoundFlag({
           id="main"
           className="grid image-grid justify-items-stretch grid-cols-2"
         >
-          {Array.from({ length: 6 }, (_, i) => {
+          {Array.from({ length: numFlagsToShow }, (_, i) => {
+            // todo: i0 to ensure that myPotList[i0.. +6] to contains gameState.potCode
+            const i0: number =
+              myPotList.indexOf(gameState.potCode) < numFlagsToShow
+                ? 0
+                : myPotList.indexOf(gameState.potCode) - 4;
+            const aPot: PotCode = myPotList[i0 + i] as PotCode;
+            const bgColor: string =
+              aPot === gameState.potCode
+                ? getColorOfStatus("won")
+                : guesses.includes(aPot)
+                  ? getColorOfStatus("lost")
+                  : getColorOfStatus("pending");
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img
-                  src={getPotFlagSvgUrl(getPseudoRandomPotCode(i) as PotCode)}
-                  alt="flag of a pot"
-                  className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in h-20"
-                  onClick={handleGuessButtonClickedRound2}
-                  id={`guess-${getPseudoRandomPotCode(i)}`}
+                  src={getPotFlagSvgUrl(aPot)}
+                  alt={`flag of a pot:${i}:${aPot}`}
+                  className="max-h-52 m-auto p-1 my-5 transition-transform duration-500 ease-in h-20"
+                  onClick={handleFlagGuessClicked}
+                  id={`guess-${aPot}`}
                 />
                 {currentRoundStatus === "pending" ? (
                   <div />
                 ) : (
-                  <p
-                    className={`visible rounded-2xl -m-1 ${getBgOfStatus(currentRoundStatus)}`}
-                  >
-                    {dataBank[getPseudoRandomPotCode(i) as PotCode].name}
+                  <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
+                    {dataBank[myPotList[i0 + i] as PotCode].name}
                   </p>
                 )}
               </div>
@@ -103,7 +124,9 @@ function GameRoundFlag({
       <br />
       <div>
         {currentRoundStatus === "pending" ? (
-          <div className="grid grid-cols-6 gap-1 text-center py-0.5">
+          <div
+            className={`grid grid-cols-${numFlagsToShow} gap-1 text-center py-0.5`}
+          >
             <div className="my-div-1">
               <span className="opacity-70">
                 {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
