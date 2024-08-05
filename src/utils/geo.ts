@@ -54,13 +54,14 @@ export function calculateDirection(
 
 // angles unbalanced uneven to improve "human readable directions"
 // prettier-ignore
-const dirCodes15: CardinalDirection[] = [ "NW", "N", "NE",      // N-ish
-                                          "NE", "NE","NE",
-                                          "NE", "E", "SE",      // E-ish
+const dirCodes15: CardinalDirection[] = [ "NW", "N",  "NE",      // N-ish
+                                          "NE", "NE", "NE",
+                                          "NE", "E",  "SE",      // E-ish
                                           "SE", "SE", "SE",
-                                          "SE", "S", "SW",      // S-ish
+                                          "SE", "S",  "SW",      // S-ish
                                           "SW", "SW", "SW",
-                                          "SW", "W", "NW" ]; // W-ish
+                                          "SW", "W",  "NW",
+                                          "NW", "NW", "NW"]; // W-ish
 export function angle15ToDir(angle: number): CardinalDirection {
   return dirCodes15[Math.floor(((angle + 15) % 360) / 15)];
 }

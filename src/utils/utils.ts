@@ -1,6 +1,11 @@
 import accentsMap from "./accentsMap.ts";
 import dataBank, { potNames } from "./dataBank.ts";
-import { calculateDirection, calculateDistanceInKm } from "./geo.ts";
+import {
+  calculateDirection,
+  calculateDistanceInKm,
+  angle15ToDir,
+  calculateAngle,
+} from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
 
 // TODO some UI or i18n module
@@ -70,8 +75,15 @@ export function getDirectionEmoji(
     fromGuess,
     toSolution
   );
-  return directionEmojiMap.get(direction) as string;
-  //return directionEmojiMap.get(angle15ToDir(calculateAngle(dataBank[fromGuess].coordinates,dataBank[toSolution].coordinates)));
+  const angle: number = calculateAngle(
+    dataBank[fromGuess].coordinates,
+    dataBank[toSolution].coordinates
+  );
+  return (
+    (directionEmojiMap.get(direction) as string) +
+    " : " +
+    directionEmojiMap.get(angle15ToDir(angle))
+  );
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
