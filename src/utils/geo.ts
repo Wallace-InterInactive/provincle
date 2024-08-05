@@ -52,41 +52,49 @@ export function calculateDirection(
   return directionsFromTo[from][to] as CardinalDirection;
 }
 
-// =================== deprecated functions with no usage =================== //
-/*
-export function calculateDirectionOf(
-  from: string,
-  to: string
-): CardinalDirection {
-  // LOVAS.contains
-  return calculateDirection(
-    dataBank[from].coordinates,
-    dataBank[to].coordinates
-  );
+// angles unbalanced uneven to improve "human readable directions"
+// prettier-ignore
+const dirCodes15: CardinalDirection[] = [ "NW", "N", "NE",      // N-ish
+                                          "NE", "NE","NE",
+                                          "NE", "E", "SE",      // E-ish
+                                          "SE", "SE", "SE",
+                                          "SE", "S", "SW",      // S-ish
+                                          "SW", "SW", "SW",
+                                          "SW", "W", "NW" ]; // W-ish
+export function angle15ToDir(angle: number): CardinalDirection {
+  return dirCodes15[Math.floor(((angle + 15) % 360) / 15)];
 }
 
-// ChatGpt code, to be reviewed, to be used in the arrow-angle
+const dirCodes45: CardinalDirection[] = [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW",
+];
+export function angle45ToDir(angle: number): CardinalDirection {
+  return dirCodes45[Math.floor(((angle + 22.5) % 360) / 45)];
+}
+
 function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
-
-export function calculateBearing(
-  pos1: { lat: number; lon: number },
-  pos2: { lat: number; lon: number }
-): number {
-  const lat1 = toRadians(pos1.lat);
-  const lat2 = toRadians(pos2.lat);
-  const deltaLon = toRadians(pos2.lon - pos1.lon);
+function toDegrees(radians: number): number {
+  return radians * (180 / Math.PI);
+}
+export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
+  const lat1 = toRadians(pos1.latitude);
+  const lat2 = toRadians(pos2.latitude);
+  const deltaLon = toRadians(pos2.longitude - pos1.longitude);
 
   const y = Math.sin(deltaLon) * Math.cos(lat2);
   const x =
     Math.cos(lat1) * Math.sin(lat2) -
     Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
-  const theta = Math.atan2(y, x);
 
-  // Convert from radians to degrees
-  const bearing = (theta * (180 / Math.PI) + 360) % 360;
-
-  return bearing;
+  const bearing = Math.atan2(y, x);
+  return (toDegrees(bearing) + 360) % 360; // Normalize to 0-360 degrees
 }
-*/
