@@ -71,19 +71,19 @@ export function getDirectionEmoji(
   fromGuess: PotCode,
   toSolution: PotCode
 ): string {
-  const direction: CardinalDirection = calculateDirection(
-    fromGuess,
-    toSolution
-  );
+  if (fromGuess === toSolution) {
+    return directionEmojiMap.get("*") as string;
+  }
   const angle: number = calculateAngle(
     dataBank[fromGuess].coordinates,
     dataBank[toSolution].coordinates
   );
-  return (
-    (directionEmojiMap.get(direction) as string) +
-    " : " +
-    directionEmojiMap.get(angle15ToDir(angle))
-  );
+  return directionEmojiMap.get(angle15ToDir(angle)) as string;
+  // const direction: CardinalDirection = calculateDirection(
+  //   fromGuess,
+  //   toSolution
+  // );
+  // return directionEmojiMap.get(direction) as string;
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
