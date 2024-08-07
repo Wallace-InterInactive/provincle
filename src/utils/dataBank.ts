@@ -4,6 +4,11 @@ import { DirectionsFromTo, PotCode, PotData } from "../types/data.ts";
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
 // - https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
 // - https://latlong.info/canada/alberta#info
+// - https://alliancevisas.com/canada-and-its-provinces/
+// - https://www.sporcle.com/blog/2018/12/interesting-facts-about-canadian-provinces/
+// - https://www.cntraveler.com/stories/2013-06-10/mount-thor-canada-maphead-ken-jennings
+// - https://history.howstuffworks.com/world-history/canadian-provinces.htm
+// - https://en.wikipedia.org/wiki/List_of_highest_points_of_Canadian_provinces_and_territories
 
 const dataBank: Record<PotCode, PotData> = {
   on: {
@@ -15,6 +20,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -84.5,
     },
     population: 15996989,
+    interestingFacts: ["home of the world's longest street", "it borders the most US states (5)", "the nickel capital of the world", "world largest skating rink"],
+    highestPoint: "Ishpatina Ridge 693m",
+    coastlineInKM: 3840,
   },
   qc: {
     name: "Québec",
@@ -25,6 +33,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -72,
     },
     population: 9030684,
+    interestingFacts: ["largest province", "home to 72% of world's maple syrup production"],
+    highestPoint: "Mont D'Iberville 1652m",
+    coastlineInKM: 13000,
   },
   ns: {
     name: "Nova Scotia",
@@ -35,6 +46,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -63,
     },
     population: 1072545,
+    interestingFacts: ["home to world's highest tides", "home to Sable Island, the graveyard of the Atlantic"],
+    highestPoint: "White Hill 532m",
+    coastlineInKM: 7579,
   },
   nb: {
     name: "New Brunswick",
@@ -45,6 +59,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -66,
     },
     population: 850894,
+    interestingFacts: ["the only bilingual province", "83% is covered in forest"],
+    highestPoint: "Mount Carleton 817m",
+    coastlineInKM: 5500,
   },
   mb: {
     name: "Manitoba",
@@ -55,6 +72,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -97,
     },
     population: 1484135,
+    interestingFacts: ["the lowest population density", "there are over 100 000 lakes, 90% nameless", "polar bear capital of the world"],
+    highestPoint: "Baldy Mountain 832m",
+    coastlineInKM: 1210,
   },
   bc: {
     name: "British Columbia",
@@ -65,6 +85,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -125,
     },
     population: 5646467,
+    interestingFacts: ["home of World's tallest tree", "hosted the Olympics in 2010"],
+    highestPoint: "Mount Fairweather 4663m",
+    coastlineInKM: 27200,
   },
   pe: {
     name: "Prince Edward Island",
@@ -75,6 +98,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -63.2,
     },
     population: 177081,
+    interestingFacts: ["smallest province (5660km2)", "inspite the name it includes 232 islands", "has the most lighthouses (63)"],
+    highestPoint: "Unnamed point 142m",
+    coastlineInKM: 1260,
   },
   sk: {
     name: "Saskatchewan",
@@ -85,6 +111,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -106.000556,
     },
     population: 1231043,
+    interestingFacts: ["home to held the world's potash reserves"],
+    highestPoint: "Unnamed Point 1392m",
+    coastlineInKM: 0,
   },
   ab: {
     name: "Alberta",
@@ -95,6 +124,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -114.376667,
     },
     population: 4849906,
+    interestingFacts: [ "has the most lakes", "over half the population lives in two cities", "has oldest national park" ],
+    highestPoint: "Mount Columbia 3747m",
+    coastlineInKM: 0,
   },
   nl: {
     name: "Newfoundland and Labrador",
@@ -105,6 +137,10 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -59.999167,
     },
     population: 541391,
+    interestingFacts: ["easternmost province", "the last province to join Canada", "oldest city in Canada, since 1519", "home to world's first trans atlantic flight"
+    ],
+    highestPoint: "Mount Caubvick 1652m",
+    coastlineInKM: 29000,
   },
   nt: {
     name: "Northwest Territories",
@@ -115,6 +151,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -121,
     },
     population: 44920,
+    interestingFacts: ["It was once french", "diamond capital of North America", ],
+    highestPoint: "Mount Nirvana 2773",
+    coastlineInKM: 25000,
   },
   yt: {
     name: "Yukon",
@@ -125,6 +164,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -135,
     },
     population: 45750,
+    interestingFacts: ["there is no sun for 24 hours", "there is sun risen for 24 hours", "home to highest mountain, Mount Logan 5959m"],
+    highestPoint: "Mount Logan, 5959m",
+    coastlineInKM: 213,
   },
   nu: {
     name: "Nunavut",
@@ -135,6 +177,9 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -90.733333,
     },
     population: 40758,
+    interestingFacts: ["did not exist until 1999", "home to Mt Thor, the world's steepest cliff"],
+    highestPoint: "Barbeau Peek 2616m",
+    coastlineInKM: 38000,
   },
 };
 
