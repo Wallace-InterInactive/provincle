@@ -1,6 +1,11 @@
 import accentsMap from "./accentsMap.ts";
 import dataBank, { potNames } from "./dataBank.ts";
-import { calculateDirection, calculateDistanceInKm } from "./geo.ts";
+import {
+  calculateDirection,
+  calculateDistanceInKm,
+  angle15ToDir,
+  calculateAngle,
+} from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
 
 // TODO some UI or i18n module
@@ -66,11 +71,19 @@ export function getDirectionEmoji(
   fromGuess: PotCode,
   toSolution: PotCode
 ): string {
-  const direction: CardinalDirection = calculateDirection(
-    fromGuess,
-    toSolution
+  if (fromGuess === toSolution) {
+    return directionEmojiMap.get("*") as string;
+  }
+  const angle: number = calculateAngle(
+    dataBank[fromGuess].coordinates,
+    dataBank[toSolution].coordinates
   );
-  return directionEmojiMap.get(direction) as string;
+  return directionEmojiMap.get(angle15ToDir(angle)) as string;
+  // const direction: CardinalDirection = calculateDirection(
+  //   fromGuess,
+  //   toSolution
+  // );
+  // return directionEmojiMap.get(direction) as string;
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
@@ -94,66 +107,3 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
       ? "red-600"
       : "gray-500";
 }
-
-// =================== deprecated functions with no usage =================== //
-/*
-export function calculateDistance(
-  solutionCode: string,
-  guessCode: string
-): number {
-  console.log(`calculateDistance(${solutionCode}, ${guessCode})`);
-  if (solutionCode === "" || guessCode === "") {
-    return 0;
-  }
-  return calculateDistanceInKm(
-    dataBank[solutionCode].coordinates,
-    dataBank[guessCode].coordinates
-  );
-}
-
-export function getDirectionFromSolution(
-  solutionCode: string,
-  guessCode: string
-): string {
-  console.log(`getDirectionFromSolution(${solutionCode}, ${guessCode})`);
-  if (solutionCode === "" || guessCode == "") {
-    // TODO: write a nicer input validation
-    return "*";
-  }
-
-  const dir = calculateDirectionOf(solutionCode, guessCode);
-  return directionEmojiMap.get(dir) || "*";
-}
-*/
-
-/*
-export const arrowImageUrl: string = new URL(
-  "../assets/misc/arrow-up.png",
-  import.meta.url
-).href;
-
-const directionImgRotate = new Map<string, number>([
-  //: Record<string, string> = {
-  ["N", 0],
-  ["S", 180],
-  ["W", 270],
-  ["E", 90],
-  ["NW", 315],
-  ["NE", 45],
-  ["SW", 225],
-  ["SE", 135],
-  ["*", 0],
-]);
-
-export function getImgRotateFromSolution(
-  solutionCode: string,
-  guessCode: string
-): number {
-  const dir = calculateDirectionOf(solutionCode, guessCode);
-  return directionImgRotate.get(dir) || 0;
-}
-
-export function getCssRotate(angle: number): string {
-  return `rotate-${angle}`;
-}
-*/
