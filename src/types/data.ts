@@ -37,6 +37,9 @@ export interface PotData {
   capital: string[];
   coordinates: Coordinates;
   population: number;
+  interestingFacts: string[];
+  highestPoint: string;
+  coastlineInKM: number;
 }
 
 export interface GameState {
