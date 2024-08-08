@@ -71,8 +71,6 @@ function GameRoundPot({
     setCurrentGuess("");
   }, [guesses]);
 
-  //TODO
-
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -198,7 +196,7 @@ function GameRoundPot({
             return guesses[i] ? (
               <div
                 key={i}
-                className="grid grid-cols-6 gap-1 text-center py-0.5"
+                className="grid grid-cols-[3fr_1fr_1fr] gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div">
                   <p className="my-guess-p">{guesses[i] || "-"}</p>
