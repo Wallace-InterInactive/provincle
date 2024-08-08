@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { GameRoundStatus } from "../../types/data.ts";
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
+import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
 import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 
 export function Game() {
@@ -107,7 +108,7 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 3 ? (
-          <GameRoundFinale
+          <GameRoundCapital
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
