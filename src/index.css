@@ -25,6 +25,9 @@ footer {
   @apply col-span-1 justify-center font-bold border border rounded-md mx-4 my-4 px-2 py-2 text-white;
 }
 
+.my-guess-open {
+  @apply flex h-8 items-center justify-center bg-gray-700 bg-opacity-50 border-dashed border-gray-500;
+}
 .my-div-1 {
   @apply col-span-6 transition-all duration-300 mb-0 font-bold uppercase text-sm h-8 bg-gray-200 hover:bg-gray-200 cursor-pointer dark:bg-slate-600 dark:hover:bg-slate-500 rounded flex justify-center items-center;
 }

@@ -1,7 +1,4 @@
-interface GuessButtonProps {
-  onClick: () => void;
-  text: string;
-}
+import { GuessButtonProps } from "../../types/GuessButtonProps.ts";
 
 export function GuessButton({ onClick, text }: GuessButtonProps) {
   return (

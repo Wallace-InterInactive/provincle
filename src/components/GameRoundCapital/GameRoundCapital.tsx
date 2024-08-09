@@ -211,7 +211,7 @@ function GameRoundTextInputWithImage({
                 key={i}
                 className="grid grid-cols-6 gap-1 text-center py-0.5"
               >
-                <div className="my-div-2" />
+                <div className="my-guess-open col-span-6" />
               </div>
             );
           })}

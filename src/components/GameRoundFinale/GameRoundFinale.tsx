@@ -1,6 +1,6 @@
 import { useState } from "react";
 import dataBank from "../../utils/dataBank.ts";
-import { getPotMapSvgUrl } from "../../utils/utils.ts";
+import { getPotMapSvgUrl, getOkNokEmoji } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -27,7 +27,7 @@ function GameRoundFinale({
         <img
           src={getPotMapSvgUrl(potCode as PotCode)}
           alt="silhouette of a province or territory"
-          className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
+          className="max-h-32 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
       </div>
       {/* page part 2: the input field */}
@@ -41,14 +41,22 @@ function GameRoundFinale({
           </span>
         </div>
         {/* page part 3b: feedback: list of submitted guesses  */}
-        <div className="grid grid-cols-4 gap-1 text-center py-0.5">
-          <div className="my-guess-div">
-            <a className="my-guess-p" href="#">
+        <div className="grid grid-cols-6 gap-1 text-center py-0.5">
+          <div className="my-guess-div col-start-2 col-span-2">
+            <a
+              className="my-guess-p"
+              href={`https://www.wikipedia.org/wiki/${dataBank[potCode as PotCode].name}`}
+              target="_blank"
+            >
               Wikipedia
             </a>
           </div>
-          <div className="my-guess-div">
-            <a className="my-guess-p" href="#">
+          <div className="my-guess-div col-span-2">
+            <a
+              className="my-guess-p"
+              href={`https://www.google.com/maps?q=${dataBank[potCode as PotCode].name},Canada`}
+              target="_blank"
+            >
               Google Maps
             </a>
           </div>
@@ -57,17 +65,24 @@ function GameRoundFinale({
           <br />
           <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
-        <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-          <div className="my-guess-div">
-            <p className="my-guess-p">{t("provinceOrTerritory")}</p>
-          </div>
-          <div className="my-guess-div">
-            <p className="my-guess-p">{t("attempts")} N</p>
-          </div>
-          <div className="my-guess-div">
-            <p className="my-guess-p">;)</p>
-          </div>
-        </div>
+        {Array.from({ length: 4 }, (_, i) => {
+          const rows: string[] = ["Province", "Flag", "Capital", "Neighbor"];
+          return (
+            <div className="grid grid-cols-6 gap-1 text-center py-0.5">
+              <div className="my-guess-open col-span-4">
+                <p className="my-guess-p">{rows[i]}</p>
+              </div>
+              <div className="my-guess-open">
+                <p className="my-guess-p">##</p>
+              </div>
+              <div className="my-guess-open">
+                <p className="my-guess-p">
+                  {getOkNokEmoji(false)} {getOkNokEmoji(true)}
+                </p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
