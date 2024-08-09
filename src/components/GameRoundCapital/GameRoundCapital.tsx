@@ -43,7 +43,7 @@ function GameRoundTextInputWithImage({
   // const t = i18n.getFixedT("LOLcalize");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [gameState] = useState(defaultGameState);  //
+  const [gameState] = useState(defaultGameState);
   const [guesses, setGuesses] = useState<string[]>([]);
 
   // TODO: these two can and should be extracted to the input component easily (can be defined there)

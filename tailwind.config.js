@@ -8,7 +8,7 @@ export default {
         "custom-dark-blue": "rgb(9, 64, 115)",
       },
       fontFamily: {
-        roboto: ["Roboto", "Arial", "sans-serif"],
+        roboto: ["Roboto", "Arial", "sans-serif", "Segoe UI Emoji"],
       },
       keyframes: {
         "rotate-x": {

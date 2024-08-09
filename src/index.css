@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  font-family: "Roboto", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Arial", "Helvetica", "sans-serif";
+  font-family: "Roboto", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji",
+    "Arial", "Helvetica", "sans-serif";
 }
 
 footer {
