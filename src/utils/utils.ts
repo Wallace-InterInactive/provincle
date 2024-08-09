@@ -1,11 +1,6 @@
 import accentsMap from "./accentsMap.ts";
 import dataBank, { potNames } from "./dataBank.ts";
-import {
-  calculateDirection,
-  calculateDistanceInKm,
-  angle15ToDir,
-  calculateAngle,
-} from "./geo.ts";
+import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
 
 // TODO some UI or i18n module
@@ -106,4 +101,10 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     : currentRoundStatus === "lost"
       ? "red-600"
       : "gray-500";
+}
+
+export function fetchSuggestions(elements: string[], value: string): string[] {
+  return elements.filter((element: string) =>
+    sanitizeString(element).includes(sanitizeString(value))
+  );
 }

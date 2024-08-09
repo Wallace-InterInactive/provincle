@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  fetchSuggestions,
   getColorOfStatus,
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
@@ -9,6 +10,7 @@ import {
   sanitizeString,
 } from "../../utils/utils.ts";
 import { PotCode } from "../../types/data.ts";
+import { potNames } from "../../utils/dataBank.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {
@@ -125,5 +127,23 @@ describe("getColorOfStatus returns the correct class name based on status", () =
 
   it("should return the correct value when the game was won", () => {
     expect(getColorOfStatus("won")).toBe("green-700");
+  });
+});
+
+describe("fetchSuggestions filters the sanitized elements correctly", () => {
+  it("should return an empty array when provided with an empty array", () => {
+    expect(fetchSuggestions([], "Alberta")).toStrictEqual([]);
+  });
+
+  it("should return the input elements when passed an empty string", () => {
+    const arr = ["British Columbia", "Nova Scotia", "Ontario", "New Brunswick"];
+    expect(fetchSuggestions(arr, "")).toStrictEqual(arr);
+  });
+
+  it("should return the matching elements", () => {
+    expect(fetchSuggestions(potNames, "no")).toStrictEqual([
+      "Nova Scotia",
+      "Northwest Territories",
+    ]);
   });
 });
