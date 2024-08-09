@@ -97,7 +97,7 @@ export function getDirectionEmoji(
   // return directionEmojiMap.get(direction) as string;
 }
 export function getOkNokEmoji(isOk: boolean): string {
-  return isOk ? "🎯" : "X";
+  return isOk ? "🎯" : "❌";
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {

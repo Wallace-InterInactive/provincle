@@ -38,7 +38,7 @@ function GameRoundTextInputWithImage({
   target,
   possibleValues,
   maxAttempts,
-}: GameRoundProps2) {
+}: GameRoundPropsExtended) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
 
@@ -90,9 +90,11 @@ function GameRoundTextInputWithImage({
   function getResult(guess: string, target: string): string {
     return getOkNokEmoji(guess === target);
   }
+  /*
   const getResultExtra = (guess: string, target: string): string => {
-    return guess === target ? "a" : "b";
+    return guess === target ? "hint" : "hont";
   };
+  */
 
   const handleGuessButtonClicked = (): void => {
     console.log("Guess button clicked.");
@@ -193,18 +195,10 @@ function GameRoundTextInputWithImage({
             return guesses[i] ? (
               <div
                 key={i}
-                className="grid grid-cols-[5fr_1fr_1fr_1fr_1fr_1fr] gap-1 text-center py-0.5"
+                className="grid grid-cols-[5fr_1fr] gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div">
                   <p className="my-guess-p">{guesses[i] || "-"}</p>
-                </div>
-                <div className="my-guess-div">
-                  <p className="my-guess-p">
-                    {getResultExtra(guess, target)}
-                    {/* getDistanceWithUnitBySetting(guessCode as PotCode,potCode as PotCode) 
-                className="grid grid-cols-6 grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-1 text-center py-0.5"
-                    */}
-                  </p>
                 </div>
                 <div className="my-guess-div">
                   <p className="my-guess-p text-xl">
@@ -217,7 +211,7 @@ function GameRoundTextInputWithImage({
                 key={i}
                 className="grid grid-cols-6 gap-1 text-center py-0.5"
               >
-                <div className="my-div-2"></div>
+                <div className="my-div-2" />
               </div>
             );
           })}

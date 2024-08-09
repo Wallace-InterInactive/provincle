@@ -111,7 +111,7 @@ const dataBank: Record<PotCode, PotData> = {
       longitude: -106.000556,
     },
     population: 1231043,
-    interestingFacts: ["home to held the world's potash reserves"],
+    interestingFacts: ["home to held the world's potash reserves", "Cree is the 2nd most spoken language" ],
     highestPoint: "Unnamed Point 1392m",
     coastlineInKM: 0,
   },
