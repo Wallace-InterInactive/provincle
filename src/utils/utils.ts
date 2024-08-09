@@ -45,6 +45,22 @@ export function isValidPot(currentGuess: string): boolean {
   );
 }
 
+export function isValidGuess(
+  currentGuess: string,
+  listOfValues: string[]
+): boolean {
+  if (!currentGuess) {
+    return false;
+  }
+
+  const sanitized = sanitizeString(currentGuess);
+  return (
+    undefined !== sanitized &&
+    "" !== sanitized &&
+    listOfValues.some(name => sanitizeString(name) === sanitized)
+  );
+}
+
 /**
  * Returns a string of the distance between the guess and
  * the solution in kilometers or miles and the corresponding
@@ -79,6 +95,9 @@ export function getDirectionEmoji(
   //   toSolution
   // );
   // return directionEmojiMap.get(direction) as string;
+}
+export function getOkNokEmoji(isOk: boolean): string {
+  return isOk ? "🎯" : "❌";
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {

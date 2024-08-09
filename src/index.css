@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Roboto", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji",
+    "Arial", "Helvetica", "sans-serif";
+}
+
+footer {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 .my-guess-div {
   @apply flex items-center justify-center border-2 h-8 rounded
     /* animate-reveal */;
