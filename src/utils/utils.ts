@@ -1,5 +1,5 @@
 import accentsMap from "./accentsMap.ts";
-import dataBank, { potNames } from "./dataBank.ts";
+import dataBank, { getPseudoRandomNumber, potNames } from "./dataBank.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
 
@@ -126,4 +126,14 @@ export function fetchSuggestions(elements: string[], value: string): string[] {
   return elements.filter((element: string) =>
     sanitizeString(element).includes(sanitizeString(value))
   );
+}
+
+export function shuffle<T>(alist: T[]) {
+  let hash = getPseudoRandomNumber();
+  for (let i1 = 0; i1 < alist.length; i1++) {
+    // todo: numShuffle, numFlagsToShow
+    const i2 = Math.floor(hash % alist.length);
+    [alist[i1], alist[i2]] = [alist[i2], alist[i1]];
+    hash = Math.floor(hash / 7); // todo: 7
+  }
 }

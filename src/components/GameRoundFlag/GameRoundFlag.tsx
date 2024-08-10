@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import dataBank, { potCodes } from "../../utils/dataBank.ts";
-import { getPotFlagSvgUrl, getColorOfStatus } from "../../utils/utils.ts";
+import { getPotFlagSvgUrl, getColorOfStatus, shuffle } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
-import { getPseudoRandomNumber } from "../../utils/dataBank.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -10,16 +9,6 @@ import { PotCode } from "../../types/data.ts";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
-
-function shuffle<T>(alist: T[]) {
-  let hash = getPseudoRandomNumber();
-  for (let i1 = 0; i1 < alist.length; i1++) {
-    // todo: numShuffle, numFlagsToShow
-    const i2 = Math.floor(hash % alist.length);
-    [alist[i1], alist[i2]] = [alist[i2], alist[i1]];
-    hash = Math.floor(hash / 7); // todo: 7
-  }
-}
 
 function GameRoundFlag({
   currentRoundStatus,

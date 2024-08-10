@@ -4,8 +4,8 @@
 name: CI Verify PR
 
 on:
-  # push:
-  #   branches: [ "master" ]
+  push:
+     branches: [ "*" ]
   pull_request:
     branches: [ "*" ]
 
