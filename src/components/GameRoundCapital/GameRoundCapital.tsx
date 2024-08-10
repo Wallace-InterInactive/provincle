@@ -1,4 +1,3 @@
-import Autosuggest from "react-autosuggest";
 import { FormEvent, useState, useEffect } from "react";
 import { PotCode } from "../../types/data.ts";
 import dataBank, { potCodes } from "../../utils/dataBank.ts";
@@ -49,7 +48,6 @@ function GameRoundTextInputWithImage({
   const [guesses, setGuesses] = useState<string[]>([]);
 
   // TODO: these two can and should be extracted to the input component easily (can be defined there)
-  const [mySuggestions, setMySuggestions] = useState<string[]>(possibleValues);
   const [currentGuess, setCurrentGuess] = useState("");
 
   useEffect(() => {
@@ -134,7 +132,7 @@ function GameRoundTextInputWithImage({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("capitalCity")}`}
-            suggestionsArray={mySuggestions}
+            suggestionsArray={possibleValues}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
