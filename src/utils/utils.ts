@@ -119,7 +119,7 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     ? "green-700"
     : currentRoundStatus === "lost"
       ? "red-600"
-      : "gray-500";
+      : "custom-light-blue"; // sky-700 gray-500"
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {
