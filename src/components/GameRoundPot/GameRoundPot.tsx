@@ -162,12 +162,12 @@ function GameRoundPot({
             return guesses[i] ? (
               <div
                 key={i}
-                className="grid grid-cols-[3fr_1fr_1fr] gap-1 text-center py-0.5"
+                className="grid grid-cols-7 gap-1 text-center py-0.5"
               >
-                <div className="my-guess-div">
+                <div className="my-guess-div col-span-4">
                   <p className="my-guess-p">{guesses[i] || "-"}</p>
                 </div>
-                <div className="my-guess-div">
+                <div className="my-guess-div col-span-2">
                   <p className="my-guess-p">
                     {getDistanceWithUnitBySetting(
                       guessCode as PotCode,

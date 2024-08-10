@@ -103,27 +103,25 @@ function GameRoundFlag({
                 ? "border-4 border-green-700"
                 : "border-4 border-red-600";
             const bgColor: string =
-              aPot === gameState.potCode
-                ? getColorOfStatus("won")
-                : guesses.includes(aPot)
-                  ? getColorOfStatus("lost")
-                  : getColorOfStatus("pending");
+              currentRoundStatus === "pending" && !guesses.includes(aPot)
+                ? getColorOfStatus("pending")
+                : aPot === gameState.potCode
+                  ? getColorOfStatus("won")
+                  : getColorOfStatus("lost");
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`max-h-52 m-auto p-1 my-5 h-20 ${myBorder}`}
+                  className={`max-h-20 m-auto my-5 h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
-                {currentRoundStatus === "pending" ? (
-                  <div />
-                ) : (
-                  <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
-                    {dataBank[myPotList[i1] as PotCode].name}
-                  </p>
-                )}
+                <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
+                  {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
+                    ? "?"
+                    : dataBank[myPotList[i1] as PotCode].name}
+                </p>
               </div>
             );
           })}
