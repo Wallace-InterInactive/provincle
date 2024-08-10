@@ -68,7 +68,7 @@ export function Game() {
           <button
             onClick={handleNextButtonClicked}
             className={
-              "border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold" +
+              "border-2 rounded-xl uppercase flex-shrink-0 p-2 font-semibold" +
               getColorOfStatus()
             }
           >

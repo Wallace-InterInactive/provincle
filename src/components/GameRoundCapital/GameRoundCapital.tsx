@@ -12,6 +12,8 @@ import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
+import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
+import { GuessButton } from "../GuessButton/GuessButton.tsx";
 
 //const getListOfCapitals = (): string[] => {
 function getListOfCapitals(): string[] {
@@ -47,7 +49,7 @@ function GameRoundTextInputWithImage({
   const [guesses, setGuesses] = useState<string[]>([]);
 
   // TODO: these two can and should be extracted to the input component easily (can be defined there)
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [mySuggestions, setMySuggestions] = useState<string[]>(possibleValues);
   const [currentGuess, setCurrentGuess] = useState("");
 
   useEffect(() => {
@@ -107,8 +109,11 @@ function GameRoundTextInputWithImage({
       ) : (
         <div className="gap-1 text-center">
           <p>
-            {t(roundInstructionId)}{" "}
-            <i>{dataBank[gameState.potCode as PotCode].name}</i>
+            {t(roundInstructionId)} <br />
+            <span className="font-bold italic">
+              {dataBank[gameState.potCode as PotCode].name}
+            </span>
+            {" ?"}
           </p>
         </div>
       )}
@@ -125,48 +130,16 @@ function GameRoundTextInputWithImage({
         className={`flex flex-col dark:bg-slate-800 py-0.5 ${currentRoundStatus !== "pending" ? "hidden" : ""}`}
       >
         <div className="flex flex-grow">
-          <Autosuggest
-            id="map-autosuggest"
-            suggestions={suggestions}
-            getSuggestionValue={suggestion => suggestion}
-            inputProps={{
-              value: currentGuess,
-              placeholder: `${t("province")}, ${t("territory")}`,
-              onChange: (_e, { newValue }) => setCurrentGuess(newValue),
-              className: "w-full dark:bg-slate-800 dark:text-slate-100",
-            }}
-            onSuggestionsFetchRequested={({ value }) =>
-              setSuggestions(
-                possibleValues.filter((potName: string) =>
-                  sanitizeString(potName).includes(sanitizeString(value))
-                )
-              )
-            }
-            onSuggestionsClearRequested={() => setSuggestions([])}
-            renderSuggestion={suggestion => (
-              <div className="border-2 dark:bg-slate-800 dark:text-slate-100">
-                {suggestion}
-              </div>
-            )}
-            renderSuggestionsContainer={({ containerProps, children }) => (
-              <div
-                {...containerProps}
-                className={`${containerProps.className} absolute bottom-full w-full bg-white mb-1 divide-x-2 max-h-52 overflow-auto`}
-              >
-                {children}
-              </div>
-            )}
-            containerProps={{
-              className: "border-2 rounded flex-auto relative p-1 mr-1",
-            }}
+          <AutoSuggestInput
+            currentGuess={currentGuess}
+            setCurrentGuess={setCurrentGuess}
+            placeholder={`${t("capitalCity")}`}
+            suggestionsArray={mySuggestions}
           />
-          <button
-            type="submit"
+          <GuessButton
             onClick={handleGuessButtonClicked}
-            className="border-2 rounded-xl uppercase flex-shrink-0 px-2 font-semibold"
-          >
-            🍁 {t("guessVerb")}
-          </button>
+            text={`🍁 ${t("guessVerb")}`}
+          />
         </div>
       </form>
       {/* page part 3a: feedback part, won/lost/etc */}
