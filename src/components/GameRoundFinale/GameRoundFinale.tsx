@@ -1,5 +1,4 @@
 import { useState } from "react";
-import dataBank from "../../utils/dataBank.ts";
 import { getPotMapSvgUrl, getOkNokEmoji } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -11,6 +10,7 @@ function GameRoundFinale({
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
+  const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState] = useState(defaultGameState);
@@ -37,7 +37,7 @@ function GameRoundFinale({
           <span
             className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
           >
-            {dataBank[potCode as PotCode].name}
+            {tGeo(potCode)}
           </span>
         </div>
         {/* page part 3b: feedback: list of submitted guesses  */}
@@ -45,7 +45,9 @@ function GameRoundFinale({
           <div className="my-guess-div col-start-2 col-span-2">
             <a
               className="my-guess-p"
-              href={`https://www.wikipedia.org/wiki/${dataBank[potCode as PotCode].name}`}
+              href={
+                "https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada"
+              } // TODO: corresponding wiki
               target="_blank"
             >
               Wikipedia
@@ -54,7 +56,7 @@ function GameRoundFinale({
           <div className="my-guess-div col-span-2">
             <a
               className="my-guess-p"
-              href={`https://www.google.com/maps?q=${dataBank[potCode as PotCode].name},Canada`}
+              href={`https://www.google.com/maps?q=${tGeo(potCode)},Canada`}
               target="_blank"
             >
               Google Maps

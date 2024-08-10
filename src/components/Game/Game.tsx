@@ -27,14 +27,10 @@ export function Game() {
   const { potCode, currentRound } = newGameState;
   const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const setPotCode = (newPotCode: string): void => {
-    updateGameState("potCode", newPotCode);
-  };
+  // const setPotCode = (newPotCode: string): void => {
+  //   updateGameState("potCode", newPotCode);
+  // };
 
-  // TODO: remove ts-ignore
-  // @ts-ignore
   const setCurrentRound = (newCurrentRound: number): void => {
     updateGameState("currentRound", newCurrentRound);
   };
@@ -95,7 +91,7 @@ export function Game() {
   }
 
   return (
-    <div>
+    <>
       <div>
         {currentRound === 1 ? (
           <GameRoundPot
@@ -155,6 +151,6 @@ export function Game() {
         )}
       </div>
       {currentRound < maxRounds ? nextRoundButton() : <div />}
-    </div>
+    </>
   );
 }

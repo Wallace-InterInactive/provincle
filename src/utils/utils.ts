@@ -1,7 +1,7 @@
 import accentsMap from "./accentsMap.ts";
-import dataBank, { potNames } from "./dataBank.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
+import dataBank, { getPotNamesByLang } from "./dataBank.ts";
 
 // TODO some UI or i18n module
 const directionEmojiMap = new Map<CardinalDirection, string>([
@@ -41,7 +41,9 @@ export function isValidPot(currentGuess: string): boolean {
   return (
     undefined !== sanitized &&
     "" !== sanitized &&
-    potNames.some(name => sanitizeString(name) === sanitized)
+    [...getPotNamesByLang("en"), ...getPotNamesByLang("fr")].some(
+      name => sanitizeString(name) === sanitized
+    )
   );
 }
 

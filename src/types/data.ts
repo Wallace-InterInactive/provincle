@@ -32,7 +32,6 @@ export interface Coordinates {
 }
 
 export interface PotData {
-  name: string;
   neighbors: string[];
   capital: string[];
   coordinates: Coordinates;
@@ -48,9 +47,3 @@ export interface GameState {
   //  currentRoundIsFinished: boolean;
   //  rounds: Round[];
 }
-
-export type DirectionsFromTo = {
-  [key in PotCode]: {
-    [key in PotCode]?: CardinalDirection;
-  };
-};

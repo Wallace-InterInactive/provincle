@@ -10,7 +10,7 @@ import {
   sanitizeString,
 } from "../../utils/utils.ts";
 import { PotCode } from "../../types/data.ts";
-import { potNames } from "../../utils/dataBank.ts";
+import { getPotNamesByLang } from "../../utils/dataBank.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {
@@ -118,7 +118,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getColorOfStatus("pending")).toBe("gray-500");
+    expect(getColorOfStatus("pending")).toBe("custom-light-blue");
   });
 
   it("should return the correct value when the game was lost", () => {
@@ -141,7 +141,7 @@ describe("fetchSuggestions filters the sanitized elements correctly", () => {
   });
 
   it("should return the matching elements", () => {
-    expect(fetchSuggestions(potNames, "no")).toStrictEqual([
+    expect(fetchSuggestions(getPotNamesByLang("en"), "no")).toStrictEqual([
       "Nova Scotia",
       "Northwest Territories",
     ]);

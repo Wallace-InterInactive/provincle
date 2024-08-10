@@ -22,14 +22,14 @@ function getListOfCapitals(): string[] {
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
 
-  let props2: GameRoundPropsExtended = {
+  const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
     target: dataBank[gameState.potCode as PotCode].capital[0], // TODO: why is it "capital: string[]" ?
     possibleValues: getListOfCapitals(),
     maxAttempts: 3,
   };
-  return GameRoundTextInputWithImage(props2);
+  return GameRoundTextInputWithImage(extendedProps);
 }
 
 function GameRoundTextInputWithImage({
@@ -42,6 +42,7 @@ function GameRoundTextInputWithImage({
 }: GameRoundPropsExtended) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
+  const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [gameState] = useState(defaultGameState);
@@ -109,7 +110,7 @@ function GameRoundTextInputWithImage({
           <p>
             {t(roundInstructionId)} <br />
             <span className="font-bold italic">
-              {dataBank[gameState.potCode as PotCode].name}
+              {tGeo(`of_${gameState.potCode}`)}
             </span>
             {" ?"}
           </p>

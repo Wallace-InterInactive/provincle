@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import dataBank, { potCodes } from "../../utils/dataBank.ts";
+import { potCodes } from "../../utils/dataBank.ts";
 import { getPotFlagSvgUrl, getColorOfStatus } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { getPseudoRandomNumber } from "../../utils/dataBank.ts";
@@ -26,13 +26,15 @@ function GameRoundFlag({
   setCurrentRoundStatus,
 }: GameRoundProps) {
   const { t } = useTranslation();
+  // const t = i18n.getFixedT("LOLcalize");
+  const { t: tGeo } = useTranslation("geo");
+
   const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
     { length: potCodes.length },
     (_, i) => potCodes[i]
   );
   shuffle(myPotList);
-  // const t = i18n.getFixedT("LOLcalize");
 
   const [guesses, setGuesses] = useState<string[]>([]);
 
@@ -78,8 +80,8 @@ function GameRoundFlag({
     <div>
       <div className="gap-1 text-center">
         <p>
-          {t("gamePotRoundInstruction")}{" "}
-          <i>{dataBank[gameState.potCode as PotCode].name}</i>
+          {t("gameFlagRoundInstruction")}{" "}
+          <i>{tGeo(`of_${gameState.potCode}`)}</i>
         </p>
       </div>
       <div>
@@ -120,7 +122,7 @@ function GameRoundFlag({
                 <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? "?"
-                    : dataBank[myPotList[i1] as PotCode].name}
+                    : tGeo(myPotList[i1])}
                 </p>
               </div>
             );
