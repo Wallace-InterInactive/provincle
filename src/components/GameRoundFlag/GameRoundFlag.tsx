@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import dataBank, { potCodes } from "../../utils/dataBank.ts";
-import { getPotFlagSvgUrl, getColorOfStatus, shuffle } from "../../utils/utils.ts";
+import {
+  getPotFlagSvgUrl,
+  getColorOfStatus,
+  shuffle,
+} from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
@@ -91,12 +95,11 @@ function GameRoundFlag({
               : aPot === gameState.potCode
                 ? "border-4 border-green-700"
                 : "border-4 border-red-600";
-            const bgColor: string =
-              currentRoundStatus === "pending" && !guesses.includes(aPot)
-                ? getColorOfStatus("pending")
-                : aPot === gameState.potCode
-                  ? getColorOfStatus("won")
-                  : getColorOfStatus("lost");
+            const bgColor: string = !guesses.includes(aPot)
+              ? getColorOfStatus("pending")
+              : aPot === gameState.potCode
+                ? getColorOfStatus("won")
+                : getColorOfStatus("lost");
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img

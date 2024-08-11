@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         "custom-light-blue": "rgb(192, 223, 251)",
-        "bg-custom-light-blue": "rgb(192, 223, 251)",
+        "custom-light-blue-2": "rgb(162, 173, 211)",
         "custom-dark-blue": "rgb(9, 64, 115)",
       },
       fontFamily: {
@@ -44,6 +44,8 @@ export default {
         "bg-red-600",
         "bg-gray-500",
         "bg-sky-700",
+        "bg-custom-light-blue",
+        "bg-custom-light-blue-2",
       ],
     },
   },

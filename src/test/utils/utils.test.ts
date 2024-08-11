@@ -5,7 +5,8 @@ import {
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
   getPotFlagSvgUrl,
-  getPotMapSvgUrl, isValidGuess,
+  getPotMapSvgUrl,
+  isValidGuess,
   isValidPot,
   sanitizeString,
 } from "../../utils/utils.ts";
@@ -118,7 +119,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getColorOfStatus("pending")).toBe("gray-500");
+    expect(getColorOfStatus("pending")).toBe("custom-light-blue-2");
   });
 
   it("should return the correct value when the game was lost", () => {
@@ -165,7 +166,7 @@ describe("isValidGuess determines whether a guess's string value is valid", () =
   it("should return true with after sanitizing", () => {
     expect(isValidGuess("Québec", ["Quebec"])).toBe(true);
     expect(isValidGuess("Quebec", ["Québec"])).toBe(true);
-  })
+  });
 });
 
 describe("getDirectionEmoji should return the corresponding emoji for a given CardinalDirection input", () => {
@@ -183,7 +184,7 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
   });
 
   it("should return ➡️️ for East", () => {
-    expect(getDirectionEmoji("ab", "sk")).toBe("➡️️");
+    expect(getDirectionEmoji("ab", "sk")).toBe("\u27A1\uFE0F"); // ➡️️
   });
 
   it("should return ⬅️️ for West", () => {

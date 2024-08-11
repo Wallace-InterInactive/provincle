@@ -44,17 +44,17 @@ describe("check geo distances", () => {
   it("check distances ab-on", () => {
     expect(
       calculateDistanceInKm(dataBank.ab.coordinates, dataBank.on.coordinates)
-    ).toBe(2131);
+    ).toBe(2114);
     expect(
       calculateDistanceInKm(dataBank.on.coordinates, dataBank.ab.coordinates)
-    ).toBe(2131);
+    ).toBe(2114);
   });
   it("check distances nu-ma", () => {
     expect(
       calculateDistanceInKm(dataBank.nu.coordinates, dataBank.mb.coordinates)
-    ).toBe(1714);
+    ).toBe(2009);
     expect(
       calculateDistanceInKm(dataBank.mb.coordinates, dataBank.nu.coordinates)
-    ).toBe(1714);
+    ).toBe(2009);
   });
 });

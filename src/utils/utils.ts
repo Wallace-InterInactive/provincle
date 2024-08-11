@@ -8,7 +8,7 @@ const directionEmojiMap = new Map<CardinalDirection, string>([
   ["N", "⬆️"],
   ["S", "⬇️"],
   ["W", "⬅️"],
-  ["E", "➡️"],
+  ["E", "\u27A1\uFE0F"], // ➡️ ➡️ &#x27A1;&#xFE0F;
   ["NW", "↖️"],
   ["NE", "↗️"],
   ["SW", "↙️"],
@@ -89,6 +89,9 @@ export function getDirectionEmoji(
     dataBank[fromGuess].coordinates,
     dataBank[toSolution].coordinates
   );
+  console.log(
+    `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
+  );
   return directionEmojiMap.get(angle15ToDir(angle)) as string;
   // const direction: CardinalDirection = calculateDirection(
   //   fromGuess,
@@ -119,7 +122,7 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     ? "green-700"
     : currentRoundStatus === "lost"
       ? "red-600"
-      : "custom-light-blue"; // sky-700 gray-500"
+      : "custom-light-blue-2"; //"custom-light-blue"; // sky-700 gray-500
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {

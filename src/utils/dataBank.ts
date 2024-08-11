@@ -148,7 +148,7 @@ const dataBank: Record<PotCode, PotData> = {
     neighbors: ["nt", "sk", "bc"],
     capital: ["Edmonton"],
     coordinates: {
-      latitude: 55.991667,
+      latitude: 54.5,
       longitude: -114.376667,
     },
     population: 4849906,
@@ -216,8 +216,8 @@ const dataBank: Record<PotCode, PotData> = {
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
     capital: ["Iqaluit"],
     coordinates: {
-      latitude: 70.166667,
-      longitude: -90.733333,
+      latitude: 73,
+      longitude: -93,
     },
     population: 40758,
     interestingFacts: [

@@ -64,7 +64,7 @@ const dirCodes15: CardinalDirection[] = ["NW", "N",  "NE",     // N-ish adjusted
                                          "NW", "NW", "NW"];
 
 export function angle15ToDir(angle: number): CardinalDirection {
-  return dirCodes15[Math.floor(((angle + 15) % 360) / 15)];
+  return dirCodes15[Math.floor(((angle + 22.5) % 360) / 15)];
 }
 
 const dirCodes45: CardinalDirection[] = [
