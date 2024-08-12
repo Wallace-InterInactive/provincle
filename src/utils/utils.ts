@@ -8,7 +8,7 @@ const directionEmojiMap = new Map<CardinalDirection, string>([
   ["N", "⬆️"],
   ["S", "⬇️"],
   ["W", "⬅️"],
-  ["E", "\u27A1\uFE0F"], // ➡️ ➡️ &#x27A1;&#xFE0F;
+  ["E", "➡️"],
   ["NW", "↖️"],
   ["NE", "↗️"],
   ["SW", "↙️"],
@@ -19,6 +19,7 @@ const directionEmojiMap = new Map<CardinalDirection, string>([
   //   ⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️ 📍 🏁 🎯
   // note: https://www.toptal.com/designers/htmlarrows/arrows/
   //   &uarr; &rarr; &darr; &larr; &nwarr; &nearr; &swarr; &searr; &#x25CE;
+  // https://emojigraph.org/right-arrow/ - for escape codes of emojis
 ]);
 
 export function sanitizeString(str: string): string {
@@ -89,9 +90,9 @@ export function getDirectionEmoji(
     dataBank[fromGuess].coordinates,
     dataBank[toSolution].coordinates
   );
-  console.log(
-    `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
-  );
+  // console.log(
+  //   `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
+  // );
   return directionEmojiMap.get(angle15ToDir(angle)) as string;
   // const direction: CardinalDirection = calculateDirection(
   //   fromGuess,
