@@ -31,7 +31,13 @@ export interface Coordinates {
   longitude: number;
 }
 
+export interface PotName {
+  en: string;
+  fr: string;
+}
+
 export interface PotData {
+  name: PotName;
   neighbors: string[];
   capital: string[];
   coordinates: Coordinates;

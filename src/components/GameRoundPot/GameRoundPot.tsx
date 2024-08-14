@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { getPotCode, getPotNamesByLang } from "../../utils/dataBank.ts";
+import { getPotCodeByName, getPotNamesByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
@@ -155,7 +155,7 @@ function GameRoundPot({
         {/* page part 3b: feedback: list of submitted guesses  */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCode(guesses[i]);
+            const guessCode = getPotCodeByName(guesses[i]);
             //   {calculateDistance(potCode, guesses[i])} km
             //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
             return guesses[i] ? (

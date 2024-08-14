@@ -1,4 +1,4 @@
-import { PotCode, PotData } from "../types/data.ts";
+import { PotCode, PotData, PotName } from "../types/data.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
@@ -12,6 +12,10 @@ import { PotCode, PotData } from "../types/data.ts";
 
 const dataBank: Record<PotCode, PotData> = {
   on: {
+    name: {
+      en: "Ontario",
+      fr: "Ontario"
+    },
     neighbors: ["nu", "qc", "mb"],
     capital: ["Toronto"],
     coordinates: {
@@ -29,6 +33,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 3840,
   },
   qc: {
+    name: {
+      en: "Quebec",
+      fr: "Québec",
+    },
     neighbors: ["nu", "nl", "pe", "nb", "on"],
     capital: ["Quebec City", "Ville de Québec"],
     coordinates: {
@@ -44,6 +52,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 13000,
   },
   ns: {
+    name: {
+      en: "Nova Scotia",
+      fr: "Nouvelle-Écosse",
+    },
     neighbors: ["nl", "nb", "pe"],
     capital: ["Halifax"],
     coordinates: {
@@ -59,6 +71,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 7579,
   },
   nb: {
+    name: {
+      en: "New Brunswick",
+      fr: "Nouveau-Brunswick",
+    },
     neighbors: ["pe", "ns", "qc"],
     capital: ["Fredericton"],
     coordinates: {
@@ -74,6 +90,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 5500,
   },
   mb: {
+    name: {
+      en: "Manitoba",
+      fr: "Manitoba",
+    },
     neighbors: ["nu", "on", "sa", "nt"],
     capital: ["Winnipeg"],
     coordinates: {
@@ -90,6 +110,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1210,
   },
   bc: {
+    name: {
+      en: "British Columbia",
+      fr: "Colombie-Britannique",
+    },
     neighbors: ["yt", "nt", "ab"],
     capital: ["Victoria"],
     coordinates: {
@@ -105,6 +129,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 27200,
   },
   pe: {
+    name: {
+      en: "Prince Edward Island",
+      fr: "Île-du-Prince-Édouard",
+    },
     neighbors: ["qc", "nl", "ns", "nb"],
     capital: ["Charlottetown"],
     coordinates: {
@@ -121,6 +149,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1260,
   },
   sk: {
+    name: {
+      en: "Saskatchewan",
+      fr: "Saskatchewan",
+    },
     neighbors: ["nt", "nu", "mb", "ab"],
     capital: ["Regina"],
     coordinates: {
@@ -136,6 +168,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   ab: {
+    name: {
+      en: "Alberta",
+      fr: "Alberta",
+    },
     neighbors: ["nt", "sk", "bc"],
     capital: ["Edmonton"],
     coordinates: {
@@ -152,6 +188,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   nl: {
+    name: {
+      en: "Newfoundland and Labrador",
+      fr: "Terre-Neuve-et-Labrador",
+    },
     neighbors: ["nu", "ns", "pe", "qc"],
     capital: ["St. John's"],
     coordinates: {
@@ -169,6 +209,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 29000,
   },
   nt: {
+    name: {
+      en: "Northwest Territories",
+      fr: "Territoires du Nord-Ouest",
+    },
     neighbors: ["nu", "mb", "sa", "ab", "bc", "yt"],
     capital: ["Yellowknife"],
     coordinates: {
@@ -184,6 +228,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 25000,
   },
   yt: {
+    name: {
+      en: "Yukon",
+      fr: "Yukon",
+    },
     neighbors: ["nt", "bc"],
     capital: ["Whitehorse"],
     coordinates: {
@@ -200,6 +248,10 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 213,
   },
   nu: {
+    name: {
+      en: "Nunavut",
+      fr: "Nunavut",
+    },
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
     capital: ["Iqaluit"],
     coordinates: {
@@ -216,69 +268,27 @@ const dataBank: Record<PotCode, PotData> = {
   },
 };
 
-export const potCodes = Object.keys(dataBank) as PotCode[];
-
-// TODO: there should be a nicer way to do this if we even need this at all
 export function getPotNamesByLang(langCode: string): string[] {
-  if (langCode.startsWith("en")) {
-    return [
-      "Ontario",
-      "Quebec",
-      "Nova Scotia",
-      "New Brunswick",
-      "Manitoba",
-      "British Columbia",
-      "Prince Edward Island",
-      "Saskatchewan",
-      "Alberta",
-      "Newfoundland and Labrador",
-      "Northwest Territories",
-      "Yukon",
-      "Nunavut",
-    ];
-  } else if (langCode.startsWith("fr")) {
-    return [
-      "Ontario",
-      "Québec",
-      "Nouvelle-Écosse",
-      "Nouveau-Brunswick",
-      "Manitoba",
-      "Colombie-Britannique",
-      "Île-du-Prince-Édouard",
-      "Saskatchewan",
-      "Alberta",
-      "Terre-Neuve-et-Labrador",
-      "Territoires du Nord-Ouest",
-      "Yukon",
-      "Nunavut",
-    ];
-  } else {
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
     throw new Error("invalid language");
   }
+  langCode = langCode.substring(0, 2);
+  console.log("langCode:", langCode);
+  return Object.values(dataBank).map((entry: PotData) => entry.name[langCode as keyof PotName]);
 }
 
-// export const potNames = (Object.keys(dataBank) as PotCode[]).map(
-//   (potCode: PotCode) => dataBank[potCode].name
-// );
-
-// prettier-ignore
-export function getPotCode(potName: string): string /* PotCode */ {
-  if ("Ontario" === potName) return "on";
-  if ("Quebec" === potName || "Québec" === potName) return "qc";
-  if ("Nova Scotia" === potName || "Nouvelle-Écosse" === potName) return "ns";
-  if ("New Brunswick" === potName || "Nouveau-Brunswick" === potName) return "nb";
-  if ("Manitoba" === potName) return "mb";
-  if ("British Columbia" === potName || "Colombie-Britannique" === potName) return "bc";
-  if ("Prince Edward Island" === potName || "Île-du-Prince-Édouard" === potName) return "pe";
-  if ("Saskatchewan" === potName) return "sk";
-  if ("Alberta" === potName) return "ab";
-  if ("Newfoundland and Labrador" === potName || "Terre-Neuve-et-Labrador" === potName) return "nl";
-  if ("Northwest Territories" === potName || "Territoires du Nord-Ouest" === potName) return "nt";
-  if ("Yukon" === potName) return "yt";
-  if ("Nunavut" === potName) return "nu";
+export function getPotCodeByName(name: string): string {
+  for (const [key, val] of Object.entries(dataBank)) {
+    if (name === val.name.en || name === val.name.fr) {
+      return key as PotCode;
+    }
+  }
   return "invalid";
-  // throw Error(`invalid potName ${potName}`);
 }
+
+export const potCodes = Object.keys(dataBank) as PotCode[];
+export const potNamesEn: string[] = getPotNamesByLang("en-ca");
+export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
 export function getCurrentDateString(): string {
   const today = new Date();
@@ -321,58 +331,3 @@ export function getPseudoRandomPotCode(n: number): string {
 }
 
 export default dataBank;
-
-/*
-import jsonData from "../dataBank.json";
-
-
-// interface DataBank {
-//   [key: string]: {
-//     name: string;
-//     neighbors: string[];
-//     capital: string[];
-//   };
-// }
-
-//function getDayString(): string { return "2024-03-13"; }
-
-const dataBank = jsonData.dataBank;
-const codes = Object.keys(jsonData.dataBank);
-const potNames = codes.map(code => dataBank[code].name);
-
-const getRandomPotCode = (): string => {
-  return codes[Math.floor(Math.random() * codes.length)];
-};
-
-// const getNameByPotCode = (code: string): string => {
-//   return dataBank[code].name;
-// };
-
-const getTodaysQuizId = (): number => {
-  return 0;
-};
-const getTodaysQuiz = (): string => {
-  return codes[getTodaysQuizId()];
-};
-const getRandomQuiz = (): string => {
-  return codes[Math.floor(Math.random() * codes.length)];
-};
-
-const getPotNames = (): string[] => {
-  return potNames;
-};
-
-// const getDataBank = (): DataBank => {
-//   return dataBank;
-// };
-
-export {
-  getTodaysQuiz,
-  getRandomQuiz,
-  getRandomPotCode,
-  // getNameByPotCode,
-  // getPotNames,
-  dataBank
-  // getDataBank,
-};
-*/
