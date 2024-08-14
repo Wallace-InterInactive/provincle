@@ -100,6 +100,7 @@ export function getDirectionEmoji(
   // );
   // return directionEmojiMap.get(direction) as string;
 }
+
 export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "🎯" : "❌";
 }
@@ -132,7 +133,7 @@ export function fetchSuggestions(elements: string[], value: string): string[] {
   );
 }
 
-export function shuffle<T>(alist: T[]) {
+export function shuffle<T>(alist: T[]): void {
   let hash = getPseudoRandomNumber();
   for (let i1 = 0; i1 < alist.length; i1++) {
     // todo: numShuffle, numFlagsToShow

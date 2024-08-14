@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import dataBank, {
+  getListOfCapitals,
   getPotCode,
   getPseudoRandomPotCode,
   getTodaysPotCode,
@@ -20,6 +21,13 @@ describe("test functions in dataBank", () => {
     expect(getPotCode("Saskatchewan")).toBe("sk");
     expect(getPotCode("Québec")).toBe("qc");
     expect(getPotCode("Alaska")).toBe("invalid");
+  });
+
+  it("should return a list of capitals", () => {
+    const capitals = getListOfCapitals();
+    expect(capitals).toBeTypeOf("object");
+    expect(capitals[0]).toBeTypeOf("string");
+    expect(capitals.length).toBe(13);
   });
 });
 
