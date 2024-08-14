@@ -1,5 +1,5 @@
 import accentsMap from "./accentsMap.ts";
-import dataBank, { potNames } from "./dataBank.ts";
+import dataBank, { getPseudoRandomNumber, potNames } from "./dataBank.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
 
@@ -19,6 +19,7 @@ const directionEmojiMap = new Map<CardinalDirection, string>([
   //   ⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️ 📍 🏁 🎯
   // note: https://www.toptal.com/designers/htmlarrows/arrows/
   //   &uarr; &rarr; &darr; &larr; &nwarr; &nearr; &swarr; &searr; &#x25CE;
+  // https://emojigraph.org/right-arrow/ - for escape codes of emojis
 ]);
 
 export function sanitizeString(str: string): string {
@@ -89,6 +90,9 @@ export function getDirectionEmoji(
     dataBank[fromGuess].coordinates,
     dataBank[toSolution].coordinates
   );
+  // console.log(
+  //   `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
+  // );
   return directionEmojiMap.get(angle15ToDir(angle)) as string;
   // const direction: CardinalDirection = calculateDirection(
   //   fromGuess,
@@ -96,6 +100,7 @@ export function getDirectionEmoji(
   // );
   // return directionEmojiMap.get(direction) as string;
 }
+
 export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "🎯" : "❌";
 }
@@ -119,11 +124,21 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     ? "green-700"
     : currentRoundStatus === "lost"
       ? "red-600"
-      : "custom-light-blue"; // sky-700 gray-500"
+      : "custom-light-blue-2"; //"custom-light-blue"; // sky-700 gray-500
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {
   return elements.filter((element: string) =>
     sanitizeString(element).includes(sanitizeString(value))
   );
+}
+
+export function shuffle<T>(alist: T[]): void {
+  let hash = getPseudoRandomNumber();
+  for (let i1 = 0; i1 < alist.length; i1++) {
+    // todo: numShuffle, numFlagsToShow
+    const i2 = Math.floor(hash % alist.length);
+    [alist[i1], alist[i2]] = [alist[i2], alist[i1]];
+    hash = Math.floor(hash / 7); // todo: 7
+  }
 }

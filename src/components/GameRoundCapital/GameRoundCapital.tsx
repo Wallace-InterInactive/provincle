@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
 import { PotCode } from "../../types/data.ts";
-import dataBank, { potCodes } from "../../utils/dataBank.ts";
+import dataBank, { getListOfCapitals } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidGuess,
@@ -13,11 +13,6 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-
-//const getListOfCapitals = (): string[] => {
-function getListOfCapitals(): string[] {
-  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
-}
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;

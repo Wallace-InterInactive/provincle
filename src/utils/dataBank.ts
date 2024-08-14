@@ -148,7 +148,7 @@ const dataBank: Record<PotCode, PotData> = {
     neighbors: ["nt", "sk", "bc"],
     capital: ["Edmonton"],
     coordinates: {
-      latitude: 55.991667,
+      latitude: 54.5,
       longitude: -114.376667,
     },
     population: 4849906,
@@ -216,8 +216,8 @@ const dataBank: Record<PotCode, PotData> = {
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
     capital: ["Iqaluit"],
     coordinates: {
-      latitude: 70.166667,
-      longitude: -90.733333,
+      latitude: 73,
+      longitude: -93,
     },
     population: 40758,
     interestingFacts: [
@@ -233,6 +233,10 @@ export const potCodes = Object.keys(dataBank) as PotCode[];
 export const potNames = (Object.keys(dataBank) as PotCode[]).map(
   (potCode: PotCode) => dataBank[potCode].name
 );
+
+export function getListOfCapitals(): string[] {
+  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
+}
 
 export function getPotCode(potName: string): string {
   for (const [key, data] of Object.entries(dataBank)) {
@@ -469,58 +473,3 @@ export const directionsFromTo: DirectionsFromTo = {
 };
 
 export default dataBank;
-
-/*
-import jsonData from "../dataBank.json";
-
-
-// interface DataBank {
-//   [key: string]: {
-//     name: string;
-//     neighbors: string[];
-//     capital: string[];
-//   };
-// }
-
-//function getDayString(): string { return "2024-03-13"; }
-
-const dataBank = jsonData.dataBank;
-const codes = Object.keys(jsonData.dataBank);
-const potNames = codes.map(code => dataBank[code].name);
-
-const getRandomPotCode = (): string => {
-  return codes[Math.floor(Math.random() * codes.length)];
-};
-
-// const getNameByPotCode = (code: string): string => {
-//   return dataBank[code].name;
-// };
-
-const getTodaysQuizId = (): number => {
-  return 0;
-};
-const getTodaysQuiz = (): string => {
-  return codes[getTodaysQuizId()];
-};
-const getRandomQuiz = (): string => {
-  return codes[Math.floor(Math.random() * codes.length)];
-};
-
-const getPotNames = (): string[] => {
-  return potNames;
-};
-
-// const getDataBank = (): DataBank => {
-//   return dataBank;
-// };
-
-export {
-  getTodaysQuiz,
-  getRandomQuiz,
-  getRandomPotCode,
-  // getNameByPotCode,
-  // getPotNames,
-  dataBank
-  // getDataBank,
-};
-*/
