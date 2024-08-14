@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import dataBank, {
+  getCapitalsByLang,
   getPotCodeByName,
   getPotNamesByLang,
   getPseudoRandomPotCode,
@@ -49,6 +50,31 @@ describe("test functions in dataBank", () => {
     potNames = getPotNamesByLang("fr-ca");
     expect(potNames.length).toBe(13);
     expect(potNames).toContain("Terre-Neuve-et-Labrador");
+  });
+
+  it("should throw an error for invalid language code", () => {
+    expect(() => getCapitalsByLang("")).toThrowError();
+    expect(() => getCapitalsByLang("hu")).toThrowError();
+  });
+
+  it("should return the capitals in English", () => {
+    let capitals = getCapitalsByLang("en");
+    expect(capitals.length).toBe(13);
+    expect(capitals).toContain("Quebec City");
+
+    capitals = getCapitalsByLang("en-us");
+    expect(capitals.length).toBe(13);
+    expect(capitals).toContain("Quebec City");
+  });
+
+  it("should return the capitals in French", () => {
+    let capitals = getCapitalsByLang("fr");
+    expect(capitals.length).toBe(13);
+    expect(capitals).toContain("Ville de Québec");
+
+    capitals = getCapitalsByLang("fr-ca");
+    expect(capitals.length).toBe(13);
+    expect(capitals).toContain("Ville de Québec");
   });
 });
 

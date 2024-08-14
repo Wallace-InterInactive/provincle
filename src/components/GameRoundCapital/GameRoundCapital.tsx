@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
-import { PotCode } from "../../types/data.ts";
-import dataBank, { potCodes } from "../../utils/dataBank.ts";
+import { MultiLangName, PotCode } from "../../types/data.ts";
+import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidGuess,
@@ -13,11 +13,7 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-
-//const getListOfCapitals = (): string[] => {
-function getListOfCapitals(): string[] {
-  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
-}
+import i18n from "../../utils/i18n.ts";
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
@@ -25,8 +21,11 @@ function GameRoundCapital(props: GameRoundProps) {
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: dataBank[gameState.potCode as PotCode].capital[0], // TODO: why is it "capital: string[]" ?
-    possibleValues: getListOfCapitals(),
+    target:
+      dataBank[gameState.potCode as PotCode]["capital"][
+        i18n.language.substring(0, 2) as keyof MultiLangName
+      ],
+    possibleValues: getCapitalsByLang(i18n.language),
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);

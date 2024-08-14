@@ -1,4 +1,4 @@
-import { PotCode, PotData, PotName } from "../types/data.ts";
+import { PotCode, PotData, MultiLangName } from "../types/data.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
@@ -14,10 +14,13 @@ const dataBank: Record<PotCode, PotData> = {
   on: {
     name: {
       en: "Ontario",
-      fr: "Ontario"
+      fr: "Ontario",
     },
     neighbors: ["nu", "qc", "mb"],
-    capital: ["Toronto"],
+    capital: {
+      en: "Toronto",
+      fr: "Toronto",
+    },
     coordinates: {
       latitude: 49.25,
       longitude: -84.5,
@@ -38,7 +41,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Québec",
     },
     neighbors: ["nu", "nl", "pe", "nb", "on"],
-    capital: ["Quebec City", "Ville de Québec"],
+    capital: {
+      en: "Quebec City",
+      fr: "Ville de Québec",
+    },
     coordinates: {
       latitude: 52,
       longitude: -72,
@@ -57,7 +63,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Nouvelle-Écosse",
     },
     neighbors: ["nl", "nb", "pe"],
-    capital: ["Halifax"],
+    capital: {
+      en: "Halifax",
+      fr: "Halifax",
+    },
     coordinates: {
       latitude: 45,
       longitude: -63,
@@ -76,7 +85,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Nouveau-Brunswick",
     },
     neighbors: ["pe", "ns", "qc"],
-    capital: ["Fredericton"],
+    capital: {
+      en: "Fredericton",
+      fr: "Fredericton",
+    },
     coordinates: {
       latitude: 46.5,
       longitude: -66,
@@ -95,7 +107,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Manitoba",
     },
     neighbors: ["nu", "on", "sa", "nt"],
-    capital: ["Winnipeg"],
+    capital: {
+      en: "Winnipeg",
+      fr: "Winnipeg",
+    },
     coordinates: {
       latitude: 55,
       longitude: -97,
@@ -115,7 +130,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Colombie-Britannique",
     },
     neighbors: ["yt", "nt", "ab"],
-    capital: ["Victoria"],
+    capital: {
+      en: "Victoria",
+      fr: "Victoria",
+    },
     coordinates: {
       latitude: 54,
       longitude: -125,
@@ -134,7 +152,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Île-du-Prince-Édouard",
     },
     neighbors: ["qc", "nl", "ns", "nb"],
-    capital: ["Charlottetown"],
+    capital: {
+      en: "Charlottetown",
+      fr: "Charlottetown",
+    },
     coordinates: {
       latitude: 46.4,
       longitude: -63.2,
@@ -154,7 +175,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Saskatchewan",
     },
     neighbors: ["nt", "nu", "mb", "ab"],
-    capital: ["Regina"],
+    capital: {
+      en: "Regina",
+      fr: "Regina",
+    },
     coordinates: {
       latitude: 54,
       longitude: -106.000556,
@@ -173,7 +197,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Alberta",
     },
     neighbors: ["nt", "sk", "bc"],
-    capital: ["Edmonton"],
+    capital: {
+      en: "Edmonton",
+      fr: "Edmonton",
+    },
     coordinates: {
       latitude: 55.991667,
       longitude: -114.376667,
@@ -193,7 +220,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Terre-Neuve-et-Labrador",
     },
     neighbors: ["nu", "ns", "pe", "qc"],
-    capital: ["St. John's"],
+    capital: {
+      en: "St. John's",
+      fr: "St. John's",
+    },
     coordinates: {
       latitude: 53.23,
       longitude: -59.999167,
@@ -214,7 +244,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Territoires du Nord-Ouest",
     },
     neighbors: ["nu", "mb", "sa", "ab", "bc", "yt"],
-    capital: ["Yellowknife"],
+    capital: {
+      en: "Yellowknife",
+      fr: "Yellowknife",
+    },
     coordinates: {
       latitude: 67,
       longitude: -121,
@@ -233,7 +266,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Yukon",
     },
     neighbors: ["nt", "bc"],
-    capital: ["Whitehorse"],
+    capital: {
+      en: "Whitehorse",
+      fr: "Whitehorse",
+    },
     coordinates: {
       latitude: 63,
       longitude: -135,
@@ -253,7 +289,10 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Nunavut",
     },
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
-    capital: ["Iqaluit"],
+    capital: {
+      en: "Iqaluit",
+      fr: "Iqaluit",
+    },
     coordinates: {
       latitude: 70.166667,
       longitude: -90.733333,
@@ -273,8 +312,9 @@ export function getPotNamesByLang(langCode: string): string[] {
     throw new Error("invalid language");
   }
   langCode = langCode.substring(0, 2);
-  console.log("langCode:", langCode);
-  return Object.values(dataBank).map((entry: PotData) => entry.name[langCode as keyof PotName]);
+  return Object.values(dataBank).map(
+    (entry: PotData) => entry.name[langCode as keyof MultiLangName]
+  );
 }
 
 export function getPotCodeByName(name: string): string {
@@ -286,9 +326,19 @@ export function getPotCodeByName(name: string): string {
   return "invalid";
 }
 
+export function getCapitalsByLang(langCode: string): string[] {
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+    throw new Error("invalid language");
+  }
+  langCode = langCode.substring(0, 2);
+  return Object.values(dataBank).map(
+    (entry: PotData) => entry.capital[langCode as keyof MultiLangName]
+  );
+}
+
 export const potCodes = Object.keys(dataBank) as PotCode[];
-export const potNamesEn: string[] = getPotNamesByLang("en-ca");
-export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
+// export const potNamesEn: string[] = getPotNamesByLang("en-ca");
+// export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
 export function getCurrentDateString(): string {
   const today = new Date();

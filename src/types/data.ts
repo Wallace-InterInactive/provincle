@@ -31,15 +31,15 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface PotName {
+export interface MultiLangName {
   en: string;
   fr: string;
 }
 
 export interface PotData {
-  name: PotName;
+  name: MultiLangName;
   neighbors: string[];
-  capital: string[];
+  capital: MultiLangName;
   coordinates: Coordinates;
   population: number;
   interestingFacts: string[];

@@ -161,7 +161,6 @@ i18next
         },
       },
     },
-    interpolation: { escapeValue: false }, // TODO: what is this?
   });
 
 export default i18next;
