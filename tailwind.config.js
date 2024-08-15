@@ -7,8 +7,8 @@ export default {
         "custom-light-blue": "rgb(192, 223, 251)",
         "custom-light-blue-2": "rgb(162, 173, 211)",
         "custom-dark-blue": "rgb(9, 64, 115)",
-        "custom-green-1": "rgb(22,164,77)",
-        "custom-green-2": "rgb(155,234,166)",
+        "custom-green-1": "rgb(22,163,74)",
+        "custom-green-2": "rgb(158,234,167)",
       },
       fontFamily: {
         roboto: ["Roboto", "Arial", "sans-serif", "Segoe UI Emoji"],
