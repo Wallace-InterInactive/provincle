@@ -105,7 +105,7 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`max-h-20 m-auto my-5 h-20 ${myBorder}`}
+                  className={`max-h-24 m-auto my-5 h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />

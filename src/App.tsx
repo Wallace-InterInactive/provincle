@@ -26,6 +26,9 @@ function App() {
             ❤️ <Provincle /> ❓
           </a>
         </span>
+        <br /> {/* bottom spaceholder for Android browser */}
+        <br />
+        &nbsp;
       </footer>
     </div>
   );
