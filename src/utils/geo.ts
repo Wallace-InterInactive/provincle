@@ -51,30 +51,35 @@ const dirCodes15: CardinalDirection[] = ["NW", "N",  "NE",     // N-ish adjusted
                                          "SW", "SW", "SW",
                                          "SW", "W",  "NW",     // W-ish
                                          "NW", "NW", "NW"];
+
 export function angle15ToDir(angle: number): CardinalDirection {
-  return dirCodes15[Math.floor(((angle + 15) % 360) / 15)];
+  return dirCodes15[Math.floor(((angle + 22.5) % 360) / 15)];
 }
 
-const dirCodes45: CardinalDirection[] = [
-  "N",
-  "NE",
-  "E",
-  "SE",
-  "S",
-  "SW",
-  "W",
-  "NW",
-];
-export function angle45ToDir(angle: number): CardinalDirection {
-  return dirCodes45[Math.floor(((angle + 22.5) % 360) / 45)];
-}
+// no usages - perhaps delete some time
+// const dirCodes45: CardinalDirection[] = [
+//   "N",
+//   "NE",
+//   "E",
+//   "SE",
+//   "S",
+//   "SW",
+//   "W",
+//   "NW",
+// ];
 
-function toRadians(degrees: number): number {
+// export function angle45ToDir(angle: number): CardinalDirection {
+//   return dirCodes45[Math.floor(((angle + 22.5) % 360) / 45)];
+// }
+
+export function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
-function toDegrees(radians: number): number {
+
+export function toDegrees(radians: number): number {
   return radians * (180 / Math.PI);
 }
+
 export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
   const lat1 = toRadians(pos1.latitude);
   const lat2 = toRadians(pos2.latitude);

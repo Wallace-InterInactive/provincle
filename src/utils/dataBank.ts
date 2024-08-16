@@ -202,7 +202,7 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Edmonton",
     },
     coordinates: {
-      latitude: 55.991667,
+      latitude: 54.5,
       longitude: -114.376667,
     },
     population: 4849906,
@@ -294,8 +294,8 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Iqaluit",
     },
     coordinates: {
-      latitude: 70.166667,
-      longitude: -90.733333,
+      latitude: 73,
+      longitude: -93,
     },
     population: 40758,
     interestingFacts: [
@@ -317,6 +317,7 @@ export function getPotNamesByLang(langCode: string): string[] {
   );
 }
 
+
 export function getPotCodeByName(name: string): string {
   for (const [key, val] of Object.entries(dataBank)) {
     if (name === val.name.en || name === val.name.fr) {
@@ -324,6 +325,10 @@ export function getPotCodeByName(name: string): string {
     }
   }
   return "invalid";
+}
+
+export function getListOfCapitals(): string[] {
+  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
 }
 
 export function getCapitalsByLang(langCode: string): string[] {

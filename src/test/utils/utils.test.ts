@@ -4,10 +4,13 @@ import {
   getColorOfStatus,
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
+  getOkNokEmoji,
   getPotFlagSvgUrl,
   getPotMapSvgUrl,
+  isValidGuess,
   isValidPot,
   sanitizeString,
+  shuffle,
 } from "../../utils/utils.ts";
 import { PotCode } from "../../types/data.ts";
 import { getPotNamesByLang } from "../../utils/dataBank.ts";
@@ -145,5 +148,120 @@ describe("fetchSuggestions filters the sanitized elements correctly", () => {
       "Nova Scotia",
       "Northwest Territories",
     ]);
+  });
+});
+
+describe("isValidGuess determines whether a guess's string value is valid", () => {
+  it("should return false for falsy guess value", () => {
+    expect(isValidGuess("", [])).toBe(false);
+    expect(isValidGuess("   ", [])).toBe(false);
+  });
+
+  it("should return false for unknown input", () => {
+    expect(isValidGuess("Republic of Texas", ["Canada", "France"])).toBe(false);
+  });
+
+  it("should return true with matching input", () => {
+    expect(isValidGuess("Canada", ["Canada", "United States"])).toBe(true);
+  });
+
+  it("should return true with after sanitizing", () => {
+    expect(isValidGuess("Québec", ["Quebec"])).toBe(true);
+    expect(isValidGuess("Quebec", ["Québec"])).toBe(true);
+  });
+});
+
+describe("getDirectionEmoji should return the corresponding emoji for a given CardinalDirection input", () => {
+  it("should return 🎯 for equal fromGuess and toSolution", () => {
+    const province = "qc";
+    expect(getDirectionEmoji(province, province)).toBe("🎯");
+  });
+
+  it("should return ⬆️ for North", () => {
+    expect(getDirectionEmoji("mb", "nu")).toBe("⬆️");
+  });
+
+  it("should return ⬇️️ for South", () => {
+    expect(getDirectionEmoji("nu", "mb")).toBe("⬇️");
+  });
+
+  it("should return ➡️️ for East", () => {
+    expect(getDirectionEmoji("ab", "sk")).toBe("\u27A1\uFE0F"); // ➡️️
+  });
+
+  it("should return ⬅️️ for West", () => {
+    expect(getDirectionEmoji("ab", "bc")).toBe("⬅️");
+  });
+
+  it("should return ↗️ for ", () => {
+    expect(getDirectionEmoji("bc", "nu")).toBe("↗️");
+  });
+
+  it("should return ↘️ for ", () => {
+    expect(getDirectionEmoji("nt", "on")).toBe("↘️");
+  });
+
+  it("should return ↙️ for ", () => {
+    expect(getDirectionEmoji("nu", "sk")).toBe("↙️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("bc", "yt")).toBe("↖️");
+  });
+});
+
+describe("fetchSuggestions filters sanitized substrings", () => {
+  it("should return the entire array for an empty string input", () => {
+    const arr = ["The", "New", "York", "Times"];
+    expect(fetchSuggestions(arr, "")).toStrictEqual(arr);
+  });
+
+  it("should return an empty array for empty inputs", () => {
+    expect(fetchSuggestions([], "")).toStrictEqual([]);
+  });
+
+  it("should return an empty array for not matching input", () => {
+    const arr = ["abc", "def", "cba", "fed"];
+    expect(fetchSuggestions(arr, "input")).toStrictEqual([]);
+  });
+
+  it("should return the matching inputs after sanitization", () => {
+    const arr = ["Île-du-Prince-Édouard", "Eilean a' Phrionnsa", "The Island"];
+    expect(fetchSuggestions(arr, "ile")).toStrictEqual([
+      "Île-du-Prince-Édouard",
+      "Eilean a' Phrionnsa",
+    ]);
+  });
+});
+
+describe("getOkNokEmoji returns an emoji based on the boolean input", () => {
+  it("should return 🎯 for `true` argument", () => {
+    expect(getOkNokEmoji(true)).toBe("🎯");
+  });
+
+  it("should return ❌ for `false` argument", () => {
+    expect(getOkNokEmoji(false)).toBe("❌");
+  });
+});
+
+describe("shuffle shuffles an array", () => {
+  it("should shuffle the array and not change its length", () => {
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const deep: number[] = JSON.parse(JSON.stringify(arr));
+    shuffle(arr);
+    expect(arr.length).toBe(deep.length);
+    expect(arr).not.toEqual(deep);
+  });
+
+  it("should handle an empty array", () => {
+    const array: number[] = [];
+    shuffle(array);
+    expect(array).toEqual([]);
+  });
+
+  it("should handle a single-element array", () => {
+    const array = [1];
+    shuffle(array);
+    expect(array).toEqual([1]);
   });
 });

@@ -76,6 +76,13 @@ describe("test functions in dataBank", () => {
     expect(capitals.length).toBe(13);
     expect(capitals).toContain("Ville de Québec");
   });
+
+  it("should return a list of capitals", () => {
+    const capitals = getListOfCapitals();
+    expect(capitals).toBeTypeOf("object");
+    expect(capitals[0]).toBeTypeOf("string");
+    expect(capitals.length).toBe(13);
+  });
 });
 
 describe("check geo distances", () => {
@@ -97,18 +104,18 @@ describe("check geo distances", () => {
   it("check distances ab-on", () => {
     expect(
       calculateDistanceInKm(dataBank.ab.coordinates, dataBank.on.coordinates)
-    ).toBe(2131);
+    ).toBe(2114);
     expect(
       calculateDistanceInKm(dataBank.on.coordinates, dataBank.ab.coordinates)
-    ).toBe(2131);
+    ).toBe(2114);
   });
 
   it("check distances nu-ma", () => {
     expect(
       calculateDistanceInKm(dataBank.nu.coordinates, dataBank.mb.coordinates)
-    ).toBe(1714);
+    ).toBe(2009);
     expect(
       calculateDistanceInKm(dataBank.mb.coordinates, dataBank.nu.coordinates)
-    ).toBe(1714);
+    ).toBe(2009);
   });
 });
