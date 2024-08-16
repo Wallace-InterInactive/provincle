@@ -4,6 +4,7 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
+  changeHtmlItemClass,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
@@ -40,13 +41,6 @@ function GameRoundFlag({
     //setCurrentGuess("");
   }, [guesses]);
 
-  function changeHtmlItemClass(name: string, value: string) {
-    const element = document.getElementById(name);
-    if (element) {
-      element.className += ` ${value}`;
-    }
-  }
-
   //const handleGuessButtonClickedRound2 = (guess:number): void => {
   const handleFlagGuessClicked = (e: any): void => {
     // TODO: get the id of the image clicked at...
@@ -71,7 +65,7 @@ function GameRoundFlag({
     <div>
       <div className="gap-1 text-center">
         <p>
-          {t("gamePotRoundInstruction")}{" "}
+          {t("gameFlagRoundInstruction")}{" "}
           <i>{dataBank[gameState.potCode as PotCode].name}</i>
         </p>
       </div>

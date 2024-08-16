@@ -4,8 +4,8 @@ import {
   sanitizeString,
   isValidPot,
   getPotMapSvgUrl,
-  getDistanceWithUnitBySetting,
-  getDirectionEmoji,
+  getOkNokEmoji,
+  changeHtmlItemClass,
 } from "../../utils/utils.ts";
 import { GameState } from "../../types/data.ts";
 import defaultGameState from "../../utils/gameState.ts";
@@ -14,39 +14,22 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-//import { calculateAngle } from "../../utils/geo.ts";
 
 function GameRoundNeighbors({
   currentRoundStatus,
   setCurrentRoundStatus,
 }: GameRoundProps) {
   const { t } = useTranslation();
+  const idPrefix: string = "roundNbor-";
   // const t = i18n.getFixedT("LOLcalize");
 
-  //const numFlagsToShow = 6;
-  //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  //const [newGameState, setNewGameState] = useState(defaultGameState);
-  const gameState: GameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
+  const gameState: GameState = defaultGameState;
   const neighbors: string[] = dataBank[gameState.potCode as PotCode].neighbors;
 
-  // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const { potCode, currentRound } = gameState;
-
-  const maxAttempts = 3;
-  //let currentRoundStatus: GameRoundStatus = "pending";
+  const maxAttempts = neighbors.length + 2;
   const [guesses, setGuesses] = useState<string[]>([]);
-  //const [giveupCnt, setGiveupCnt] = useState<number>(0);
-
-  const addGuess = (guess: string): void => {
-    setGuesses([...guesses, guess]);
-  };
-
+  const [correctGuessNum, setCorrectGuessNum] = useState<number>(0);
   const [currentGuess, setCurrentGuess] = useState("");
-
-  //const [currentRoundStatus, setCurrentRoundStatus] =
-  //  useState<GameRoundStatus>("pending");
 
   useEffect(() => {
     if (guesses.length === maxAttempts) {
@@ -68,19 +51,26 @@ function GameRoundNeighbors({
       return;
     }
 
-    if (
-      sanitizeString(dataBank[potCode as PotCode].name) ===
-      sanitizeString(currentGuess)
-    ) {
-      console.log("You guessed it!");
-      setCurrentRoundStatus("won");
+    const isGuessCorrect = neighbors.some(
+      apot =>
+        sanitizeString(dataBank[apot as PotCode].name) ===
+        sanitizeString(currentGuess)
+    );
+    const guessedPot = getPotCode(currentGuess);
+    if (isGuessCorrect) {
+      console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
+      changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-700");
+      if (correctGuessNum == neighbors.length - 1) {
+        setCurrentRoundStatus("won");
+      }
+      setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
     } else {
       console.log("You didn't guess it!");
     }
 
-    addGuess(currentGuess);
+    setGuesses([...guesses, currentGuess]);
     console.log("currentRoundStatus:", currentRoundStatus);
   };
 
@@ -91,18 +81,23 @@ function GameRoundNeighbors({
   //const numCols = 4;
   return (
     <div>
-      {/* page part 1: the problem statement - not shown on original Worldle on 1st round
       <div className="gap-1 text-center">
-        <p>Name the province or territory</p>
+        <p>
+          {t("gameNeighborRoundInstruction")}{" "}
+          <i>{dataBank[gameState.potCode as PotCode].name}</i>
+        </p>
       </div>
-       */}
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {
-          const pot2 = dataBank[gameState.potCode as PotCode].neighbors[i];
+          const aPot = dataBank[gameState.potCode as PotCode].neighbors[i];
+          const lastRowOdd = i == neighbors.length - 1 && i % 2 == 0;
           return (
-            <div className="col-span-2">
+            <div
+              id={`guess-${idPrefix}-${aPot}`}
+              className={`col-span-2 ${lastRowOdd ? "col-start-2" : ""} border-2 rounded-xl border-gray-700`}
+            >
               <img
-                src={getPotMapSvgUrl(pot2 as PotCode)}
+                src={getPotMapSvgUrl(aPot as PotCode)}
                 alt="silhouette of a province or territory"
                 className="max-h-24 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
               />
@@ -138,53 +133,24 @@ function GameRoundNeighbors({
             </div>
           </div>
         ) : (
-          <div className="my-span-2">
-            <span
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
-            >
-              {dataBank[potCode as PotCode].name}
-            </span>
-          </div>
+          <div />
         )}
         {/* page part 3b: feedback: list of submitted guesses  */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
             const guessCode = getPotCode(guesses[i]);
-            //   {calculateDistance(potCode, guesses[i])} km
-            //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
             return guesses[i] ? (
               <div
                 key={i}
                 className="grid grid-cols-7 gap-1 text-center py-0.5"
               >
-                <div className="my-guess-div col-span-4">
+                <div className="my-guess-div col-span-6">
                   <p className="my-guess-p">{guesses[i] || "-"}</p>
                 </div>
-                <div className="my-guess-div col-span-2">
-                  <p className="my-guess-p">
-                    {getDistanceWithUnitBySetting(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
-                  </p>
-                </div>
                 <div className="my-guess-div">
-                  {/* add commented-outs here, TO BE DELETED
-                    <img src={arrowImageUrl} className={"rotate-90 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
-                     getcalculateDirectionOf(potCode, guessCode)
-                    */}
                   <p className="my-guess-p text-xl">
-                    {getDirectionEmoji(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
+                    {getOkNokEmoji(neighbors.includes(guessCode))}
                   </p>
-
-                  <div className={`-rotate-45`}>
-                    {getDirectionEmoji("mb", "nu")}
-                  </div>
-                  {/* <div className={`rotate-${Math.floor(calculateAngle(
-    dataBank[guessCode as PotCode].coordinates,dataBank[potCode as PotCode].coordinates))}`}>{getDirectionEmoji("mb","nu")}</div>  */}
                 </div>
               </div>
             ) : (

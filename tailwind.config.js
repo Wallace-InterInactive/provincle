@@ -42,6 +42,7 @@ export default {
       safelist: [
         "border-green-700",
         "border-red-600",
+        "border-gray-700",
         "bg-green-700",
         "bg-red-600",
         "bg-red-700",
@@ -49,6 +50,7 @@ export default {
         "bg-sky-700",
         "bg-custom-light-blue",
         "bg-custom-light-blue-2",
+        "text-green-700",
       ],
     },
   },
