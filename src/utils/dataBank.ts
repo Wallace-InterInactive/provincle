@@ -317,7 +317,6 @@ export function getPotNamesByLang(langCode: string): string[] {
   );
 }
 
-
 export function getPotCodeByName(name: string): string {
   for (const [key, val] of Object.entries(dataBank)) {
     if (name === val.name.en || name === val.name.fr) {
@@ -328,7 +327,7 @@ export function getPotCodeByName(name: string): string {
 }
 
 export function getListOfCapitals(): string[] {
-  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
+  return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
 }
 
 export function getCapitalsByLang(langCode: string): string[] {

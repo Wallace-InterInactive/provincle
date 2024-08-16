@@ -5,6 +5,7 @@ import dataBank, {
   getPotNamesByLang,
   getPseudoRandomPotCode,
   getTodaysPotCode,
+  getListOfCapitals,
   potCodes,
 } from "../../utils/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";

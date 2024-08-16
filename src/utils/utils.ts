@@ -1,7 +1,10 @@
 import accentsMap from "./accentsMap.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
-import dataBank, { getPotNamesByLang } from "./dataBank.ts";
+import dataBank, {
+  getPotNamesByLang,
+  getPseudoRandomNumber,
+} from "./dataBank.ts";
 
 // TODO some UI or i18n module
 const directionEmojiMap = new Map<CardinalDirection, string>([
@@ -126,7 +129,7 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     ? "green-700"
     : currentRoundStatus === "lost"
       ? "red-600"
-      : "custom-light-blue-2"; //"custom-light-blue"; // sky-700 gray-500
+      : "custom-light-blue";  //"custom-light-blue"; // sky-700 gray-500
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {

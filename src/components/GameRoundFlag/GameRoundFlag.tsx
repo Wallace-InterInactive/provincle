@@ -9,6 +9,7 @@ import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
+import { potCodes } from "../../utils/dataBank.ts";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
