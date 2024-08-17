@@ -91,7 +91,7 @@ function GameRoundNeighbors({
     <div>
       <div className="gap-1 text-center">
         <p>
-          {t("gameNeighborRoundInstruction")} <i>{tGeo(gameState.potCode)}</i>
+          {t("gameNeighborRoundInstruction")} <i>{tGeo(`of_${gameState.potCode}`)}</i>
         </p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
