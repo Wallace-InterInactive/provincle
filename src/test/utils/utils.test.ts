@@ -128,7 +128,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getColorOfStatus("pending")).toBe("custom-light-blue");
+    expect(getColorOfStatus("pending")).toBe("custom-light-blue-2");
   });
 
   it("should return the correct value when the game was lost", () => {
@@ -214,6 +214,50 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
 
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("bc", "yt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "bc")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nb")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nl")).toBe("↗️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "ns")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "sk")).toBe("↘️");
+  });
+  it("should return ↘️ for yt,mb", () => {
+    expect(getDirectionEmoji("yt", "mb")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "on")).toBe("↘️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "sk")).toBe("⬅️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "nt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "nu")).toBe("⬆️");
+  });
+  it("should return ↘️ for mb,ns", () => {
+    expect(getDirectionEmoji("mb", "ns")).toBe("↘️");
+  });
+  it("should return ↘️ for mb,pe", () => {
+    expect(getDirectionEmoji("mb", "pe")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "on")).toBe("↘️");
   });
 });
 
