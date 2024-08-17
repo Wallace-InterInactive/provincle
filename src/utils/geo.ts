@@ -1,5 +1,4 @@
-import { CardinalDirection, Coordinates, PotCode } from "../types/data.ts";
-import { directionsFromTo } from "./dataBank.ts";
+import { CardinalDirection, Coordinates } from "../types/data.ts";
 
 const earthRadiusMeters = 6371e3;
 
@@ -40,16 +39,6 @@ export function calculateDistanceInMi(
   to: Coordinates
 ): number {
   return Math.floor(calculateDistanceInMeters(from, to) / 1609.344);
-}
-
-export function calculateDirection(
-  from: PotCode,
-  to: PotCode
-): CardinalDirection {
-  if (from === to) {
-    return "*";
-  }
-  return directionsFromTo[from][to] as CardinalDirection;
 }
 
 // angles unbalanced uneven to improve "human readable directions"
