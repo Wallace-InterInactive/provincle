@@ -56,22 +56,28 @@ describe("sanitizeString replaces accented characters and converts string to low
 });
 
 describe("isValidPot only accepts existing provinces or territories", () => {
-  it("returns false when the input is undefined, null, empty or blank string", () => {
-    // @ts-ignore
-    expect(isValidPot(undefined)).toBe(false);
-    // @ts-ignore
-    expect(isValidPot(null)).toBe(false);
-    expect(isValidPot("")).toBe(false);
-    expect(isValidPot("    \t ")).toBe(false);
+  it("should return false when the input is undefined, null, empty or blank string", () => {
+    expect(isValidPot("", "en-ca")).toBe(false);
+    expect(isValidPot("    \t ", "fr-ca")).toBe(false);
   });
 
-  it("return false when the input in not a Canadian province or terrotory", () => {
-    expect(isValidPot("Wyoming")).toBe(false);
+  it("should throw an error when the input language is neither English nor French", () => {
+    expect(() => isValidPot("Nunavut", "hu")).toThrowError();
   });
 
-  it("return true when the input in a Canadian province or terrotory", () => {
-    expect(isValidPot("quebec")).toBe(true);
-    expect(isValidPot("Québec")).toBe(true);
+  it("should return false when the input in not a Canadian province or territory", () => {
+    expect(isValidPot("Wyoming", "en")).toBe(false);
+  });
+
+  it("should return true when the input in a Canadian province or territory", () => {
+    expect(isValidPot("quebec", "en")).toBe(true);
+    expect(isValidPot("Québec", "en-ca")).toBe(true);
+    expect(isValidPot("québec", "fr")).toBe(true);
+  });
+
+  it("should return false when the input is a pot but in another language", () => {
+    expect(isValidPot("Colombie-Britannique", "en-ca")).toBe(false);
+    expect(isValidPot("british columbia", "fr")).toBe(false);
   });
 });
 

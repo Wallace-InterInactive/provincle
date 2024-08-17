@@ -75,7 +75,7 @@ function GameRoundPot({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess)) {
+    if (!isValidPot(currentGuess, i18n.language)) {
       console.log("Unknown province or territory!");
       return;
     }
