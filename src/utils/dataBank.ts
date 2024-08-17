@@ -1,4 +1,4 @@
-import { DirectionsFromTo, PotCode, PotData } from "../types/data.ts";
+import { PotCode, PotData, MultiLangName } from "../types/data.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
@@ -12,9 +12,15 @@ import { DirectionsFromTo, PotCode, PotData } from "../types/data.ts";
 
 const dataBank: Record<PotCode, PotData> = {
   on: {
-    name: "Ontario",
+    name: {
+      en: "Ontario",
+      fr: "Ontario",
+    },
     neighbors: ["nu", "qc", "mb"],
-    capital: ["Toronto"],
+    capital: {
+      en: "Toronto",
+      fr: "Toronto",
+    },
     coordinates: {
       latitude: 49.25,
       longitude: -84.5,
@@ -30,9 +36,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 3840,
   },
   qc: {
-    name: "Québec",
+    name: {
+      en: "Quebec",
+      fr: "Québec",
+    },
     neighbors: ["nu", "nl", "pe", "nb", "on"],
-    capital: ["Quebec City", "Ville de Québec"],
+    capital: {
+      en: "Quebec City",
+      fr: "Ville de Québec",
+    },
     coordinates: {
       latitude: 52,
       longitude: -72,
@@ -46,9 +58,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 13000,
   },
   ns: {
-    name: "Nova Scotia",
+    name: {
+      en: "Nova Scotia",
+      fr: "Nouvelle-Écosse",
+    },
     neighbors: ["nl", "nb", "pe"],
-    capital: ["Halifax"],
+    capital: {
+      en: "Halifax",
+      fr: "Halifax",
+    },
     coordinates: {
       latitude: 45,
       longitude: -63,
@@ -62,9 +80,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 7579,
   },
   nb: {
-    name: "New Brunswick",
+    name: {
+      en: "New Brunswick",
+      fr: "Nouveau-Brunswick",
+    },
     neighbors: ["pe", "ns", "qc"],
-    capital: ["Fredericton"],
+    capital: {
+      en: "Fredericton",
+      fr: "Fredericton",
+    },
     coordinates: {
       latitude: 46.5,
       longitude: -66,
@@ -78,9 +102,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 5500,
   },
   mb: {
-    name: "Manitoba",
+    name: {
+      en: "Manitoba",
+      fr: "Manitoba",
+    },
     neighbors: ["nu", "on", "sa", "nt"],
-    capital: ["Winnipeg"],
+    capital: {
+      en: "Winnipeg",
+      fr: "Winnipeg",
+    },
     coordinates: {
       latitude: 55,
       longitude: -97,
@@ -95,9 +125,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1210,
   },
   bc: {
-    name: "British Columbia",
+    name: {
+      en: "British Columbia",
+      fr: "Colombie-Britannique",
+    },
     neighbors: ["yt", "nt", "ab"],
-    capital: ["Victoria"],
+    capital: {
+      en: "Victoria",
+      fr: "Victoria",
+    },
     coordinates: {
       latitude: 54,
       longitude: -125,
@@ -111,9 +147,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 27200,
   },
   pe: {
-    name: "Prince Edward Island",
+    name: {
+      en: "Prince Edward Island",
+      fr: "Île-du-Prince-Édouard",
+    },
     neighbors: ["qc", "nl", "ns", "nb"],
-    capital: ["Charlottetown"],
+    capital: {
+      en: "Charlottetown",
+      fr: "Charlottetown",
+    },
     coordinates: {
       latitude: 46.4,
       longitude: -63.2,
@@ -128,9 +170,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1260,
   },
   sk: {
-    name: "Saskatchewan",
+    name: {
+      en: "Saskatchewan",
+      fr: "Saskatchewan",
+    },
     neighbors: ["nt", "nu", "mb", "ab"],
-    capital: ["Regina"],
+    capital: {
+      en: "Regina",
+      fr: "Regina",
+    },
     coordinates: {
       latitude: 54,
       longitude: -106.000556,
@@ -144,9 +192,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   ab: {
-    name: "Alberta",
+    name: {
+      en: "Alberta",
+      fr: "Alberta",
+    },
     neighbors: ["nt", "sk", "bc"],
-    capital: ["Edmonton"],
+    capital: {
+      en: "Edmonton",
+      fr: "Edmonton",
+    },
     coordinates: {
       latitude: 54.5,
       longitude: -114.376667,
@@ -161,9 +215,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   nl: {
-    name: "Newfoundland and Labrador",
+    name: {
+      en: "Newfoundland and Labrador",
+      fr: "Terre-Neuve-et-Labrador",
+    },
     neighbors: ["nu", "ns", "pe", "qc"],
-    capital: ["St. John's"],
+    capital: {
+      en: "St. John's",
+      fr: "St. John's",
+    },
     coordinates: {
       latitude: 53.23,
       longitude: -59.999167,
@@ -179,9 +239,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 29000,
   },
   nt: {
-    name: "Northwest Territories",
+    name: {
+      en: "Northwest Territories",
+      fr: "Territoires du Nord-Ouest",
+    },
     neighbors: ["nu", "mb", "sa", "ab", "bc", "yt"],
-    capital: ["Yellowknife"],
+    capital: {
+      en: "Yellowknife",
+      fr: "Yellowknife",
+    },
     coordinates: {
       latitude: 67,
       longitude: -121,
@@ -195,9 +261,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 25000,
   },
   yt: {
-    name: "Yukon",
+    name: {
+      en: "Yukon",
+      fr: "Yukon",
+    },
     neighbors: ["nt", "bc"],
-    capital: ["Whitehorse"],
+    capital: {
+      en: "Whitehorse",
+      fr: "Whitehorse",
+    },
     coordinates: {
       latitude: 63,
       longitude: -135,
@@ -212,9 +284,15 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 213,
   },
   nu: {
-    name: "Nunavut",
+    name: {
+      en: "Nunavut",
+      fr: "Nunavut",
+    },
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
-    capital: ["Iqaluit"],
+    capital: {
+      en: "Iqaluit",
+      fr: "Iqaluit",
+    },
     coordinates: {
       latitude: 73,
       longitude: -93,
@@ -229,23 +307,42 @@ const dataBank: Record<PotCode, PotData> = {
   },
 };
 
-export const potCodes = Object.keys(dataBank) as PotCode[];
-export const potNames = (Object.keys(dataBank) as PotCode[]).map(
-  (potCode: PotCode) => dataBank[potCode].name
-);
-
-export function getListOfCapitals(): string[] {
-  return potCodes.map((pot: PotCode) => dataBank[pot].capital[0]);
+export function getPotNamesByLang(langCode: string): string[] {
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+    throw new Error("invalid language");
+  }
+  langCode = langCode.substring(0, 2);
+  return Object.values(dataBank).map(
+    (entry: PotData) => entry.name[langCode as keyof MultiLangName]
+  );
 }
 
-export function getPotCode(potName: string): string {
-  for (const [key, data] of Object.entries(dataBank)) {
-    if (data.name === potName) {
-      return key;
+export function getPotCodeByName(name: string): string {
+  for (const [key, val] of Object.entries(dataBank)) {
+    if (name === val.name.en || name === val.name.fr) {
+      return key as PotCode;
     }
   }
   return "invalid";
 }
+
+export function getListOfCapitals(): string[] {
+  return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
+}
+
+export function getCapitalsByLang(langCode: string): string[] {
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+    throw new Error("invalid language");
+  }
+  langCode = langCode.substring(0, 2);
+  return Object.values(dataBank).map(
+    (entry: PotData) => entry.capital[langCode as keyof MultiLangName]
+  );
+}
+
+export const potCodes = Object.keys(dataBank) as PotCode[];
+// export const potNamesEn: string[] = getPotNamesByLang("en-ca");
+// export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
 export function getCurrentDateString(): string {
   const today = new Date();
@@ -286,190 +383,5 @@ export function getPseudoRandomPotCode(n: number): string {
   const idx2 = (getTodaysPotCodeIndex() + n) % potCodes.length; // TODO: improve or delete
   return potCodes[idx2];
 }
-
-export const directionsFromTo: DirectionsFromTo = {
-  on: {
-    qc: "E",
-    ns: "E",
-    nb: "E",
-    mb: "W",
-    bc: "W",
-    pe: "W",
-    sk: "W",
-    ab: "W",
-    nl: "NE",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  qc: {
-    on: "W",
-    ns: "E",
-    nb: "E",
-    mb: "W",
-    bc: "W",
-    pe: "E",
-    sk: "W",
-    ab: "W",
-    nl: "NE",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  ns: {
-    on: "W",
-    qc: "W",
-    nb: "W",
-    mb: "W",
-    bc: "W",
-    pe: "N",
-    sk: "W",
-    ab: "W",
-    nl: "N",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  nb: {
-    on: "W",
-    qc: "W",
-    ns: "E",
-    mb: "W",
-    bc: "W",
-    pe: "NE",
-    sk: "W",
-    ab: "W",
-    nl: "N",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  mb: {
-    on: "E",
-    qc: "E",
-    ns: "E",
-    nb: "E",
-    bc: "W",
-    pe: "E",
-    sk: "W",
-    ab: "W",
-    nl: "NE",
-    nt: "NW",
-    yt: "NW",
-    nu: "N",
-  },
-  bc: {
-    on: "E",
-    qc: "E",
-    ns: "E",
-    nb: "E",
-    mb: "E",
-    pe: "E",
-    sk: "E",
-    ab: "E",
-    nl: "NE",
-    nt: "NE",
-    yt: "NW",
-    nu: "NE",
-  },
-  pe: {
-    on: "W",
-    qc: "W",
-    ns: "S",
-    nb: "SW",
-    mb: "W",
-    bc: "W",
-    sk: "W",
-    ab: "W",
-    nl: "N",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  sk: {
-    on: "E",
-    qc: "E",
-    ns: "E",
-    nb: "E",
-    mb: "E",
-    bc: "W",
-    pe: "E",
-    ab: "W",
-    nl: "NE",
-    nt: "NW",
-    yt: "NW",
-    nu: "NE",
-  },
-  ab: {
-    on: "E",
-    qc: "E",
-    ns: "E",
-    nb: "E",
-    mb: "E",
-    bc: "W",
-    pe: "E",
-    sk: "E",
-    nl: "NE",
-    nt: "N",
-    yt: "NW",
-    nu: "NE",
-  },
-  nl: {
-    on: "SW",
-    qc: "SW",
-    ns: "S",
-    nb: "S",
-    mb: "SW",
-    bc: "SW",
-    pe: "S",
-    sk: "SW",
-    ab: "SW",
-    nt: "NW",
-    yt: "NW",
-    nu: "NW",
-  },
-  nt: {
-    on: "SE",
-    qc: "SE",
-    ns: "SE",
-    nb: "SE",
-    mb: "SE",
-    bc: "SW",
-    pe: "SE",
-    sk: "SE",
-    ab: "S",
-    nl: "SE",
-    yt: "W",
-    nu: "E",
-  },
-  yt: {
-    on: "SE",
-    qc: "SE",
-    ns: "SE",
-    nb: "SE",
-    mb: "SE",
-    bc: "SE",
-    pe: "SE",
-    sk: "SE",
-    ab: "SE",
-    nl: "SE",
-    nt: "E",
-    nu: "E",
-  },
-  nu: {
-    on: "SE",
-    qc: "SE",
-    ns: "SE",
-    nb: "SE",
-    mb: "S",
-    bc: "SW",
-    pe: "SE",
-    sk: "SW",
-    ab: "SW",
-    nl: "SE",
-    nt: "W",
-    yt: "W",
-  },
-};
 
 export default dataBank;

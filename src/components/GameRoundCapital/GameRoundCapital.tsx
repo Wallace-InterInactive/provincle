@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
-import { PotCode } from "../../types/data.ts";
-import dataBank, { getListOfCapitals } from "../../utils/dataBank.ts";
+import { MultiLangName, PotCode } from "../../types/data.ts";
+import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidGuess,
@@ -13,18 +13,22 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
+import i18n from "../../utils/i18n.ts";
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
 
-  let props2: GameRoundPropsExtended = {
+  const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: dataBank[gameState.potCode as PotCode].capital[0], // TODO: why is it "capital: string[]" ?
-    possibleValues: getListOfCapitals(),
+    target:
+      dataBank[gameState.potCode as PotCode]["capital"][
+        i18n.language.substring(0, 2) as keyof MultiLangName
+      ],
+    possibleValues: getCapitalsByLang(i18n.language),
     maxAttempts: 3,
   };
-  return GameRoundTextInputWithImage(props2);
+  return GameRoundTextInputWithImage(extendedProps);
 }
 
 function GameRoundTextInputWithImage({
@@ -37,6 +41,7 @@ function GameRoundTextInputWithImage({
 }: GameRoundPropsExtended) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
+  const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [gameState] = useState(defaultGameState);
@@ -104,7 +109,7 @@ function GameRoundTextInputWithImage({
           <p>
             {t(roundInstructionId)} <br />
             <span className="font-bold italic">
-              {dataBank[gameState.potCode as PotCode].name}
+              {tGeo(`of_${gameState.potCode}`)}
             </span>
             {" ?"}
           </p>

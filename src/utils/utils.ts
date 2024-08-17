@@ -1,7 +1,10 @@
 import accentsMap from "./accentsMap.ts";
-import dataBank, { getPseudoRandomNumber, potNames } from "./dataBank.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
 import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
+import dataBank, {
+  getPotNamesByLang,
+  getPseudoRandomNumber,
+} from "./dataBank.ts";
 
 // TODO some UI or i18n module
 const directionEmojiMap = new Map<CardinalDirection, string>([
@@ -33,16 +36,22 @@ export function sanitizeString(str: string): string {
   return retVal;
 }
 
-export function isValidPot(currentGuess: string): boolean {
+export function isValidPot(currentGuess: string, langCode: string): boolean {
   if (!currentGuess) {
     return false;
   }
 
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+    throw new Error("invalid language");
+  }
+
+  langCode = langCode.substring(0, 2);
   const sanitized = sanitizeString(currentGuess);
+
   return (
     undefined !== sanitized &&
     "" !== sanitized &&
-    potNames.some(name => sanitizeString(name) === sanitized)
+    getPotNamesByLang(langCode).some(name => sanitizeString(name) === sanitized)
   );
 }
 
@@ -124,7 +133,7 @@ export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
     ? "green-700"
     : currentRoundStatus === "lost"
       ? "red-600"
-      : "custom-light-blue-2"; //"custom-light-blue"; // sky-700 gray-500
+      : "custom-light-blue"; //"custom-light-blue"; // sky-700 gray-500
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {

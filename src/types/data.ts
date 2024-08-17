@@ -31,10 +31,15 @@ export interface Coordinates {
   longitude: number;
 }
 
+export interface MultiLangName {
+  en: string;
+  fr: string;
+}
+
 export interface PotData {
-  name: string;
+  name: MultiLangName;
   neighbors: string[];
-  capital: string[];
+  capital: MultiLangName;
   coordinates: Coordinates;
   population: number;
   interestingFacts: string[];
@@ -48,9 +53,3 @@ export interface GameState {
   //  currentRoundIsFinished: boolean;
   //  rounds: Round[];
 }
-
-export type DirectionsFromTo = {
-  [key in PotCode]: {
-    [key in PotCode]?: CardinalDirection;
-  };
-};

@@ -13,7 +13,7 @@ import {
   shuffle,
 } from "../../utils/utils.ts";
 import { PotCode } from "../../types/data.ts";
-import { potNames } from "../../utils/dataBank.ts";
+import { getPotNamesByLang } from "../../utils/dataBank.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {
@@ -56,22 +56,28 @@ describe("sanitizeString replaces accented characters and converts string to low
 });
 
 describe("isValidPot only accepts existing provinces or territories", () => {
-  it("returns false when the input is undefined, null, empty or blank string", () => {
-    // @ts-ignore
-    expect(isValidPot(undefined)).toBe(false);
-    // @ts-ignore
-    expect(isValidPot(null)).toBe(false);
-    expect(isValidPot("")).toBe(false);
-    expect(isValidPot("    \t ")).toBe(false);
+  it("should return false when the input is undefined, null, empty or blank string", () => {
+    expect(isValidPot("", "en-ca")).toBe(false);
+    expect(isValidPot("    \t ", "fr-ca")).toBe(false);
   });
 
-  it("return false when the input in not a Canadian province or terrotory", () => {
-    expect(isValidPot("Wyoming")).toBe(false);
+  it("should throw an error when the input language is neither English nor French", () => {
+    expect(() => isValidPot("Nunavut", "hu")).toThrowError();
   });
 
-  it("return true when the input in a Canadian province or terrotory", () => {
-    expect(isValidPot("quebec")).toBe(true);
-    expect(isValidPot("Québec")).toBe(true);
+  it("should return false when the input in not a Canadian province or territory", () => {
+    expect(isValidPot("Wyoming", "en")).toBe(false);
+  });
+
+  it("should return true when the input in a Canadian province or territory", () => {
+    expect(isValidPot("quebec", "en")).toBe(true);
+    expect(isValidPot("Québec", "en-ca")).toBe(true);
+    expect(isValidPot("québec", "fr")).toBe(true);
+  });
+
+  it("should return false when the input is a pot but in another language", () => {
+    expect(isValidPot("Colombie-Britannique", "en-ca")).toBe(false);
+    expect(isValidPot("british columbia", "fr")).toBe(false);
   });
 });
 
@@ -121,7 +127,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getColorOfStatus("pending")).toBe("custom-light-blue-2");
+    expect(getColorOfStatus("pending")).toBe("custom-light-blue");
   });
 
   it("should return the correct value when the game was lost", () => {
@@ -144,7 +150,7 @@ describe("fetchSuggestions filters the sanitized elements correctly", () => {
   });
 
   it("should return the matching elements", () => {
-    expect(fetchSuggestions(potNames, "no")).toStrictEqual([
+    expect(fetchSuggestions(getPotNamesByLang("en"), "no")).toStrictEqual([
       "Nova Scotia",
       "Northwest Territories",
     ]);

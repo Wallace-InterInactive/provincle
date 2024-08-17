@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
+import { getPotCodeByName, getPotNamesByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
@@ -13,6 +13,7 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
+import i18n from "../../utils/i18n.ts";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -20,6 +21,7 @@ function GameRoundPot({
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
+  const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   const [newGameState, setNewGameState] = useState(defaultGameState);
@@ -73,7 +75,7 @@ function GameRoundPot({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess)) {
+    if (!isValidPot(currentGuess, i18n.language)) {
       console.log("Unknown province or territory!");
       return;
     }
@@ -83,10 +85,7 @@ function GameRoundPot({
       return;
     }
 
-    if (
-      sanitizeString(dataBank[potCode as PotCode].name) ===
-      sanitizeString(currentGuess)
-    ) {
+    if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
       console.log("You guessed it!");
       setCurrentRoundStatus("won");
     } else if (guesses.length + 1 === maxAttempts) {
@@ -126,7 +125,7 @@ function GameRoundPot({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={potNames}
+            suggestionsArray={getPotNamesByLang(i18n.language)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
@@ -149,14 +148,14 @@ function GameRoundPot({
             <span
               className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
             >
-              {dataBank[potCode as PotCode].name}
+              {tGeo(potCode)}
             </span>
           </div>
         )}
         {/* page part 3b: feedback: list of submitted guesses  */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCode(guesses[i]);
+            const guessCode = getPotCodeByName(guesses[i]);
             //   {calculateDistance(potCode, guesses[i])} km
             //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
             return guesses[i] ? (

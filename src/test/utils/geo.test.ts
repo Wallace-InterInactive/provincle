@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { CardinalDirection, Coordinates, PotCode } from "../../types/data.ts";
+import { Coordinates } from "../../types/data.ts";
 import {
-  calculateDirection,
   calculateDistanceInKm,
   calculateDistanceInMeters,
   calculateDistanceInMi,
@@ -48,57 +47,57 @@ describe("test distance calculation", () => {
   });
 });
 
-describe("test calculating the direction between from one pot to another", () => {
-  it("should return '*' when from and to are equal", () => {
-    const pot: PotCode = "sk";
-    expect(calculateDirection(pot, pot)).toBe("*");
-  });
-
-  it("should return 'S' when the solution is South to the guess", () => {
-    const from: PotCode = "nu";
-    const to: PotCode = "mb";
-    expect(calculateDirection(from, to)).toBe("S" as CardinalDirection);
-  });
-
-  it("should return 'N' when the solution is North to the guess", () => {
-    const from: PotCode = "ab";
-    const to: PotCode = "nt";
-    expect(calculateDirection(from, to)).toBe("N" as CardinalDirection);
-  });
-
-  it("should return 'W' when the solution is West to the guess", () => {
-    const from: PotCode = "sk";
-    const to: PotCode = "bc";
-    expect(calculateDirection(from, to)).toBe("W" as CardinalDirection);
-  });
-
-  it("should return 'E' when the solution is East to the guess", () => {
-    const from: PotCode = "on";
-    const to: PotCode = "qc";
-    expect(calculateDirection(from, to)).toBe("E" as CardinalDirection);
-  });
-
-  it("should return 'SW' when the solution is South to the guess", () => {
-    const from: PotCode = "nl";
-    const to: PotCode = "bc";
-    expect(calculateDirection(from, to)).toBe("SW" as CardinalDirection);
-  });
-
-  it("should return 'SE' when the solution is South to the guess", () => {
-    const from: PotCode = "nu";
-    const to: PotCode = "pe";
-    expect(calculateDirection(from, to)).toBe("SE" as CardinalDirection);
-  });
-
-  it("should return 'NW' when the solution is South to the guess", () => {
-    const from: PotCode = "qc";
-    const to: PotCode = "nt";
-    expect(calculateDirection(from, to)).toBe("NW" as CardinalDirection);
-  });
-
-  it("should return 'NE' when the solution is South to the guess", () => {
-    const from: PotCode = "on";
-    const to: PotCode = "nl";
-    expect(calculateDirection(from, to)).toBe("NE" as CardinalDirection);
-  });
-});
+// describe("test calculating the direction between from one pot to another", () => {
+//   it("should return '*' when from and to are equal", () => {
+//     const pot: PotCode = "sk";
+//     expect(calculateDirection(pot, pot)).toBe("*");
+//   });
+//
+//   it("should return 'S' when the solution is South to the guess", () => {
+//     const from: PotCode = "nu";
+//     const to: PotCode = "mb";
+//     expect(calculateDirection(from, to)).toBe("S" as CardinalDirection);
+//   });
+//
+//   it("should return 'N' when the solution is North to the guess", () => {
+//     const from: PotCode = "ab";
+//     const to: PotCode = "nt";
+//     expect(calculateDirection(from, to)).toBe("N" as CardinalDirection);
+//   });
+//
+//   it("should return 'W' when the solution is West to the guess", () => {
+//     const from: PotCode = "sk";
+//     const to: PotCode = "bc";
+//     expect(calculateDirection(from, to)).toBe("W" as CardinalDirection);
+//   });
+//
+//   it("should return 'E' when the solution is East to the guess", () => {
+//     const from: PotCode = "on";
+//     const to: PotCode = "qc";
+//     expect(calculateDirection(from, to)).toBe("E" as CardinalDirection);
+//   });
+//
+//   it("should return 'SW' when the solution is South to the guess", () => {
+//     const from: PotCode = "nl";
+//     const to: PotCode = "bc";
+//     expect(calculateDirection(from, to)).toBe("SW" as CardinalDirection);
+//   });
+//
+//   it("should return 'SE' when the solution is South to the guess", () => {
+//     const from: PotCode = "nu";
+//     const to: PotCode = "pe";
+//     expect(calculateDirection(from, to)).toBe("SE" as CardinalDirection);
+//   });
+//
+//   it("should return 'NW' when the solution is South to the guess", () => {
+//     const from: PotCode = "qc";
+//     const to: PotCode = "nt";
+//     expect(calculateDirection(from, to)).toBe("NW" as CardinalDirection);
+//   });
+//
+//   it("should return 'NE' when the solution is South to the guess", () => {
+//     const from: PotCode = "on";
+//     const to: PotCode = "nl";
+//     expect(calculateDirection(from, to)).toBe("NE" as CardinalDirection);
+//   });
+// });
