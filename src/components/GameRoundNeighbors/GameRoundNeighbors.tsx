@@ -117,7 +117,7 @@ function GameRoundNeighbors({
               >
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
-                  ? tGeo(gameState.potCode) //dataBank[neighbors[i] as PotCode].name
+                  ? tGeo(neighbors[i]) //dataBank[neighbors[i] as PotCode].name
                   : "?"}
               </p>
             </div>

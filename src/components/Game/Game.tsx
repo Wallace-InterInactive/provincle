@@ -60,8 +60,7 @@ export function Game() {
 
   function nextRoundButton() {
     return (
-      <div className="container flex flex-col items-center">
-        <br />
+      <div className="container flex flex-col items-center mt-4">
         {currentRoundStatus !== "pending" ? (
           <button
             onClick={handleNextButtonClicked}
