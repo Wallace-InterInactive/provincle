@@ -14,6 +14,7 @@ import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
+import { toastError, toastSuccess } from "../../utils/animations.ts";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -76,22 +77,20 @@ function GameRoundPot({
     event.preventDefault();
 
     if (!isValidPot(currentGuess, i18n.language)) {
-      console.log("Unknown province or territory!");
+      toastError(t("unknownPot"));
       return;
     }
 
     if (guesses.includes(currentGuess)) {
-      console.log("Already Guessed!");
+      toastError(t("alreadyGuessed"));
       return;
     }
 
     if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
-      console.log("You guessed it!");
       setCurrentRoundStatus("won");
+      toastSuccess(t("guessedIt"));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-    } else {
-      console.log("You didn't guess it!");
     }
 
     addGuess(currentGuess);
