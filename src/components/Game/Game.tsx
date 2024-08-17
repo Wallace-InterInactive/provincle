@@ -5,6 +5,7 @@ import { GameRoundStatus } from "../../types/data.ts";
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
+import GameRoundNeighbors from "../GameRoundNeighbors/GameRoundNeighbors.tsx";
 import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 
 export function Game() {
@@ -59,7 +60,7 @@ export function Game() {
 
   function nextRoundButton() {
     return (
-      <div className="container flex flex-col items-center">
+      <div className="container flex flex-col items-center mt-4">
         {currentRoundStatus !== "pending" ? (
           <button
             onClick={handleNextButtonClicked}
@@ -109,7 +110,7 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 4 ? (
-          <GameRoundFinale
+          <GameRoundNeighbors
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />

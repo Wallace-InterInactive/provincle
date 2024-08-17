@@ -21,9 +21,10 @@ i18next
           provinceOrTerritory: "Province or Territory",
           capitalCity: "Capital City",
           attempts: "Attempts",
-          gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
+          gamePotRoundInstruction: "Select the province",
           gameFlagRoundInstruction: "Select the flag",
           gameCapitalRoundInstruction: "What is the capital",
+          gameNeighborRoundInstruction: "What are the neighbors",
           gamePotRoundFinaleStats: "Stats",
         },
         geo: {
@@ -74,6 +75,7 @@ i18next
           gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
+          gameNeighborRoundInstruction: "Quelles sont les voisins",
           gamePotRoundFinaleStats: "Stats",
         },
         geo: {
