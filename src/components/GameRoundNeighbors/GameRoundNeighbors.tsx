@@ -6,6 +6,7 @@ import {
   getPotMapSvgUrl,
   getOkNokEmoji,
   changeHtmlItemClass,
+  getColorOfStatus,
 } from "../../utils/utils.ts";
 import { GameState } from "../../types/data.ts";
 import defaultGameState from "../../utils/gameState.ts";
@@ -28,6 +29,7 @@ function GameRoundNeighbors({
 
   const maxAttempts = neighbors.length + 2;
   const [guesses, setGuesses] = useState<string[]>([]);
+  const [guessedCodes, setGuessedCodes] = useState<string[]>([]);
   const [correctGuessNum, setCorrectGuessNum] = useState<number>(0);
   const [currentGuess, setCurrentGuess] = useState("");
 
@@ -59,7 +61,7 @@ function GameRoundNeighbors({
     const guessedPot = getPotCode(currentGuess);
     if (isGuessCorrect) {
       console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
-      changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-700");
+      changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
       if (correctGuessNum == neighbors.length - 1) {
         setCurrentRoundStatus("won");
       }
@@ -71,7 +73,10 @@ function GameRoundNeighbors({
     }
 
     setGuesses([...guesses, currentGuess]);
-    console.log("currentRoundStatus:", currentRoundStatus);
+    setGuessedCodes([...guessedCodes, guessedPot]);
+    console.log(
+      `guess:${guessedPot} status: ${currentRoundStatus} guesses:[${guesses}] neighbors:[${neighbors}]`
+    );
   };
 
   const handleGuessButtonClicked = (): void => {
@@ -91,6 +96,9 @@ function GameRoundNeighbors({
         {Array.from({ length: neighbors.length }, (_, i) => {
           const aPot = dataBank[gameState.potCode as PotCode].neighbors[i];
           const lastRowOdd = i == neighbors.length - 1 && i % 2 == 0;
+          const bgColor: string = guessedCodes.includes(neighbors[i])
+            ? getColorOfStatus("won")
+            : getColorOfStatus(currentRoundStatus);
           return (
             <div
               id={`guess-${idPrefix}-${aPot}`}
@@ -101,6 +109,14 @@ function GameRoundNeighbors({
                 alt="silhouette of a province or territory"
                 className="max-h-24 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
               />
+              <p
+                className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
+              >
+                {guessedCodes.includes(neighbors[i]) ||
+                currentRoundStatus !== "pending"
+                  ? dataBank[neighbors[i] as PotCode].name
+                  : "?"}
+              </p>
             </div>
           );
         })}
