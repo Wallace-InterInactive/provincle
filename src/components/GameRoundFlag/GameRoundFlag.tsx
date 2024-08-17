@@ -111,7 +111,9 @@ function GameRoundFlag({
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
-                <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
+                <p
+                  className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
+                >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? "?"
                     : tGeo(myPotList[i1])}

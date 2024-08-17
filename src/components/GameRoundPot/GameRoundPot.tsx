@@ -6,6 +6,7 @@ import {
   getPotMapSvgUrl,
   getDistanceWithUnitBySetting,
   getDirectionEmoji,
+  getColorOfStatus,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -146,13 +147,13 @@ function GameRoundPot({
         ) : (
           <div className="my-span-2">
             <span
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+              className={`my-span-3 text-black bg-${getColorOfStatus(currentRoundStatus)}`}
             >
               {tGeo(potCode)}
             </span>
           </div>
         )}
-        {/* page part 3b: feedback: list of submitted guesses  */}
+        {/* page part 3b: feedback: list of submitted guesses */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
             const guessCode = getPotCodeByName(guesses[i]);
