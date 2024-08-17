@@ -5,6 +5,7 @@ import {
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
   getOkNokEmoji,
+  getBullseyeEmoji,
   getPotFlagSvgUrl,
   getPotMapSvgUrl,
   isValidGuess,
@@ -241,12 +242,22 @@ describe("fetchSuggestions filters sanitized substrings", () => {
 });
 
 describe("getOkNokEmoji returns an emoji based on the boolean input", () => {
-  it("should return 🎯 for `true` argument", () => {
-    expect(getOkNokEmoji(true)).toBe("🎯");
+  it("should return ✅ for `true` argument", () => {
+    expect(getOkNokEmoji(true)).toBe("✅");
   });
 
   it("should return ❌ for `false` argument", () => {
     expect(getOkNokEmoji(false)).toBe("❌");
+  });
+});
+
+describe("getBullseyeEmoji returns an emoji based on the boolean input", () => {
+  it("should return 🎯 for `true` argument", () => {
+    expect(getBullseyeEmoji(true)).toBe("🎯");
+  });
+
+  it("should return ❌ for `false` argument", () => {
+    expect(getBullseyeEmoji(false)).toBe("❌");
   });
 });
 

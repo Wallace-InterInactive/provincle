@@ -110,8 +110,12 @@ export function getDirectionEmoji(
   // return directionEmojiMap.get(direction) as string;
 }
 
-export function getOkNokEmoji(isOk: boolean): string {
+export function getBullseyeEmoji(isOk: boolean): string {
   return isOk ? "🎯" : "❌";
+}
+
+export function getOkNokEmoji(isOk: boolean): string {
+  return isOk ? "✅" : "❌";
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
@@ -149,5 +153,12 @@ export function shuffle<T>(alist: T[]): void {
     const i2 = Math.floor(hash % alist.length);
     [alist[i1], alist[i2]] = [alist[i2], alist[i1]];
     hash = Math.floor(hash / 7); // todo: 7
+  }
+}
+
+export function changeHtmlItemClass(name: string, value: string) {
+  const element = document.getElementById(name);
+  if (element) {
+    element.classList.add(`${value}`);
   }
 }
