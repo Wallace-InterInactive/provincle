@@ -1,5 +1,8 @@
 import { FormEvent, useState, useEffect } from "react";
-import dataBank, { potNames, getPotCode } from "../../utils/dataBank.ts";
+import dataBank, {
+  getPotNamesByLang,
+  getPotCodeByName,
+} from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
@@ -15,12 +18,14 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
+import i18n from "../../utils/i18n.ts";
 
 function GameRoundNeighbors({
   currentRoundStatus,
   setCurrentRoundStatus,
 }: GameRoundProps) {
   const { t } = useTranslation();
+  const { t: tGeo } = useTranslation("geo");
   const idPrefix: string = "roundNbor-";
   // const t = i18n.getFixedT("LOLcalize");
 
@@ -43,7 +48,7 @@ function GameRoundNeighbors({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess)) {
+    if (!isValidPot(currentGuess, i18n.language)) {
       console.log("Unknown province or territory!");
       return;
     }
@@ -54,11 +59,9 @@ function GameRoundNeighbors({
     }
 
     const isGuessCorrect = neighbors.some(
-      apot =>
-        sanitizeString(dataBank[apot as PotCode].name) ===
-        sanitizeString(currentGuess)
+      apot => sanitizeString(tGeo(apot)) === sanitizeString(currentGuess)
     );
-    const guessedPot = getPotCode(currentGuess);
+    const guessedPot = getPotCodeByName(currentGuess);
     if (isGuessCorrect) {
       console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
       changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
@@ -89,7 +92,7 @@ function GameRoundNeighbors({
       <div className="gap-1 text-center">
         <p>
           {t("gameNeighborRoundInstruction")}{" "}
-          <i>{dataBank[gameState.potCode as PotCode].name}</i>
+          <i>{tGeo(gameState.potCode)}</i>
         </p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
@@ -114,7 +117,7 @@ function GameRoundNeighbors({
               >
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
-                  ? dataBank[neighbors[i] as PotCode].name
+                  ? tGeo(gameState.potCode) //dataBank[neighbors[i] as PotCode].name
                   : "?"}
               </p>
             </div>
@@ -130,7 +133,7 @@ function GameRoundNeighbors({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={potNames}
+            suggestionsArray={getPotNamesByLang(i18n.language)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
@@ -154,7 +157,7 @@ function GameRoundNeighbors({
         {/* page part 3b: feedback: list of submitted guesses  */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCode(guesses[i]);
+            const guessCode = getPotCodeByName(guesses[i]);
             return guesses[i] ? (
               <div
                 key={i}
