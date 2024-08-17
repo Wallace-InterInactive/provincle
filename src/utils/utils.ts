@@ -132,12 +132,14 @@ export function getPotFlagSvgUrl(potCode: PotCode): string {
   ).href;
 }
 
-export function getColorOfStatus(currentRoundStatus: GameRoundStatus): string {
+export function getColorOfStatus(
+  currentRoundStatus: GameRoundStatus /*, shade: number = 0 */
+): string {
   return currentRoundStatus === "won"
-    ? "green-700"
+    ? "custom-light-green"
     : currentRoundStatus === "lost"
-      ? "red-600"
-      : "custom-light-blue"; //"custom-light-blue"; // sky-700 gray-500
+      ? "custom-light-red"
+      : "custom-light-blue-2"; //"custom-light-blue"; // sky-700 gray-500
 }
 
 export function fetchSuggestions(elements: string[], value: string): string[] {
