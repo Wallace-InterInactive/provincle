@@ -1,4 +1,5 @@
 import { CardinalDirection, Coordinates } from "../types/data.ts";
+import { latLonToMercator } from "./mercator.ts";
 
 const earthRadiusMeters = 6371e3;
 
@@ -80,7 +81,10 @@ export function toDegrees(radians: number): number {
   return radians * (180 / Math.PI);
 }
 
-export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
+export function calculateAngleGeo(
+  pos1: Coordinates,
+  pos2: Coordinates
+): number {
   const lat1 = toRadians(pos1.latitude);
   const lat2 = toRadians(pos2.latitude);
   const deltaLon = toRadians(pos2.longitude - pos1.longitude);
@@ -92,4 +96,15 @@ export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
 
   const bearing = Math.atan2(y, x);
   return (toDegrees(bearing) + 360) % 360; // Normalize to 0-360 degrees
+}
+
+export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
+  if (pos1 == pos2) {
+    return -1;
+  }
+  const c1 = latLonToMercator(pos1.latitude, pos1.longitude);
+  const c2 = latLonToMercator(pos2.latitude, pos2.longitude);
+  const dx = c2.x - c1.x;
+  const dy = c2.y - c1.y;
+  return Math.floor((toDegrees(Math.atan2(dx, dy)) + 360) % 360);
 }
