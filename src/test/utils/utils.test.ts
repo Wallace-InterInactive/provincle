@@ -127,7 +127,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
-    expect(getColorOfStatus("pending")).toBe("custom-light-blue");
+    expect(getColorOfStatus("pending")).toBe("custom-light-blue-2");
   });
 
   it("should return the correct value when the game was lost", () => {
