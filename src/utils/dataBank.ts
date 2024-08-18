@@ -9,6 +9,7 @@ import { PotCode, PotData, MultiLangName } from "../types/data.ts";
 // - https://www.cntraveler.com/stories/2013-06-10/mount-thor-canada-maphead-ken-jennings
 // - https://history.howstuffworks.com/world-history/canadian-provinces.htm
 // - https://en.wikipedia.org/wiki/List_of_highest_points_of_Canadian_provinces_and_territories
+// - https://www.google.com/maps/search/?api=1&query=<lat>,<lng>
 
 const dataBank: Record<PotCode, PotData> = {
   on: {
@@ -180,7 +181,7 @@ const dataBank: Record<PotCode, PotData> = {
       fr: "Regina",
     },
     coordinates: {
-      latitude: 54,
+      latitude: 54.5,
       longitude: -106.000556,
     },
     population: 1231043,

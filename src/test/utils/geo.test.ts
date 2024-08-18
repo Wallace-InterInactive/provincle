@@ -21,7 +21,7 @@ describe("test distance calculation", () => {
   it("should return the distance in meters between two pots", () => {
     const from: Coordinates = dataBank.bc.coordinates;
     const to: Coordinates = dataBank.sk.coordinates;
-    expect(calculateDistanceInMeters(from, to)).toBeCloseTo(1238045, 0);
+    expect(calculateDistanceInMeters(from, to)).toBeCloseTo(1231804, 0);
   });
 
   it("should return 0 for the distance in kilometers for self", () => {
@@ -37,13 +37,13 @@ describe("test distance calculation", () => {
   it("should return the distance between two pots in kilometers", () => {
     const from: Coordinates = dataBank.bc.coordinates;
     const to: Coordinates = dataBank.sk.coordinates;
-    expect(calculateDistanceInKm(from, to)).toBeCloseTo(1238, 0);
+    expect(calculateDistanceInKm(from, to)).toBeCloseTo(1231, 0);
   });
 
   it("should return the distance between two pots in miles", () => {
     const from: Coordinates = dataBank.bc.coordinates;
     const to: Coordinates = dataBank.sk.coordinates;
-    expect(calculateDistanceInMi(from, to)).toBeCloseTo(769, 0);
+    expect(calculateDistanceInMi(from, to)).toBeCloseTo(765, 0);
   });
 });
 
