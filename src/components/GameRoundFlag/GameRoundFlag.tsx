@@ -49,6 +49,9 @@ function GameRoundFlag({
     const guessedItem = `${e.target.id}`;
     const winning = `guess-${gameState.potCode}` == guessedItem;
     console.log(`Guess button clicked: $lt;${e.target.id}??&gt;`);
+    if (currentRoundStatus !== "pending") {
+      return;
+    }
 
     console.log(`current guess ${guessedItem}`);
     addGuess(guessedItem.split("-")[1]);
