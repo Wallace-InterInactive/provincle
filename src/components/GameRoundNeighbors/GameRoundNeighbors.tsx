@@ -11,7 +11,7 @@ import {
   changeHtmlItemClass,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import { GameState } from "../../types/data.ts";
+import { GameState, MultiLangName } from "../../types/data.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -91,7 +91,8 @@ function GameRoundNeighbors({
     <div>
       <div className="gap-1 text-center">
         <p>
-          {t("gameNeighborRoundInstruction")} <i>{tGeo(`of_${gameState.potCode}`)}</i>
+          {t("gameNeighborRoundInstruction")}{" "}
+          <i>{tGeo(`of_${gameState.potCode}`)}</i>
         </p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
@@ -153,24 +154,37 @@ function GameRoundNeighbors({
         ) : (
           <div />
         )}
-        {/* page part 3b: feedback: list of submitted guesses  */}
+        {/* page part 3b: feedback: list of submitted guesses  
+          {Array.from({ length: maxAttempts }, (_, i) => { .. );
+        */}
         <div>
-          {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCodeByName(guesses[i]);
-            return guesses[i] ? (
-              <div
-                key={i}
-                className="grid grid-cols-7 gap-1 text-center py-0.5"
-              >
-                <div className="my-guess-div col-span-6">
-                  <p className="my-guess-p">{guesses[i] || "-"}</p>
+          {Array.from({ length: 2 }, (_, i) => {
+            const guessFails: string[] = guessedCodes.filter(
+              pot => !neighbors.includes(pot)
+            );
+            const guessCode: string = guessFails[i]; // guessedCodes[i]
+            return guessFails[i] ? (
+              !neighbors.includes(guessCode) ? (
+                <div
+                  key={i}
+                  className="grid grid-cols-7 gap-1 text-center py-0.5"
+                >
+                  <div className="my-guess-div col-span-6">
+                    <p className="my-guess-p">
+                      {dataBank[guessCode as PotCode].name[
+                        i18n.language as keyof MultiLangName
+                      ] || "-"}
+                    </p>
+                  </div>
+                  <div className="my-guess-div">
+                    <p className="my-guess-p text-xl">
+                      {getOkNokEmoji(neighbors.includes(guessCode))}
+                    </p>
+                  </div>
                 </div>
-                <div className="my-guess-div">
-                  <p className="my-guess-p text-xl">
-                    {getOkNokEmoji(neighbors.includes(guessCode))}
-                  </p>
-                </div>
-              </div>
+              ) : (
+                <></>
+              )
             ) : (
               <div
                 key={i}
