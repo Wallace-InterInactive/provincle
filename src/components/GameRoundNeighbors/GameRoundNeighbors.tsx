@@ -164,27 +164,23 @@ function GameRoundNeighbors({
             );
             const guessCode: string = guessFails[i]; // guessedCodes[i]
             return guessFails[i] ? (
-              !neighbors.includes(guessCode) ? (
-                <div
-                  key={i}
-                  className="grid grid-cols-7 gap-1 text-center py-0.5"
-                >
-                  <div className="my-guess-div col-span-6">
-                    <p className="my-guess-p">
-                      {dataBank[guessCode as PotCode].name[
-                        i18n.language as keyof MultiLangName
-                      ] || "-"}
-                    </p>
-                  </div>
-                  <div className="my-guess-div">
-                    <p className="my-guess-p text-xl">
-                      {getOkNokEmoji(neighbors.includes(guessCode))}
-                    </p>
-                  </div>
+              <div
+                key={i}
+                className="grid grid-cols-7 gap-1 text-center py-0.5"
+              >
+                <div className="my-guess-div col-span-6">
+                  <p className="my-guess-p">
+                    {dataBank[guessCode as PotCode].name[
+                      i18n.language as keyof MultiLangName
+                    ] || "-"}
+                  </p>
                 </div>
-              ) : (
-                <></>
-              )
+                <div className="my-guess-div">
+                  <p className="my-guess-p text-xl">
+                    {getOkNokEmoji(neighbors.includes(guessCode))}
+                  </p>
+                </div>
+              </div>
             ) : (
               <div
                 key={i}
