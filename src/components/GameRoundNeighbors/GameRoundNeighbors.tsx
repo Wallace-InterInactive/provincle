@@ -129,7 +129,7 @@ function GameRoundNeighbors({
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
                   ? tGeo(neighbors[i]) //dataBank[neighbors[i] as PotCode].name
-                  : "?"}
+                  : t("guessVerb")}
               </p>
             </div>
           );
@@ -180,15 +180,17 @@ function GameRoundNeighbors({
           <div />
         )}
         {/* page part 3b: feedback: list of submitted guesses  
-          {Array.from({ length: maxAttempts }, (_, i) => { .. );
-        */}
-        <div>
-          {Array.from({ length: 2 }, (_, i) => {
             const guessFails: string[] = guessedCodes.filter(
               pot => !neighbors.includes(pot)
             );
+          {Array.from({ length: 2 }, (_, i) => {
             const guessCode: string = guessFails[i]; // guessedCodes[i]
-            return guessFails[i] ? (
+          return guessFails[i] ? (
+          */}
+        <div>
+          {Array.from({ length: maxAttempts }, (_, i) => {
+            const guessCode: string = guessedCodes[i]; // guessedCodes[i]
+            return guessedCodes[i] ? (
               <div
                 key={i}
                 className="grid grid-cols-7 gap-1 text-center py-0.5"

@@ -112,7 +112,7 @@ function GameRoundFlag({
                   className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
-                    ? "?"
+                    ? t("guessVerb")
                     : tGeo(myPotList[i1])}
                 </p>
               </div>
