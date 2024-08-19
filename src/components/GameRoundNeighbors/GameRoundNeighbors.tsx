@@ -37,13 +37,14 @@ function GameRoundNeighbors({
   const [guessedCodes, setGuessedCodes] = useState<string[]>([]);
   const [correctGuessNum, setCorrectGuessNum] = useState<number>(0);
   const [currentGuess, setCurrentGuess] = useState("");
+  const [zoomedPot, setZoomedPot] = useState<string>("");
 
   useEffect(() => {
     if (guesses.length === maxAttempts) {
       console.log(`Game over! (${currentRoundStatus})`);
     }
     setCurrentGuess("");
-  }, [guesses]);
+  }, [guesses, zoomedPot]);
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -86,6 +87,15 @@ function GameRoundNeighbors({
     console.log("Guess button clicked.");
   };
 
+  const toggleZoom = (aPot: string) => {
+    console.log(`zoom: pot:${aPot} current: ${zoomedPot}`);
+    if (zoomedPot === aPot) {
+      setZoomedPot("");
+    } else {
+      setZoomedPot(aPot);
+    }
+  };
+
   //const numCols = 4;
   return (
     <div>
@@ -105,7 +115,8 @@ function GameRoundNeighbors({
           return (
             <div
               id={`guess-${idPrefix}-${aPot}`}
-              className={`col-span-2 ${lastRowOdd ? "col-start-2" : ""} border-2 rounded-xl border-gray-700`}
+              className={`cursor-zoom-in col-span-2 ${lastRowOdd ? "col-start-2" : ""} border-2 rounded-xl border-gray-700`}
+              onClick={() => toggleZoom(aPot)}
             >
               <img
                 src={getPotMapSvgUrl(aPot as PotCode)}
@@ -124,6 +135,20 @@ function GameRoundNeighbors({
           );
         })}
       </div>
+      {zoomedPot !== "" ? (
+        <div
+          className="fixed top-1/4 left-1/2 w-52 transform -translate-x-1/2 bg-blue-500 text-white p-4 rounded-2xl shadow-lg z-50"
+          onClick={() => toggleZoom(zoomedPot)}
+        >
+          <img
+            src={getPotMapSvgUrl(zoomedPot as PotCode)}
+            alt="silhouette of a province or territory"
+            className="max-h-48 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       <form
         onSubmit={handleFormSubmission}
         className={`flex flex-col py-0.5 ${currentRoundStatus !== "pending" ? "hidden" : ""}`}
