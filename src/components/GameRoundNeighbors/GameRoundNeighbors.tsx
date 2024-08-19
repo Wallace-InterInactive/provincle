@@ -137,13 +137,13 @@ function GameRoundNeighbors({
       </div>
       {zoomedPot !== "" ? (
         <div
-          className="fixed top-1/4 left-1/2 w-52 transform -translate-x-1/2 bg-blue-500 text-white p-4 rounded-2xl shadow-lg z-50"
+          className="fixed bottom-1/2 left-1/2 w-64 transform -translate-x-1/2 bg-custom-light-blue-2 text-white p-4 border-4 rounded-2xl shadow-lg z-50"
           onClick={() => toggleZoom(zoomedPot)}
         >
           <img
             src={getPotMapSvgUrl(zoomedPot as PotCode)}
             alt="silhouette of a province or territory"
-            className="max-h-48 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
+            className="max-h-64 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
           />
         </div>
       ) : (
