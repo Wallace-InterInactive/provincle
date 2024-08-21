@@ -48,7 +48,6 @@ function GameRoundFlag({
     // TODO: get the id of the image clicked at...
     const guessedItem = `${e.target.id}`;
     const guess = guessedItem.split("-")[1];
-    const winning = `guess-${gameState.potCode}` == guessedItem;
     console.log(`Guess button clicked: '${e.target.id}'`);
     if (currentRoundStatus !== "pending" || guesses.includes(guess)) {
       return;
