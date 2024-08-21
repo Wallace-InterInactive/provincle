@@ -3,7 +3,7 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
-  changeHtmlItemClass,
+  //changeHtmlItemClass,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
@@ -47,9 +47,10 @@ function GameRoundFlag({
   const handleFlagGuessClicked = (e: any): void => {
     // TODO: get the id of the image clicked at...
     const guessedItem = `${e.target.id}`;
+    const guess = guessedItem.split("-")[1];
     const winning = `guess-${gameState.potCode}` == guessedItem;
-    console.log(`Guess button clicked: $lt;${e.target.id}??&gt;`);
-    if (currentRoundStatus !== "pending") {
+    console.log(`Guess button clicked: '${e.target.id}'`);
+    if (currentRoundStatus !== "pending" || guesses.includes(guess)) {
       return;
     }
 
@@ -60,10 +61,7 @@ function GameRoundFlag({
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
     }
-    changeHtmlItemClass(
-      guessedItem,
-      `border-4 border-${winning ? "green-500" : "red-500"}`
-    ); // border-${getColorOfStatus("won")}
+    // changeHtmlItemClass( guessedItem, border-won-lost )
   };
 
   return (
@@ -109,7 +107,7 @@ function GameRoundFlag({
                   id={`guess-${aPot}`}
                 />
                 <p
-                  className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
+                  className={`visible h-6 rounded-2xl -m-1 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? t("guessVerb")
