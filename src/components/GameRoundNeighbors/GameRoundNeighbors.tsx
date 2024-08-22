@@ -2,6 +2,7 @@ import { FormEvent, useState, useEffect } from "react";
 import dataBank, {
   getPotNamesByLang,
   getPotCodeByName,
+  getPotName,
 } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -11,7 +12,7 @@ import {
   changeHtmlItemClass,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import { GameState, MultiLangName } from "../../types/data.ts";
+import { GameState } from "../../types/data.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -103,6 +104,7 @@ function GameRoundNeighbors({
         <p>
           {t("gameNeighborRoundInstruction")}{" "}
           <i>{tGeo(`of_${gameState.potCode}`)}</i>
+          {"?"}
         </p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
@@ -128,7 +130,7 @@ function GameRoundNeighbors({
               >
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
-                  ? tGeo(neighbors[i]) //dataBank[neighbors[i] as PotCode].name
+                  ? tGeo(neighbors[i])
                   : t("guessVerb")}
               </p>
             </div>
@@ -179,14 +181,6 @@ function GameRoundNeighbors({
         ) : (
           <div />
         )}
-        {/* page part 3b: feedback: list of submitted guesses  
-            const guessFails: string[] = guessedCodes.filter(
-              pot => !neighbors.includes(pot)
-            );
-          {Array.from({ length: 2 }, (_, i) => {
-            const guessCode: string = guessFails[i]; // guessedCodes[i]
-          return guessFails[i] ? (
-          */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
             const guessCode: string = guessedCodes[i]; // guessedCodes[i]
@@ -197,9 +191,7 @@ function GameRoundNeighbors({
               >
                 <div className="my-guess-div col-span-6">
                   <p className="my-guess-p">
-                    {dataBank[guessCode as PotCode].name[
-                      i18n.language as keyof MultiLangName
-                    ] || "-"}
+                    {getPotName(guessCode as PotCode) || "-"}
                   </p>
                 </div>
                 <div className="my-guess-div">

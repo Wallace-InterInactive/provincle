@@ -69,6 +69,7 @@ function GameRoundFlag({
         <p>
           {t("gameFlagRoundInstruction")}{" "}
           <i>{tGeo(`of_${gameState.potCode}`)}</i>
+          {"!"}
         </p>
       </div>
       <div>

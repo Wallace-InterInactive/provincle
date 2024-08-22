@@ -112,7 +112,7 @@ function GameRoundTextInputWithImage({
             <span className="font-bold italic">
               {tGeo(`of_${gameState.potCode}`)}
             </span>
-            {" ?"}
+            {"?"}
           </p>
         </div>
       )}
