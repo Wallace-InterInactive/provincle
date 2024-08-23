@@ -45,7 +45,7 @@ export function Game() {
     setCurrentRound(currentRound + 1);
     setCurrentRoundStatus("pending");
     //setGuesses([]);  // -- rounds might have to reset themselves
-    toast.dismiss(); // dismiss actively showing toasts from previous the round
+    toast.dismiss(); // dismiss actively showing toasts from the previous round
     console.log(`lovas: round: ${currentRound}, status: ${currentRoundStatus}`);
   };
 

@@ -1,11 +1,9 @@
 import { FormEvent, useState, useEffect } from "react";
-import { getPotCodeByName, getPotNamesByLang } from "../../utils/dataBank.ts";
+import { getPotNamesByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
   getPotMapSvgUrl,
-  getDistanceWithUnitBySetting,
-  getDirectionEmoji,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -15,6 +13,7 @@ import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
 import { toastError, toastSuccess } from "../../utils/animations.ts";
+import { Guesses } from "../Guesses/Guesses.tsx";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -132,71 +131,12 @@ function GameRoundPot({
           />
         </div>
       </form>
-      {/* page part 3a: feedback part, won/lost/etc */}
-      <div>
-        {currentRoundStatus === "pending" ? (
-          <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-            <div className="my-div-1">
-              <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="my-span-2">
-            <span
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
-            >
-              {tGeo(potCode)}
-            </span>
-          </div>
-        )}
-        {/* page part 3b: feedback: list of submitted guesses  */}
-        <div>
-          {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCodeByName(guesses[i]);
-            //   {calculateDistance(potCode, guesses[i])} km
-            //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
-            return guesses[i] ? (
-              <div
-                key={i}
-                className="grid grid-cols-7 gap-1 text-center py-0.5"
-              >
-                <div className="my-guess-div col-span-4">
-                  <p className="my-guess-p">{guesses[i] || "-"}</p>
-                </div>
-                <div className="my-guess-div col-span-2">
-                  <p className="my-guess-p">
-                    {getDistanceWithUnitBySetting(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
-                  </p>
-                </div>
-                <div className="my-guess-div">
-                  {/* add commented-outs here, TO BE DELETED
-                    <img src={arrowImageUrl} className={"rotate-90 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
-                     getcalculateDirectionOf(potCode, guessCode)
-                    */}
-                  <p className="my-guess-p text-xl">
-                    {getDirectionEmoji(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div
-                key={i}
-                className="grid grid-cols-6 gap-1 text-center py-0.5"
-              >
-                <div className="my-div-2"></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <Guesses
+        currentRoundStatus={currentRoundStatus}
+        guesses={guesses}
+        maxAttempts={maxAttempts}
+        solutionCode={potCode as PotCode}
+      />
     </div>
   );
 }
