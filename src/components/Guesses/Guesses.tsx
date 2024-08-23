@@ -9,7 +9,12 @@ export interface GuessesProps {
   solutionCode: PotCode;
 }
 
-export function Guesses({ currentRoundStatus, guesses, maxAttempts, solutionCode }: GuessesProps) {
+export function Guesses({
+  currentRoundStatus,
+  guesses,
+  maxAttempts,
+  solutionCode,
+}: GuessesProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
@@ -19,24 +24,29 @@ export function Guesses({ currentRoundStatus, guesses, maxAttempts, solutionCode
       {currentRoundStatus === "pending" ? (
         <div className="grid grid-cols-6 gap-1 text-center py-0.5">
           <div className="my-div-1">
-              <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
-              </span>
+            <span className="opacity-70">
+              {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
+            </span>
           </div>
         </div>
       ) : (
         <div className="my-span-2">
-            <span
-              // TODO: use custom class name for colors
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
-            >
-              {tGeo(solutionCode)}
-            </span>
+          <span
+            // TODO: use custom class name for colors
+            className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+          >
+            {tGeo(solutionCode)}
+          </span>
         </div>
       )}
       <div>
         {Array.from({ length: maxAttempts }, (_, i) => {
-          return <GuessRow guess={guesses[i]} solutionCode={solutionCode as PotCode} />;
+          return (
+            <GuessRow
+              guess={guesses[i]}
+              solutionCode={solutionCode as PotCode}
+            />
+          );
         })}
       </div>
     </div>

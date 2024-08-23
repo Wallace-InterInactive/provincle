@@ -1,5 +1,8 @@
 import { PotCode } from "../../types/data.ts";
-import { getDirectionEmoji, getDistanceWithUnitBySetting } from "../../utils/utils.ts";
+import {
+  getDirectionEmoji,
+  getDistanceWithUnitBySetting,
+} from "../../utils/utils.ts";
 import { getPotCodeByName } from "../../utils/dataBank.ts";
 import { useEffect, useState } from "react";
 import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
