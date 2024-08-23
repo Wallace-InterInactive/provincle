@@ -7,6 +7,7 @@ export interface GuessesProps {
   guesses: string[];
   maxAttempts: number;
   solutionCode: PotCode;
+  guessNum: number;
 }
 
 export function Guesses({
@@ -14,6 +15,7 @@ export function Guesses({
   guesses,
   maxAttempts,
   solutionCode,
+  guessNum,
 }: GuessesProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
@@ -25,7 +27,7 @@ export function Guesses({
         <div className="grid grid-cols-6 gap-1 text-center py-0.5">
           <div className="my-div-1">
             <span className="opacity-70">
-              {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
+              {t("guessNoun")} {guessNum} / {maxAttempts}
             </span>
           </div>
         </div>

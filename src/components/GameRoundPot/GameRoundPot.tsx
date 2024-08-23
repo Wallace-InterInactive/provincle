@@ -58,23 +58,23 @@ function GameRoundPot({
   };
 
   const maxAttempts = 3;
-  //let currentRoundStatus: GameRoundStatus = "pending";
-  const [guesses, setGuesses] = useState<string[]>([]);
-  //const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
+  const [guessNum, setGuessNum] = useState<number>(1);
+  const incGuessNum = (): void => {
+    setGuessNum(guessNum + 1);
+  };
+
+  const [guesses, setGuesses] = useState<string[]>([]);
   const addGuess = (guess: string): void => {
     setGuesses([...guesses, guess]);
   };
 
   const [currentGuess, setCurrentGuess] = useState("");
 
-  //const [currentRoundStatus, setCurrentRoundStatus] =
-  //  useState<GameRoundStatus>("pending");
-
   useEffect(() => {
-    if (guesses.length === maxAttempts) {
-      console.log(`Game over! (${currentRoundStatus})`);
-    }
+    // if (guesses.length === maxAttempts) {
+    //   console.log(`Game over! (${currentRoundStatus})`);
+    // }
     setCurrentGuess("");
   }, [guesses]);
 
@@ -104,7 +104,10 @@ function GameRoundPot({
     }
 
     addGuess(currentGuess);
-    console.log("currentRoundStatus:", currentRoundStatus);
+    setTimeout(() => {
+      incGuessNum();
+    }, SQUARE_ANIMATION_LENGTH * squares.length);
+    // console.log("currentRoundStatus:", currentRoundStatus);
   };
 
   const handleGuessButtonClicked = (): void => {
@@ -147,6 +150,7 @@ function GameRoundPot({
         guesses={guesses}
         maxAttempts={maxAttempts}
         solutionCode={potCode as PotCode}
+        guessNum={guessNum}
       />
     </div>
   );
