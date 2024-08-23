@@ -12,8 +12,9 @@ import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
-import { toastError, toastSuccess } from "../../utils/animations.ts";
+import { SQUARE_ANIMATION_LENGTH, squares, toastError, toastSuccess } from "../../utils/animations.ts";
 import { Guesses } from "../Guesses/Guesses.tsx";
+import confetti from "canvas-confetti";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -86,10 +87,15 @@ function GameRoundPot({
     }
 
     if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
-      setCurrentRoundStatus("won");
-      toastSuccess(t("guessedIt"));
+      setTimeout(() => {
+        setCurrentRoundStatus("won");
+        toastSuccess(t("guessedIt"));
+        confetti();
+      }, SQUARE_ANIMATION_LENGTH * squares.length);
     } else if (guesses.length + 1 === maxAttempts) {
-      setCurrentRoundStatus("lost");
+      setTimeout(() => {
+        setCurrentRoundStatus("lost");
+      }, SQUARE_ANIMATION_LENGTH * squares.length);
     }
 
     addGuess(currentGuess);

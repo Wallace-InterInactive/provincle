@@ -2,6 +2,7 @@ import { PotCode } from "../../types/data.ts";
 import { getDirectionEmoji, getDistanceWithUnitBySetting } from "../../utils/utils.ts";
 import { getPotCodeByName } from "../../utils/dataBank.ts";
 import { useEffect, useState } from "react";
+import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
 
 export interface GuessRowProps {
   guess: string;
@@ -12,9 +13,6 @@ export function GuessRow({ guess, solutionCode }: GuessRowProps) {
   const guessCode = getPotCodeByName(guess);
 
   const [animationIsActive, setAnimationIsActive] = useState<boolean>(false);
-
-  const SQUARE_ANIMATION_LENGTH = 250;
-  const squares = ["🟩", "🟩", "🟩", "🟨", "🟧", "⬛️"];
 
   useEffect(() => {
     if (!guess) {

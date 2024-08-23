@@ -1,5 +1,8 @@
 import { Bounce, toast } from "react-toastify";
 
+export const SQUARE_ANIMATION_LENGTH = 250;
+export const squares = ["🟩", "🟩", "🟩", "🟨", "🟧", "⬛️"];
+
 export function toastError(text: string): void {
   toast.error(text, {
     position: "top-center",
