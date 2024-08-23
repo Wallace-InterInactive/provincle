@@ -3,6 +3,7 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
+  changeHtmlItemClass,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
@@ -41,13 +42,6 @@ function GameRoundFlag({
     }
     //setCurrentGuess("");
   }, [guesses]);
-
-  function changeHtmlItemClass(name: string, value: string) {
-    const element = document.getElementById(name);
-    if (element) {
-      element.className += ` ${value}`;
-    }
-  }
 
   //const handleGuessButtonClickedRound2 = (guess:number): void => {
   const handleFlagGuessClicked = (e: any): void => {
@@ -107,11 +101,13 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`max-h-20 m-auto my-5 h-20 ${myBorder}`}
+                  className={`max-h-24 m-auto my-5 h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
-                <p className={`visible rounded-2xl -m-1 bg-${bgColor}`}>
+                <p
+                  className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
+                >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? "?"
                     : tGeo(myPotList[i1])}

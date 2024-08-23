@@ -6,6 +6,7 @@ import {
   isValidGuess,
   getPotMapSvgUrl,
   getOkNokEmoji,
+  getColorOfStatus,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -154,7 +155,7 @@ function GameRoundTextInputWithImage({
         ) : (
           <div className="my-span-2">
             <span
-              className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+              className={`my-span-3 text-black  bg-${getColorOfStatus(currentRoundStatus)}`}
             >
               {target}
             </span>

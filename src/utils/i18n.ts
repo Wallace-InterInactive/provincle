@@ -22,9 +22,10 @@ i18next
           capitalCity: "Capital City",
           attempts: "Attempts",
           // game round instructions
-          gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
+          gamePotRoundInstruction: "Select the province", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Select the flag",
           gameCapitalRoundInstruction: "What is the capital",
+          gameNeighborRoundInstruction: "What are the neighbors",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Unknown province ot territory!",
@@ -81,6 +82,7 @@ i18next
           gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
+          gameNeighborRoundInstruction: "Quelles sont les voisins",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Province ou territoire inconnu!",

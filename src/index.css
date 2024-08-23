@@ -22,7 +22,7 @@ footer {
   @apply mx-1 my-1 px-4 justify-center items-center text-base text-center overflow-hidden gap-1 py-4 w-full h-full rounded-md;
 }
 .my-span-3 {
-  @apply col-span-1 justify-center font-bold border border rounded-md mx-4 my-4 px-2 py-2 text-white;
+  @apply col-span-1 justify-center border border rounded-md mx-4 my-4 px-2 py-2;
 }
 
 .my-guess-open {
