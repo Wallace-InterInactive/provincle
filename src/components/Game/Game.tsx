@@ -102,7 +102,7 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 2 ? (
-          <GameRoundFlag
+          <GameRoundNeighbors
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
@@ -112,7 +112,7 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
           />
         ) : currentRound === 4 ? (
-          <GameRoundNeighbors
+          <GameRoundFlag
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
           />

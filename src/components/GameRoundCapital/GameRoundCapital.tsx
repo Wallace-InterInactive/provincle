@@ -15,7 +15,13 @@ import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
-import { toastError, toastSuccess } from "../../utils/animations.ts";
+import {
+  SQUARE_ANIMATION_LENGTH,
+  squares,
+  toastError,
+  toastSuccess,
+} from "../../utils/animations.ts";
+import confetti from "canvas-confetti";
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
@@ -74,15 +80,16 @@ function GameRoundTextInputWithImage({
 
     setGuesses([...guesses, currentGuess]);
 
-    if (
-      //sanitizeString(dataBank[potCode as PotCode].capital[0]) ===
-      sanitizeString(target) === sanitizeString(currentGuess)
-    ) {
-      console.log(`You guessed it (${currentGuess})!`);
-      setCurrentRoundStatus("won");
+    //sanitizeString(dataBank[potCode as PotCode].capital[0]) ===
+    if (sanitizeString(target) === sanitizeString(currentGuess)) {
       toastSuccess(t("guessedIt"));
+      confetti();
+      setCurrentRoundStatus("won");
     } else if (guesses.length + 1 === maxAttempts) {
-      setCurrentRoundStatus("lost");
+      //setCurrentRoundStatus("lost");
+      setTimeout(() => {
+        setCurrentRoundStatus("lost");
+      }, SQUARE_ANIMATION_LENGTH * squares.length);
     } /* else {
       console.log(`You didn't guess it! ${currentGuess}.${target}`);
     } */

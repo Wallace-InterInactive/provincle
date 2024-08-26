@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
+import confetti from "canvas-confetti";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
@@ -57,6 +58,7 @@ function GameRoundFlag({
     addGuess(guessedItem.split("-")[1]);
     if (`guess-${gameState.potCode}` == guessedItem) {
       setCurrentRoundStatus("won");
+      confetti();
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
     }

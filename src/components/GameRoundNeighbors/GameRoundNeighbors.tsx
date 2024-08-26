@@ -20,6 +20,8 @@ import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
+//import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
+import confetti from "canvas-confetti";
 
 function GameRoundNeighbors({
   currentRoundStatus,
@@ -68,7 +70,10 @@ function GameRoundNeighbors({
       console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
       changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
       if (correctGuessNum == neighbors.length - 1) {
+        confetti();
         setCurrentRoundStatus("won");
+        // setTimeout(() => {
+        // }, SQUARE_ANIMATION_LENGTH * squares.length);
       }
       setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
