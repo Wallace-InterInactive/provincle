@@ -1,4 +1,5 @@
 import { PotCode, PotData, MultiLangName } from "../types/data.ts";
+import i18n from "../utils/i18n.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
@@ -316,6 +317,18 @@ export function getPotNamesByLang(langCode: string): string[] {
   return Object.values(dataBank).map(
     (entry: PotData) => entry.name[langCode as keyof MultiLangName]
   );
+}
+
+export function getPotNameByLang(potCode: PotCode, langCode: string): string {
+  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+    throw new Error("invalid language");
+  }
+  langCode = langCode.substring(0, 2);
+  return dataBank[potCode as PotCode].name[langCode as keyof MultiLangName];
+}
+
+export function getPotName(potCode: PotCode): string {
+  return getPotNameByLang(potCode, i18n.language);
 }
 
 export function getPotCodeByName(name: string): string {

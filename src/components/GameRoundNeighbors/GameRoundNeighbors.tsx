@@ -2,6 +2,7 @@ import { FormEvent, useState, useEffect } from "react";
 import dataBank, {
   getPotNamesByLang,
   getPotCodeByName,
+  getPotName,
 } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -37,13 +38,14 @@ function GameRoundNeighbors({
   const [guessedCodes, setGuessedCodes] = useState<string[]>([]);
   const [correctGuessNum, setCorrectGuessNum] = useState<number>(0);
   const [currentGuess, setCurrentGuess] = useState("");
+  const [zoomedPot, setZoomedPot] = useState<string>("");
 
   useEffect(() => {
     if (guesses.length === maxAttempts) {
       console.log(`Game over! (${currentRoundStatus})`);
     }
     setCurrentGuess("");
-  }, [guesses]);
+  }, [guesses, zoomedPot]);
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -86,6 +88,15 @@ function GameRoundNeighbors({
     console.log("Guess button clicked.");
   };
 
+  const toggleZoom = (aPot: string) => {
+    console.log(`zoom: pot:${aPot} current: ${zoomedPot}`);
+    if (zoomedPot === aPot) {
+      setZoomedPot("");
+    } else {
+      setZoomedPot(aPot);
+    }
+  };
+
   //const numCols = 4;
   return (
     <div>
@@ -93,6 +104,7 @@ function GameRoundNeighbors({
         <p>
           {t("gameNeighborRoundInstruction")}{" "}
           <i>{tGeo(`of_${gameState.potCode}`)}</i>
+          {"?"}
         </p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
@@ -105,7 +117,8 @@ function GameRoundNeighbors({
           return (
             <div
               id={`guess-${idPrefix}-${aPot}`}
-              className={`col-span-2 ${lastRowOdd ? "col-start-2" : ""} border-2 rounded-xl border-gray-700`}
+              className={`cursor-zoom-in col-span-2 ${lastRowOdd ? "col-start-2" : ""} border-2 rounded-xl border-gray-700`}
+              onClick={() => toggleZoom(aPot)}
             >
               <img
                 src={getPotMapSvgUrl(aPot as PotCode)}
@@ -117,13 +130,27 @@ function GameRoundNeighbors({
               >
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
-                  ? tGeo(neighbors[i]) //dataBank[neighbors[i] as PotCode].name
-                  : "?"}
+                  ? tGeo(neighbors[i])
+                  : t("guessVerb")}
               </p>
             </div>
           );
         })}
       </div>
+      {zoomedPot !== "" ? (
+        <div
+          className="fixed bottom-1/2 left-1/2 w-64 transform -translate-x-1/2 bg-custom-light-blue-2 text-white p-4 border-4 rounded-2xl shadow-lg z-50"
+          onClick={() => toggleZoom(zoomedPot)}
+        >
+          <img
+            src={getPotMapSvgUrl(zoomedPot as PotCode)}
+            alt="silhouette of a province or territory"
+            className="max-h-64 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       <form
         onSubmit={handleFormSubmission}
         className={`flex flex-col py-0.5 ${currentRoundStatus !== "pending" ? "hidden" : ""}`}
@@ -154,17 +181,18 @@ function GameRoundNeighbors({
         ) : (
           <div />
         )}
-        {/* page part 3b: feedback: list of submitted guesses  */}
         <div>
           {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCodeByName(guesses[i]);
-            return guesses[i] ? (
+            const guessCode: string = guessedCodes[i]; // guessedCodes[i]
+            return guessedCodes[i] ? (
               <div
                 key={i}
                 className="grid grid-cols-7 gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div col-span-6">
-                  <p className="my-guess-p">{guesses[i] || "-"}</p>
+                  <p className="my-guess-p">
+                    {getPotName(guessCode as PotCode) || "-"}
+                  </p>
                 </div>
                 <div className="my-guess-div">
                   <p className="my-guess-p text-xl">

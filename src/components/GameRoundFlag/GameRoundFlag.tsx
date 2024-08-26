@@ -3,7 +3,7 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
-  changeHtmlItemClass,
+  //changeHtmlItemClass,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
@@ -47,8 +47,11 @@ function GameRoundFlag({
   const handleFlagGuessClicked = (e: any): void => {
     // TODO: get the id of the image clicked at...
     const guessedItem = `${e.target.id}`;
-    const winning = `guess-${gameState.potCode}` == guessedItem;
-    console.log(`Guess button clicked: $lt;${e.target.id}??&gt;`);
+    const guess = guessedItem.split("-")[1];
+    console.log(`Guess button clicked: '${e.target.id}'`);
+    if (currentRoundStatus !== "pending" || guesses.includes(guess)) {
+      return;
+    }
 
     console.log(`current guess ${guessedItem}`);
     addGuess(guessedItem.split("-")[1]);
@@ -57,10 +60,7 @@ function GameRoundFlag({
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
     }
-    changeHtmlItemClass(
-      guessedItem,
-      `border-4 border-${winning ? "green-500" : "red-500"}`
-    ); // border-${getColorOfStatus("won")}
+    // changeHtmlItemClass( guessedItem, border-won-lost )
   };
 
   return (
@@ -69,6 +69,7 @@ function GameRoundFlag({
         <p>
           {t("gameFlagRoundInstruction")}{" "}
           <i>{tGeo(`of_${gameState.potCode}`)}</i>
+          {"!"}
         </p>
       </div>
       <div>
@@ -101,15 +102,15 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`max-h-24 m-auto my-5 h-20 ${myBorder}`}
+                  className={`cursor-pointer max-h-24 m-auto my-5 h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
                 <p
-                  className={`visible rounded-2xl -m-1 text-black bg-${bgColor}`}
+                  className={`visible h-6 rounded-2xl -m-1 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
-                    ? "?"
+                    ? t("guessVerb")
                     : tGeo(myPotList[i1])}
                 </p>
               </div>
