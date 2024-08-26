@@ -7,6 +7,7 @@ import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
 import GameRoundNeighbors from "../GameRoundNeighbors/GameRoundNeighbors.tsx";
 import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
+import { toast } from "react-toastify";
 
 export function Game() {
   const { t } = useTranslation();
@@ -45,6 +46,7 @@ export function Game() {
     setCurrentRound(currentRound + 1);
     setCurrentRoundStatus("pending");
     //setGuesses([]);  // -- rounds might have to reset themselves
+    toast.dismiss(); // dismiss actively showing toasts from the previous round
     console.log(`lovas: round: ${currentRound}, status: ${currentRoundStatus}`);
   };
 

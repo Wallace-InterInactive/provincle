@@ -21,11 +21,17 @@ i18next
           provinceOrTerritory: "Province or Territory",
           capitalCity: "Capital City",
           attempts: "Attempts",
-          gamePotRoundInstruction: "Select the province",
+          // game round instructions
+          gamePotRoundInstruction: "Select the province", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Select the flag",
           gameCapitalRoundInstruction: "What is the capital",
           gameNeighborRoundInstruction: "What are the neighbors",
           gamePotRoundFinaleStats: "Stats",
+          // alerts
+          unknownPot: "Unknown province ot territory!",
+          unknownCity: "Unknown city!",
+          alreadyGuessed: "Already Guessed!",
+          guessedIt: "Spot on!",
         },
         geo: {
           ca: "Canada",
@@ -72,11 +78,17 @@ i18next
           provinceOrTerritory: "Province ou Territoire",
           capitalCity: "Ville capitale",
           attempts: "Essais",
+          // game round instructions
           gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
           gameNeighborRoundInstruction: "Quelles sont les voisins",
           gamePotRoundFinaleStats: "Stats",
+          // alerts
+          unknownPot: "Province ou territoire inconnu!",
+          unknownCity: "Ville inconnue!",
+          alreadyGuessed: "Déjà deviné!",
+          guessedIt: "Touché-coulé!",
         },
         geo: {
           ca: "Canada",
@@ -123,10 +135,16 @@ i18next
           provinceOrTerritory: "LOLProvince or Territory",
           capitalCity: "LOLCapital City",
           attempts: "LOLAttempts",
+          // game round instructions
           gamePotRoundInstruction: "LOLTODO", // TODO: we probably don't need this
           gameFlagRoundInstruction: "LOLSelect the flag",
           gameCapitalRoundInstruction: "LOLWhat is the capital",
           gamePotRoundFinaleStats: "LOLStats",
+          // alerts
+          unknownPot: "LOLUnknown province ot territory!",
+          unknownCity: "LOLUnknown city!",
+          alreadyGuessed: "LOLAlready Guessed!",
+          guessedIt: "LOLSpot on!",
         },
         geo: {
           ca: "LOLCanada",

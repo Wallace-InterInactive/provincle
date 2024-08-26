@@ -14,16 +14,19 @@
     "format": "prettier --write . src"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.3",
     "i18next": "^23.12.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "react": "^18.3.1",
     "react-autosuggest": "^10.1.0",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.0.0"
+    "react-i18next": "^15.0.0",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.3.1",
     "@testing-library/react": "^16.0.0",
+    "@types/canvas-confetti": "^1.6.4",
     "@types/he": "^1.2.3",
     "@types/react": "^18.3.3",
     "@types/react-autosuggest": "^10.1.11",
