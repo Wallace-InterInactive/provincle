@@ -15,6 +15,7 @@ import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
+import { toastError, toastSuccess } from "../../utils/animations.ts";
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
@@ -62,12 +63,12 @@ function GameRoundTextInputWithImage({
     event.preventDefault();
 
     if (!isValidGuess(currentGuess, possibleValues)) {
-      console.log("Unknown province or territory!");
+      toastError(t("unknownCity"));
       return;
     }
 
     if (guesses.includes(currentGuess)) {
-      console.log("Already Guessed!");
+      toastError(t("alreadyGuessed"));
       return;
     }
 
@@ -79,13 +80,13 @@ function GameRoundTextInputWithImage({
     ) {
       console.log(`You guessed it (${currentGuess})!`);
       setCurrentRoundStatus("won");
+      toastSuccess(t("guessedIt"));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-    } else {
+    } /* else {
       console.log(`You didn't guess it! ${currentGuess}.${target}`);
-    }
-
-    console.log("currentRoundStatus:", currentRoundStatus);
+    } */
+    // console.log("currentRoundStatus:", currentRoundStatus);
   };
 
   function getResult(guess: string, target: string): string {

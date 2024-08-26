@@ -1,12 +1,9 @@
 import { FormEvent, useState, useEffect } from "react";
-import { getPotCodeByName, getPotNamesByLang } from "../../utils/dataBank.ts";
+import { getPotNamesByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
   getPotMapSvgUrl,
-  getDistanceWithUnitBySetting,
-  getDirectionEmoji,
-  getColorOfStatus,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -15,6 +12,14 @@ import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
+import {
+  SQUARE_ANIMATION_LENGTH,
+  squares,
+  toastError,
+  toastSuccess,
+} from "../../utils/animations.ts";
+import { Guesses } from "../Guesses/Guesses.tsx";
+import confetti from "canvas-confetti";
 
 function GameRoundPot({
   currentRoundStatus,
@@ -53,23 +58,23 @@ function GameRoundPot({
   };
 
   const maxAttempts = 3;
-  //let currentRoundStatus: GameRoundStatus = "pending";
-  const [guesses, setGuesses] = useState<string[]>([]);
-  //const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
+  const [guessNum, setGuessNum] = useState<number>(1);
+  const incGuessNum = (): void => {
+    setGuessNum(guessNum + 1);
+  };
+
+  const [guesses, setGuesses] = useState<string[]>([]);
   const addGuess = (guess: string): void => {
     setGuesses([...guesses, guess]);
   };
 
   const [currentGuess, setCurrentGuess] = useState("");
 
-  //const [currentRoundStatus, setCurrentRoundStatus] =
-  //  useState<GameRoundStatus>("pending");
-
   useEffect(() => {
-    if (guesses.length === maxAttempts) {
-      console.log(`Game over! (${currentRoundStatus})`);
-    }
+    // if (guesses.length === maxAttempts) {
+    //   console.log(`Game over! (${currentRoundStatus})`);
+    // }
     setCurrentGuess("");
   }, [guesses]);
 
@@ -77,26 +82,32 @@ function GameRoundPot({
     event.preventDefault();
 
     if (!isValidPot(currentGuess, i18n.language)) {
-      console.log("Unknown province or territory!");
+      toastError(t("unknownPot"));
       return;
     }
 
     if (guesses.includes(currentGuess)) {
-      console.log("Already Guessed!");
+      toastError(t("alreadyGuessed"));
       return;
     }
 
     if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
-      console.log("You guessed it!");
-      setCurrentRoundStatus("won");
+      setTimeout(() => {
+        setCurrentRoundStatus("won");
+        toastSuccess(t("guessedIt"));
+        confetti();
+      }, SQUARE_ANIMATION_LENGTH * squares.length);
     } else if (guesses.length + 1 === maxAttempts) {
-      setCurrentRoundStatus("lost");
-    } else {
-      console.log("You didn't guess it!");
+      setTimeout(() => {
+        setCurrentRoundStatus("lost");
+      }, SQUARE_ANIMATION_LENGTH * squares.length);
     }
 
     addGuess(currentGuess);
-    console.log("currentRoundStatus:", currentRoundStatus);
+    setTimeout(() => {
+      incGuessNum();
+    }, SQUARE_ANIMATION_LENGTH * squares.length);
+    // console.log("currentRoundStatus:", currentRoundStatus);
   };
 
   const handleGuessButtonClicked = (): void => {
@@ -134,71 +145,13 @@ function GameRoundPot({
           />
         </div>
       </form>
-      {/* page part 3a: feedback part, won/lost/etc */}
-      <div>
-        {currentRoundStatus === "pending" ? (
-          <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-            <div className="my-div-1">
-              <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="my-span-2">
-            <span
-              className={`my-span-3 text-black bg-${getColorOfStatus(currentRoundStatus)}`}
-            >
-              {tGeo(potCode)}
-            </span>
-          </div>
-        )}
-        {/* page part 3b: feedback: list of submitted guesses */}
-        <div>
-          {Array.from({ length: maxAttempts }, (_, i) => {
-            const guessCode = getPotCodeByName(guesses[i]);
-            //   {calculateDistance(potCode, guesses[i])} km
-            //   {getDirectionFromSolution(potCode, guesses[i]) ?? "-"}
-            return guesses[i] ? (
-              <div
-                key={i}
-                className="grid grid-cols-7 gap-1 text-center py-0.5"
-              >
-                <div className="my-guess-div col-span-4">
-                  <p className="my-guess-p">{guesses[i] || "-"}</p>
-                </div>
-                <div className="my-guess-div col-span-2">
-                  <p className="my-guess-p">
-                    {getDistanceWithUnitBySetting(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
-                  </p>
-                </div>
-                <div className="my-guess-div">
-                  {/* add commented-outs here, TO BE DELETED
-                    <img src={arrowImageUrl} className={"rotate-90 " + getCssRotate(getImgRotateFromSolution(potCode, guessCode)) + " max-h-6 object-cover"} />
-                     getcalculateDirectionOf(potCode, guessCode)
-                    */}
-                  <p className="my-guess-p text-xl">
-                    {getDirectionEmoji(
-                      guessCode as PotCode,
-                      potCode as PotCode
-                    )}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div
-                key={i}
-                className="grid grid-cols-6 gap-1 text-center py-0.5"
-              >
-                <div className="my-div-2"></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <Guesses
+        currentRoundStatus={currentRoundStatus}
+        guesses={guesses}
+        maxAttempts={maxAttempts}
+        solutionCode={potCode as PotCode}
+        guessNum={guessNum}
+      />
     </div>
   );
 }
