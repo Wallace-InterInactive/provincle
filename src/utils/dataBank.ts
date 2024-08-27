@@ -108,7 +108,7 @@ const dataBank: Record<PotCode, PotData> = {
       en: "Manitoba",
       fr: "Manitoba",
     },
-    neighbors: ["nu", "on", "sa", "nt"],
+    neighbors: ["nu", "on", "sk"],
     capital: {
       en: "Winnipeg",
       fr: "Winnipeg",
@@ -245,7 +245,7 @@ const dataBank: Record<PotCode, PotData> = {
       en: "Northwest Territories",
       fr: "Territoires du Nord-Ouest",
     },
-    neighbors: ["nu", "mb", "sa", "ab", "bc", "yt"],
+    neighbors: ["nu", "sk", "ab", "bc", "yt"],
     capital: {
       en: "Yellowknife",
       fr: "Yellowknife",
