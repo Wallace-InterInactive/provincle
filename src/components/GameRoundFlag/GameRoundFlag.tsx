@@ -3,7 +3,7 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
-  //changeHtmlItemClass,
+  getOkNokEmoji,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
@@ -12,6 +12,7 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { PotCode } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
 import confetti from "canvas-confetti";
+import { toastSuccess } from "../../utils/animations.ts";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
@@ -19,6 +20,7 @@ const numFlagsToShow = 6;
 function GameRoundFlag({
   currentRoundStatus,
   setCurrentRoundStatus,
+  addRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
@@ -58,9 +60,16 @@ function GameRoundFlag({
     addGuess(guessedItem.split("-")[1]);
     if (`guess-${gameState.potCode}` == guessedItem) {
       setCurrentRoundStatus("won");
+      toastSuccess(t("guessedIt"));
       confetti();
+      addRoundResult(
+        `${t("gameFlagRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
+      );
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
+      addRoundResult(
+        `${t("gameFlagRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
+      );
     }
     // changeHtmlItemClass( guessedItem, border-won-lost )
   };
@@ -109,7 +118,7 @@ function GameRoundFlag({
                   id={`guess-${aPot}`}
                 />
                 <p
-                  className={`visible h-6 rounded-2xl -m-1 text-black bg-${bgColor}`}
+                  className={`visible h-6 rounded-xl -m-2 px-2 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? t("guessVerb")

@@ -43,6 +43,7 @@ function GameRoundTextInputWithImage({
   roundInstructionId,
   currentRoundStatus,
   setCurrentRoundStatus,
+  addRoundResult,
   target,
   possibleValues,
   maxAttempts,
@@ -85,11 +86,17 @@ function GameRoundTextInputWithImage({
       toastSuccess(t("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
+      addRoundResult(
+        `${t("gameCapitalRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
+      );
     } else if (guesses.length + 1 === maxAttempts) {
       //setCurrentRoundStatus("lost");
       setTimeout(() => {
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
+      addRoundResult(
+        `${t("gameCapitalRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
+      );
     } /* else {
       console.log(`You didn't guess it! ${currentGuess}.${target}`);
     } */

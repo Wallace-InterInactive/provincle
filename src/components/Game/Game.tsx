@@ -29,6 +29,10 @@ export function Game() {
   const { potCode, currentRound } = newGameState;
   const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
+  const [roundResult, setRoundResult] = useState<string[]>([]);
+  const addRoundResult = (result: string): void => {
+    setRoundResult([...roundResult, result]);
+  };
   // const setPotCode = (newPotCode: string): void => {
   //   updateGameState("potCode", newPotCode);
   // };
@@ -100,57 +104,28 @@ export function Game() {
           <GameRoundPot
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
+            addRoundResult={addRoundResult}
           />
         ) : currentRound === 2 ? (
           <GameRoundNeighbors
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
+            addRoundResult={addRoundResult}
           />
         ) : currentRound === 3 ? (
           <GameRoundCapital
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
+            addRoundResult={addRoundResult}
           />
         ) : currentRound === 4 ? (
           <GameRoundFlag
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
+            addRoundResult={addRoundResult}
           />
-        ) : currentRound === 5 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : currentRound === 6 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : currentRound === 7 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : currentRound === 8 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : currentRound === 9 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : currentRound === 10 ? (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
-        ) : (
-          <GameRoundFinale
-            currentRoundStatus={currentRoundStatus}
-            setCurrentRoundStatus={setCurrentRoundStatus}
-          />
+        ) : /* currentRound >= 5 ? */ (
+          <GameRoundFinale roundResults={roundResult} />
         )}
       </div>
       {currentRound < maxRounds ? nextRoundButton() : <div />}

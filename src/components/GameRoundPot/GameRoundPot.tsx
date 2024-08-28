@@ -4,6 +4,7 @@ import {
   sanitizeString,
   isValidPot,
   getPotMapSvgUrl,
+  getOkNokEmoji,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
@@ -16,6 +17,7 @@ import {
   SQUARE_ANIMATION_LENGTH,
   squares,
   toastError,
+  toastFailed,
   toastSuccess,
 } from "../../utils/animations.ts";
 import { Guesses } from "../Guesses/Guesses.tsx";
@@ -24,6 +26,7 @@ import confetti from "canvas-confetti";
 function GameRoundPot({
   currentRoundStatus,
   setCurrentRoundStatus,
+  addRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
@@ -97,10 +100,17 @@ function GameRoundPot({
         toastSuccess(t("guessedIt"));
         confetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
+      addRoundResult(
+        `${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
+      );
     } else if (guesses.length + 1 === maxAttempts) {
       setTimeout(() => {
+        toastFailed(t("failedIt"));
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
+      addRoundResult(
+        `${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
+      );
     }
 
     addGuess(currentGuess);

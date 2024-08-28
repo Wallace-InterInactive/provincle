@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { getPotMapSvgUrl, getOkNokEmoji } from "../../utils/utils.ts";
+import {
+  getPotMapSvgUrl,
+  getColorOfStatus,
+} from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
-import { GameRoundProps } from "../../types/GameRoundProps.ts";
+import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
 import { PotCode } from "../../types/data.ts";
 
 function GameRoundFinale({
-  currentRoundStatus /*, setCurrentRoundStatus*/,
-}: GameRoundProps) {
+  roundResults /*, setCurrentRoundStatus*/,
+}: GameFinaleProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
@@ -31,11 +34,13 @@ function GameRoundFinale({
         />
       </div>
       {/* page part 2: the input field */}
-      {/* page part 3a: feedback part, won/lost/etc */}
+      {/* page part 3a: feedback part, won/lost/etc 
+      className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+          >*/}
       <div>
         <div className="my-span-2">
           <span
-            className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+            className={`my-span-3 text-black bg-${getColorOfStatus("won")}`}
           >
             {tGeo(potCode)}
           </span>
@@ -67,20 +72,19 @@ function GameRoundFinale({
           <br />
           <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
-        {Array.from({ length: 4 }, (_, i) => {
-          const rows: string[] = ["Province", "Flag", "Capital", "Neighbor"];
+        {Array.from({ length: roundResults.length }, (_, i) => {
+          const row: string[] = roundResults[i].split("|");
+          //const rows: string[] = ["Province", "Flag", "Capital", "Neighbor"];
           return (
             <div className="grid grid-cols-6 gap-1 text-center py-0.5">
               <div className="my-guess-open col-span-4">
-                <p className="my-guess-p">{rows[i]}</p>
+                <p className="my-guess-p">{row[0]}</p>
               </div>
               <div className="my-guess-open">
-                <p className="my-guess-p">##</p>
+                <p className="my-guess-p">{row[1]}</p>
               </div>
               <div className="my-guess-open">
-                <p className="my-guess-p">
-                  {getOkNokEmoji(false)} {getOkNokEmoji(true)}
-                </p>
+                <p className="my-guess-p">{row[2]}</p>
               </div>
             </div>
           );

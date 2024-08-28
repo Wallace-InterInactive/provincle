@@ -26,6 +26,7 @@ import confetti from "canvas-confetti";
 function GameRoundNeighbors({
   currentRoundStatus,
   setCurrentRoundStatus,
+  addRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
@@ -72,12 +73,20 @@ function GameRoundNeighbors({
       if (correctGuessNum == neighbors.length - 1) {
         confetti();
         setCurrentRoundStatus("won");
+        addRoundResult(
+          `${t("gameNeighborRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
+        );
         // setTimeout(() => {
         // }, SQUARE_ANIMATION_LENGTH * squares.length);
+      } else {
+        confetti({ ticks: 50 });
       }
       setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
+      addRoundResult(
+        `${t("gameNeighborRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
+      );
     } else {
       console.log("You didn't guess it!");
     }
@@ -195,7 +204,7 @@ function GameRoundNeighbors({
                 className="grid grid-cols-7 gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div col-span-6">
-                  <p className="my-guess-p">
+                  <p className="my-guess-p m-1">
                     {getPotName(guessCode as PotCode) || "-"}
                   </p>
                 </div>
