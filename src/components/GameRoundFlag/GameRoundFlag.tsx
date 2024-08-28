@@ -113,12 +113,12 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`cursor-pointer max-h-24 m-auto my-5 h-20 ${myBorder}`}
+                  className={`cursor-pointer max-h-24 m-auto h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
                 <p
-                  className={`visible h-6 rounded-xl -m-2 px-2 text-black bg-${bgColor}`}
+                  className={`visible h-6 rounded-xl -mx-2 px-2 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? t("guessVerb")
