@@ -1,6 +1,5 @@
 import { useState } from "react";
 import defaultGameState from "../../utils/gameState.ts";
-import { useTranslation } from "react-i18next";
 import { GameRoundStatus } from "../../types/data.ts";
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
@@ -8,11 +7,9 @@ import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
 import GameRoundNeighbors from "../GameRoundNeighbors/GameRoundNeighbors.tsx";
 import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 import { toast } from "react-toastify";
+import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
 
 export function Game() {
-  const { t } = useTranslation();
-  // const t = i18n.getFixedT("LOLcalize");
-
   const maxRounds = 10;
   const [newGameState, setNewGameState] = useState(defaultGameState);
 
@@ -64,39 +61,6 @@ export function Game() {
     }
   };
 
-  function nextRoundButton() {
-    return (
-      <div className="container flex flex-col items-center mt-4">
-        {currentRoundStatus !== "pending" ? (
-          <button
-            onClick={handleNextButtonClicked}
-            className={
-              "border-2 rounded-xl uppercase flex-shrink-0 p-2 font-semibold" +
-              getColorOfStatus()
-            }
-          >
-            🍁 {t("nextRound")} 🍁
-          </button>
-        ) : (
-          <button
-            onClick={handleGiveUpButtonClicked}
-            className="border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
-          >
-            😱 {t("giveUp")} (clicked: {giveupCnt}) 😱
-          </button>
-        )}
-      </div>
-    );
-  }
-
-  function getColorOfStatus(): string {
-    return currentRoundStatus === "won"
-      ? " bg-green-700"
-      : currentRoundStatus === "lost"
-        ? " bg-red-600"
-        : ""; // not changed, or could be set to gray
-  }
-
   return (
     <>
       <div>
@@ -124,11 +88,22 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
             addRoundResult={addRoundResult}
           />
-        ) : /* currentRound >= 5 ? */ (
-          <GameRoundFinale roundResults={roundResult} />
+        ) : (
+          /* currentRound >= 5 ? */ <GameRoundFinale
+            roundResults={roundResult}
+          />
         )}
       </div>
-      {currentRound < maxRounds ? nextRoundButton() : <div />}
+      {currentRound < maxRounds ? (
+        <NextRoundButton
+          currentRoundStatus={currentRoundStatus}
+          giveUpCnt={giveupCnt}
+          handleGiveUpButtonClicked={handleGiveUpButtonClicked}
+          handleNextButtonClicked={handleNextButtonClicked}
+        />
+      ) : (
+        <div />
+      )}
     </>
   );
 }

@@ -36,7 +36,7 @@ export function Guesses({
         <div className="my-span-2">
           <span
             // TODO: use custom class name for colors
-            className={`my-span-3 text-black  bg-${getColorOfStatus(currentRoundStatus)}`}
+            className={`my-span-3 text-black bg-${getColorOfStatus(currentRoundStatus)}`}
           >
             {tGeo(solutionCode)}
           </span>
