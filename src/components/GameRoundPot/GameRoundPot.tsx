@@ -7,7 +7,7 @@ import {
 } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
+import { GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
@@ -55,6 +55,14 @@ function GameRoundPot({
     setCurrentGuess("");
   }, [guesses]);
 
+  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
+    return (status !== "won") ? GameRoundResult.Abandoned
+         : (num === 3) ? GameRoundResult.OneStar
+         : (num === 2) ? GameRoundResult.TwoStars
+         : (num === 1) ? GameRoundResult.ThreeStars
+         : GameRoundResult.Abandoned;
+  }
+
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -74,14 +82,14 @@ function GameRoundPot({
         toastSuccess(t("guessedIt"));
         confetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
+      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
       //`${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
     } else if (guesses.length + 1 === maxAttempts) {
       setTimeout(() => {
         toastFailed(t("failedIt"));
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
+      setRoundResult(gameRoundId, getResult("lost"));
       //`${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
     }
 

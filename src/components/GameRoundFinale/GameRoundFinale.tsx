@@ -82,15 +82,12 @@ function GameRoundFinale({
           Array.from(roundStats.rounds.entries()).map(([_, stat], _i) => {
             // lovas: think on the OkNok Emoji, maybe useless if we have stars
             return (
-              <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-                <div className="my-guess-open col-span-4">
+              <div className="grid grid-cols-4 gap-1 text-center py-0.5">
+                <div className="my-guess-open col-span-3">
                   <p className="my-guess-p">{t(stat.i18nId)}</p>
                 </div>
                 <div className="my-guess-open">
                   <p className="my-guess-p">{stat.result}</p>
-                </div>
-                <div className="my-guess-open">
-                  <p className="my-guess-p">{getOkNokEmoji(true)}</p>
                 </div>
               </div>
             );

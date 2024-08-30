@@ -32,6 +32,8 @@ function GameRoundNeighbors({
 }: GameRoundProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
+  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
+
   const idPrefix: string = "roundNbor-";
   // const t = i18n.getFixedT("LOLcalize");
 
@@ -113,11 +115,7 @@ function GameRoundNeighbors({
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>
-          {t("gameNeighborRoundInstruction")}{" "}
-          <i>{tGeo(`of_${gameState.potCode}`)}</i>
-          {"?"}
-        </p>
+        <p>{`${t("gameNeighborRoundInstruction")} ${potNameOf}!`}</p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {

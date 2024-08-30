@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { MultiLangName, GameRoundResult, PotCode } from "../../types/data.ts";
+import { MultiLangName, GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
 import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -53,6 +53,7 @@ function GameRoundTextInputWithImage({
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
+  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   //const [gameState] = useState(defaultGameState);
@@ -67,6 +68,14 @@ function GameRoundTextInputWithImage({
     }
     setCurrentGuess("");
   }, [guesses]);
+
+  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
+    return (status !== "won") ? GameRoundResult.Abandoned
+         : (num === 3) ? GameRoundResult.OneStar
+         : (num === 2) ? GameRoundResult.TwoStars
+         : (num === 1) ? GameRoundResult.ThreeStars
+         : GameRoundResult.Abandoned;
+  }
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -88,20 +97,20 @@ function GameRoundTextInputWithImage({
       toastSuccess(t("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
-      setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
+      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
     } else if (guesses.length + 1 === maxAttempts) {
       //setCurrentRoundStatus("lost");
       setTimeout(() => {
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
+      setRoundResult(gameRoundId, getResult("lost"));
     } /* else {
       console.log(`You didn't guess it! ${currentGuess}.${target}`);
     } */
     // console.log("currentRoundStatus:", currentRoundStatus);
   };
 
-  function getResult(guess: string, target: string): string {
+  function getGuessResult(guess: string, target: string): string {
     return getOkNokEmoji(guess === target);
   }
   /*
@@ -120,13 +129,7 @@ function GameRoundTextInputWithImage({
         <div />
       ) : (
         <div className="gap-1 text-center">
-          <p>
-            {t(roundInstructionId)} <br />
-            <span className="font-bold italic">
-              {tGeo(`of_${gameState.potCode}`)}
-            </span>
-            {"?"}
-          </p>
+        <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}!`}</p>
         </div>
       )}
       <div>
@@ -187,7 +190,7 @@ function GameRoundTextInputWithImage({
                 </div>
                 <div className="my-guess-div">
                   <p className="my-guess-p text-xl">
-                    {getResult(guess, target)}
+                    {getGuessResult(guess, target)}
                   </p>
                 </div>
               </div>

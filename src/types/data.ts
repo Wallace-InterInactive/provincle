@@ -52,7 +52,7 @@ export enum GameRoundResult {
   ZeroStar = "★★★",
   OneStar = "★★⭐ 🥉",
   TwoStars = "★⭐⭐ 🥈",
-  ThreeStars = "⭐⭐⭐ 🥇",
+  ThreeStars = "⭐🌟⭐ 🥇",
   Abandoned = "🚫", // give-up etc
 }
 

@@ -7,7 +7,7 @@ import {
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
+import { GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
@@ -25,6 +25,7 @@ function GameRoundFlag({
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
+  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
 
   // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
@@ -62,22 +63,26 @@ function GameRoundFlag({
       setCurrentRoundStatus("won");
       toastSuccess(t("guessedIt"));
       confetti();
-      setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
+      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
+      setRoundResult(gameRoundId, getResult("lost"));
     }
     // changeHtmlItemClass( guessedItem, border-won-lost )
   };
 
+  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
+    return (status !== "won") ? GameRoundResult.Abandoned
+         : (num === 3) ? GameRoundResult.OneStar
+         : (num === 2) ? GameRoundResult.TwoStars
+         : (num === 1) ? GameRoundResult.ThreeStars
+         : GameRoundResult.Abandoned;
+  }
+
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>
-          {t("gameFlagRoundInstruction")}{" "}
-          <i>{tGeo(`of_${gameState.potCode}`)}</i>
-          {"!"}
-        </p>
+        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}!`}</p>
       </div>
       <div>
         <div
