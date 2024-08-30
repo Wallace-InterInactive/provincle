@@ -1,5 +1,10 @@
 import { FormEvent, useState, useEffect } from "react";
-import { MultiLangName, GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
+import {
+  MultiLangName,
+  GameRoundResult,
+  PotCode,
+  GameRoundStatus,
+} from "../../types/data.ts";
 import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -69,6 +74,7 @@ function GameRoundTextInputWithImage({
     setCurrentGuess("");
   }, [guesses]);
 
+  // prettier-ignore
   function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
     return (status !== "won") ? GameRoundResult.Abandoned
          : (num === 3) ? GameRoundResult.OneStar
@@ -129,7 +135,7 @@ function GameRoundTextInputWithImage({
         <div />
       ) : (
         <div className="gap-1 text-center">
-        <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}!`}</p>
+          <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}!`}</p>
         </div>
       )}
       <div>

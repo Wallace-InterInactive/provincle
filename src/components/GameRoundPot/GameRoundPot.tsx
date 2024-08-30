@@ -55,6 +55,7 @@ function GameRoundPot({
     setCurrentGuess("");
   }, [guesses]);
 
+  // prettier-ignore
   function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
     return (status !== "won") ? GameRoundResult.Abandoned
          : (num === 3) ? GameRoundResult.OneStar
