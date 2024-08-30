@@ -1,6 +1,12 @@
 import { useState } from "react";
 import defaultGameState from "../../utils/gameState.ts";
-import { GameRoundStatus } from "../../types/data.ts";
+import {
+  GameRoundStatus,
+  GameRoundStat,
+  GameState,
+  GameRoundResult,
+} from "../../types/data.ts";
+import { getTodaysPotCode } from "../../utils/dataBank.ts"; // lovas: see below use
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
@@ -9,34 +15,79 @@ import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 import { toast } from "react-toastify";
 import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
 
+// lovas: just thinking aloud indexing options, idx->info
+// if GameState.rounds is Map, we need to map the roundIndex->roundId, see state.round[id[state.currentRound]]
+// ??? we could drop
+//const gameRoundIds: string[] = [ "_start", "pot", "neighbor", "capital", "flag" ];
+
+// Todo: could be extracted or it's just the place to centralize game-configuration
+function initGameState(): GameState {
+  console.log("LOVAS LOVAS LOVAS");
+  let ret = defaultGameState;
+  (ret.potCode = getTodaysPotCode()), // lovas: shall we raise here?
+    ret.rounds.set("pot", {
+      i18nId: "gamePotRoundInstruction",
+      result: GameRoundResult.Pending,
+    });
+  ret.rounds.set("neighbor", {
+    i18nId: "gameNeighborRoundInstruction",
+    result: GameRoundResult.Pending,
+  });
+  ret.rounds.set("capital", {
+    i18nId: "gameCapitalRoundInstruction",
+    result: GameRoundResult.Pending,
+  });
+  ret.rounds.set("flag", {
+    i18nId: "gameFlagRoundInstruction",
+    result: GameRoundResult.Pending,
+  });
+  return ret;
+}
+
 export function Game() {
   const maxRounds = 10;
-  const [newGameState, setNewGameState] = useState(defaultGameState);
+  const [gameState, setGameState] = useState(() => initGameState()); // warning: useState(initGameState()) sux!
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const updateGameState = (key: string, val: any): void => {
-    setNewGameState(prevState => ({
+    setGameState(prevState => ({
       ...prevState,
       [key]: val,
     }));
   };
-
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const { potCode, currentRound } = newGameState;
-  const [giveupCnt, setGiveupCnt] = useState<number>(0);
-
-  const [roundResult, setRoundResult] = useState<string[]>([]);
-  const addRoundResult = (result: string): void => {
-    setRoundResult([...roundResult, result]);
-  };
-  // const setPotCode = (newPotCode: string): void => {
-  //   updateGameState("potCode", newPotCode);
-  // };
-
   const setCurrentRound = (newCurrentRound: number): void => {
     updateGameState("currentRound", newCurrentRound);
   };
+  function getRoundStat(id: string): GameRoundStat {
+    console.log(
+      `rounds ${typeof gameState.rounds} ==> ${gameState.rounds} ${Array.from(gameState.rounds.entries())}`
+    );
+    //gameState.rounds.get
+    return (
+      gameState.rounds.get(id) ?? {
+        i18nId: "na",
+        result: GameRoundResult.Pending,
+      }
+    );
+  }
+
+  const setRoundResult = (roundId: string, result: GameRoundResult): void => {
+    console.log(`set ${roundId} ==> ${result}`);
+    let newState: GameState = gameState;
+    // lovas: not really good, it's not deep copy
+    // lovas it should be merged into one expression
+    newState.rounds.set(roundId, {
+      ...getRoundStat(roundId), // ...newState.rounds.get(roundId),
+      result: result,
+    });
+
+    setGameState(newState);
+  };
+
+  // TODO: remove ts-ignore
+  // @ts-ignore
+  const { potCode, currentRound } = gameState;
+  const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
   const [currentRoundStatus, setCurrentRoundStatus] =
     useState<GameRoundStatus>("pending");
@@ -66,31 +117,39 @@ export function Game() {
       <div>
         {currentRound === 1 ? (
           <GameRoundPot
+            gameRoundId="pot"
+            gameState={gameState}
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
-            addRoundResult={addRoundResult}
+            setRoundResult={setRoundResult}
           />
         ) : currentRound === 2 ? (
           <GameRoundNeighbors
+            gameRoundId="neighbors"
+            gameState={gameState}
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
-            addRoundResult={addRoundResult}
+            setRoundResult={setRoundResult}
           />
         ) : currentRound === 3 ? (
           <GameRoundCapital
+            gameRoundId="capital"
+            gameState={gameState}
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
-            addRoundResult={addRoundResult}
+            setRoundResult={setRoundResult}
           />
         ) : currentRound === 4 ? (
           <GameRoundFlag
+            gameRoundId="flag"
+            gameState={gameState}
             currentRoundStatus={currentRoundStatus}
             setCurrentRoundStatus={setCurrentRoundStatus}
-            addRoundResult={addRoundResult}
+            setRoundResult={setRoundResult}
           />
         ) : (
-          /* currentRound >= 5 ? */ <GameRoundFinale
-            roundResults={roundResult}
+          <GameRoundFinale
+            roundStats={gameState} //{roundResult}
           />
         )}
       </div>

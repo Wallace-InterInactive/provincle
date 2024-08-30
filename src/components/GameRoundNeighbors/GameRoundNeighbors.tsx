@@ -12,11 +12,11 @@ import {
   changeHtmlItemClass,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import { GameState } from "../../types/data.ts";
-import defaultGameState from "../../utils/gameState.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
+// import { GameState } from "../../types/data.ts";
+// import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
@@ -24,16 +24,18 @@ import i18n from "../../utils/i18n.ts";
 import confetti from "canvas-confetti";
 
 function GameRoundNeighbors({
+  gameRoundId,
+  gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
-  addRoundResult,
+  setRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
   const idPrefix: string = "roundNbor-";
   // const t = i18n.getFixedT("LOLcalize");
 
-  const gameState: GameState = defaultGameState;
+  // const gameState: GameState = defaultGameState;
   const neighbors: string[] = dataBank[gameState.potCode as PotCode].neighbors;
 
   const maxAttempts = neighbors.length + 2;
@@ -73,9 +75,7 @@ function GameRoundNeighbors({
       if (correctGuessNum == neighbors.length - 1) {
         confetti();
         setCurrentRoundStatus("won");
-        addRoundResult(
-          `${t("gameNeighborRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
-        );
+        setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
         // setTimeout(() => {
         // }, SQUARE_ANIMATION_LENGTH * squares.length);
       } else {
@@ -84,9 +84,7 @@ function GameRoundNeighbors({
       setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-      addRoundResult(
-        `${t("gameNeighborRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
-      );
+      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
     } else {
       console.log("You didn't guess it!");
     }
@@ -204,7 +202,7 @@ function GameRoundNeighbors({
                 className="grid grid-cols-7 gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div col-span-6">
-                  <p className="my-guess-p m-1">
+                  <p className="my-guess-p">
                     {getPotName(guessCode as PotCode) || "-"}
                   </p>
                 </div>

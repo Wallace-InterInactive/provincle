@@ -47,9 +47,23 @@ export interface PotData {
   coastlineInKM: number;
 }
 
+export enum GameRoundResult {
+  Pending = "🎭",
+  ZeroStar = "★★★",
+  OneStar = "★★⭐ 🥉",
+  TwoStars = "★⭐⭐ 🥈",
+  ThreeStars = "⭐⭐⭐ 🥇",
+  Abandoned = "🚫", // give-up etc
+}
+
+export interface GameRoundStat {
+  i18nId: string; // TODO: shall we extract to type?
+  result: GameRoundResult;
+}
+
 export interface GameState {
-  potCode: string;
+  potCode: string; // lovas: PotCode ??
   currentRound: number;
-  //  currentRoundIsFinished: boolean;
-  //  rounds: Round[];
+  rounds: Map<string, GameRoundStat>;
+  //results: Map<string, GameRoundResult>;
 }

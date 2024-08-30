@@ -3,13 +3,11 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
-  getOkNokEmoji,
 } from "../../utils/utils.ts";
-import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { PotCode } from "../../types/data.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
@@ -18,15 +16,17 @@ const maxAttempts = 3;
 const numFlagsToShow = 6;
 
 function GameRoundFlag({
+  gameRoundId,
+  gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
-  addRoundResult,
+  setRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
 
-  const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
+  // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
     { length: potCodes.length },
     (_, i) => potCodes[i]
@@ -62,14 +62,10 @@ function GameRoundFlag({
       setCurrentRoundStatus("won");
       toastSuccess(t("guessedIt"));
       confetti();
-      addRoundResult(
-        `${t("gameFlagRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
-      );
+      setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-      addRoundResult(
-        `${t("gameFlagRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
-      );
+      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
     }
     // changeHtmlItemClass( guessedItem, border-won-lost )
   };

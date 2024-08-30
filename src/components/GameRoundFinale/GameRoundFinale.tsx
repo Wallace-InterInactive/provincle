@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { getPotMapSvgUrl, getColorOfStatus } from "../../utils/utils.ts";
+import {
+  getPotMapSvgUrl,
+  getColorOfStatus,
+  getOkNokEmoji,
+} from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
-import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
-import { PotCode } from "../../types/data.ts";
+//import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
+import { PotCode, GameState } from "../../types/data.ts";
+
+export interface GameFinaleProps {
+  roundStats: GameState;
+}
 
 function GameRoundFinale({
-  roundResults /*, setCurrentRoundStatus*/,
+  roundStats /*, setCurrentRoundStatus*/,
 }: GameFinaleProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
@@ -69,23 +77,25 @@ function GameRoundFinale({
           <br />
           <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
-        {Array.from({ length: roundResults.length }, (_, i) => {
-          const row: string[] = roundResults[i].split("|");
-          //const rows: string[] = ["Province", "Flag", "Capital", "Neighbor"];
-          return (
-            <div className="grid grid-cols-6 gap-1 text-center py-0.5">
-              <div className="my-guess-open col-span-4">
-                <p className="my-guess-p">{row[0]}</p>
+        {
+          //Array.from({ length: roundStats.rounds.size }, (_, i) => {  // roundStats.rounds.entries.length?
+          Array.from(roundStats.rounds.entries()).map(([_, stat], _i) => {
+            // lovas: think on the OkNok Emoji, maybe useless if we have stars
+            return (
+              <div className="grid grid-cols-6 gap-1 text-center py-0.5">
+                <div className="my-guess-open col-span-4">
+                  <p className="my-guess-p">{t(stat.i18nId)}</p>
+                </div>
+                <div className="my-guess-open">
+                  <p className="my-guess-p">{stat.result}</p>
+                </div>
+                <div className="my-guess-open">
+                  <p className="my-guess-p">{getOkNokEmoji(true)}</p>
+                </div>
               </div>
-              <div className="my-guess-open">
-                <p className="my-guess-p">{row[1]}</p>
-              </div>
-              <div className="my-guess-open">
-                <p className="my-guess-p">{row[2]}</p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        }
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { MultiLangName, PotCode } from "../../types/data.ts";
+import { MultiLangName, GameRoundResult, PotCode } from "../../types/data.ts";
 import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -40,10 +40,12 @@ function GameRoundCapital(props: GameRoundProps) {
 }
 
 function GameRoundTextInputWithImage({
-  roundInstructionId,
+  gameRoundId,
+  gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
-  addRoundResult,
+  setRoundResult,
+  roundInstructionId,
   target,
   possibleValues,
   maxAttempts,
@@ -53,7 +55,7 @@ function GameRoundTextInputWithImage({
   const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [gameState] = useState(defaultGameState);
+  //const [gameState] = useState(defaultGameState);
   const [guesses, setGuesses] = useState<string[]>([]);
 
   // TODO: these two can and should be extracted to the input component easily (can be defined there)
@@ -86,17 +88,13 @@ function GameRoundTextInputWithImage({
       toastSuccess(t("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
-      addRoundResult(
-        `${t("gameCapitalRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
-      );
+      setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
     } else if (guesses.length + 1 === maxAttempts) {
       //setCurrentRoundStatus("lost");
       setTimeout(() => {
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      addRoundResult(
-        `${t("gameCapitalRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
-      );
+      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
     } /* else {
       console.log(`You didn't guess it! ${currentGuess}.${target}`);
     } */

@@ -1,8 +1,10 @@
 import React from "react";
-import { GameRoundStatus } from "./data.ts";
+import { GameState, GameRoundStatus, GameRoundResult } from "./data.ts";
 
 export interface GameRoundProps {
+  gameRoundId: string;
+  gameState: GameState;
   currentRoundStatus: GameRoundStatus;
   setCurrentRoundStatus: React.Dispatch<React.SetStateAction<GameRoundStatus>>;
-  addRoundResult: (result: string) => void;
+  setRoundResult: (roundId: string, result: GameRoundResult) => void;
 }
