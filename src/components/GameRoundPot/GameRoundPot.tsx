@@ -7,7 +7,7 @@ import {
 } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
@@ -56,12 +56,16 @@ function GameRoundPot({
   }, [guesses]);
 
   // prettier-ignore
-  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
-    return (status !== "won") ? GameRoundResult.Abandoned
-         : (num === 3) ? GameRoundResult.OneStar
-         : (num === 2) ? GameRoundResult.TwoStars
-         : (num === 1) ? GameRoundResult.ThreeStars
-         : GameRoundResult.Abandoned;
+  function grade(guess: string): GameRoundResult {
+    //if (guess === gameState.potCode) {
+    if (sanitizeString(tGeo(potCode)) === sanitizeString(guess)) {
+      return guesses.length === 0 ? GameRoundResult.Excellent
+           : guesses.length === 1 ? GameRoundResult.Good
+           :                        GameRoundResult.Fair;
+    } else {
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
+    }
   }
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
@@ -83,15 +87,14 @@ function GameRoundPot({
         toastSuccess(t("guessedIt"));
         confetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
-      //`${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(true)}`
+      setRoundResult(gameRoundId, grade(currentGuess));
+      console.log("grade " + grade(currentGuess));
     } else if (guesses.length + 1 === maxAttempts) {
       setTimeout(() => {
         toastFailed(t("failedIt"));
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, getResult("lost"));
-      //`${t("gamePotRoundInstruction")}|${guesses.length + 1} of ${maxAttempts}|${getOkNokEmoji(false)}`
+      setRoundResult(gameRoundId, grade(currentGuess));
     }
 
     addGuess(currentGuess);

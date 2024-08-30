@@ -77,7 +77,7 @@ function GameRoundNeighbors({
       if (correctGuessNum == neighbors.length - 1) {
         confetti();
         setCurrentRoundStatus("won");
-        setRoundResult(gameRoundId, GameRoundResult.ThreeStars);
+        setRoundResult(gameRoundId, grade(isGuessCorrect));
         // setTimeout(() => {
         // }, SQUARE_ANIMATION_LENGTH * squares.length);
       } else {
@@ -86,7 +86,7 @@ function GameRoundNeighbors({
       setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-      setRoundResult(gameRoundId, GameRoundResult.ZeroStar);
+      setRoundResult(gameRoundId, grade(isGuessCorrect));
     } else {
       console.log("You didn't guess it!");
     }
@@ -110,6 +110,18 @@ function GameRoundNeighbors({
       setZoomedPot(aPot);
     }
   };
+  // prettier-ignore
+  function grade(lastGuessOk: boolean): GameRoundResult {
+    //if (guess === gameState.potCode) {
+    if (lastGuessOk) {
+      return guesses.length === correctGuessNum     ? GameRoundResult.Excellent
+           : guesses.length === correctGuessNum + 1 ? GameRoundResult.Good
+            :                                         GameRoundResult.Fair;
+    } else {
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
+    }
+  }
 
   //const numCols = 4;
   return (

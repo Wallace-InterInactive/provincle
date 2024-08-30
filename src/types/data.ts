@@ -47,13 +47,13 @@ export interface PotData {
   coastlineInKM: number;
 }
 
+//export type GameRoundGrade = 1 | 2 | 3 | 4 | 5;
 export enum GameRoundResult {
-  Pending = "🎭",
-  ZeroStar = "★★★",
-  OneStar = "★★⭐ 🥉",
-  TwoStars = "★⭐⭐ 🥈",
-  ThreeStars = "⭐🌟⭐ 🥇",
-  Abandoned = "🚫", // give-up etc
+  NotStarted = 1,
+  Failed = 2,
+  Fair = 3,
+  Good = 4,
+  Excellent = 5,
 }
 
 export interface GameRoundStat {

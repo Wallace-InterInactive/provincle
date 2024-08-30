@@ -7,7 +7,7 @@ import {
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode, GameRoundStatus } from "../../types/data.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
@@ -58,26 +58,28 @@ function GameRoundFlag({
     }
 
     console.log(`current guess ${guessedItem}`);
-    addGuess(guessedItem.split("-")[1]);
     if (`guess-${gameState.potCode}` == guessedItem) {
       setCurrentRoundStatus("won");
       toastSuccess(t("guessedIt"));
       confetti();
-      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
+      setRoundResult(gameRoundId, grade(guess));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
-      setRoundResult(gameRoundId, getResult("lost"));
+      setRoundResult(gameRoundId, grade(guess));
     }
-    // changeHtmlItemClass( guessedItem, border-won-lost )
+    addGuess(guess);
   };
 
   // prettier-ignore
-  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
-    return (status !== "won") ? GameRoundResult.Abandoned
-         : (num === 3) ? GameRoundResult.OneStar
-         : (num === 2) ? GameRoundResult.TwoStars
-         : (num === 1) ? GameRoundResult.ThreeStars
-         : GameRoundResult.Abandoned;
+  function grade(guess: string): GameRoundResult {
+    if (guess === gameState.potCode) {
+      return guesses.length === 0 ? GameRoundResult.Excellent
+           : guesses.length === 1 ? GameRoundResult.Good
+           :                        GameRoundResult.Fair;
+    } else {
+      return guesses.length == 0 ? GameRoundResult.NotStarted
+                                 : GameRoundResult.Failed;
+    }
   }
 
   return (

@@ -1,10 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import {
-  MultiLangName,
-  GameRoundResult,
-  PotCode,
-  GameRoundStatus,
-} from "../../types/data.ts";
+import { MultiLangName, GameRoundResult, PotCode } from "../../types/data.ts";
 import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
@@ -75,12 +70,15 @@ function GameRoundTextInputWithImage({
   }, [guesses]);
 
   // prettier-ignore
-  function getResult(status:GameRoundStatus, num: number = 0): GameRoundResult {
-    return (status !== "won") ? GameRoundResult.Abandoned
-         : (num === 3) ? GameRoundResult.OneStar
-         : (num === 2) ? GameRoundResult.TwoStars
-         : (num === 1) ? GameRoundResult.ThreeStars
-         : GameRoundResult.Abandoned;
+  function grade(guess: string): GameRoundResult {
+    if (sanitizeString(target) === sanitizeString(guess)) {
+      return guesses.length === 0 ? GameRoundResult.Excellent
+           : guesses.length === 1 ? GameRoundResult.Good
+           :                        GameRoundResult.Fair;
+    } else {
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
+    }
   }
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
@@ -103,27 +101,19 @@ function GameRoundTextInputWithImage({
       toastSuccess(t("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
-      setRoundResult(gameRoundId, getResult("won", guesses.length + 1));
+      setRoundResult(gameRoundId, grade(currentGuess));
     } else if (guesses.length + 1 === maxAttempts) {
       //setCurrentRoundStatus("lost");
       setTimeout(() => {
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, getResult("lost"));
-    } /* else {
-      console.log(`You didn't guess it! ${currentGuess}.${target}`);
-    } */
-    // console.log("currentRoundStatus:", currentRoundStatus);
+      setRoundResult(gameRoundId, grade(currentGuess));
+    }
   };
 
   function getGuessResult(guess: string, target: string): string {
     return getOkNokEmoji(guess === target);
   }
-  /*
-  const getResultExtra = (guess: string, target: string): string => {
-    return guess === target ? "hint" : "hont";
-  };
-  */
 
   const handleGuessButtonClicked = (): void => {
     console.log("Guess button clicked.");

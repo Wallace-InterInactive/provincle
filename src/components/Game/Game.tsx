@@ -21,26 +21,14 @@ import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
 //const gameRoundIds: string[] = [ "_start", "pot", "neighbor", "capital", "flag" ];
 
 // Todo: could be extracted or it's just the place to centralize game-configuration
+// prettier-ignore
 function initGameState(): GameState {
-  console.log("LOVAS LOVAS LOVAS");
   let ret = defaultGameState;
-  (ret.potCode = getTodaysPotCode()), // lovas: shall we raise here?
-    ret.rounds.set("pot", {
-      i18nId: "gamePotRoundInstruction",
-      result: GameRoundResult.Pending,
-    });
-  ret.rounds.set("neighbor", {
-    i18nId: "gameNeighborRoundInstruction",
-    result: GameRoundResult.Pending,
-  });
-  ret.rounds.set("capital", {
-    i18nId: "gameCapitalRoundInstruction",
-    result: GameRoundResult.Pending,
-  });
-  ret.rounds.set("flag", {
-    i18nId: "gameFlagRoundInstruction",
-    result: GameRoundResult.Pending,
-  });
+  ret.potCode = getTodaysPotCode(); // lovas: shall we raise here?
+  ret.rounds.set("pot",       { i18nId: "gamePotRoundInstruction",      result: GameRoundResult.NotStarted });
+  ret.rounds.set("neighbors", { i18nId: "gameNeighborRoundInstruction", result: GameRoundResult.NotStarted, });
+  ret.rounds.set("capital",   { i18nId: "gameCapitalRoundInstruction",  result: GameRoundResult.NotStarted, });
+  ret.rounds.set("flag",      { i18nId: "gameFlagRoundInstruction",     result: GameRoundResult.NotStarted, });
   return ret;
 }
 
@@ -58,17 +46,11 @@ export function Game() {
   const setCurrentRound = (newCurrentRound: number): void => {
     updateGameState("currentRound", newCurrentRound);
   };
+
+  // prettier-ignore
   function getRoundStat(id: string): GameRoundStat {
-    console.log(
-      `rounds ${typeof gameState.rounds} ==> ${gameState.rounds} ${Array.from(gameState.rounds.entries())}`
-    );
-    //gameState.rounds.get
-    return (
-      gameState.rounds.get(id) ?? {
-        i18nId: "na",
-        result: GameRoundResult.Pending,
-      }
-    );
+    console.log(`rounds ${typeof gameState.rounds} ==> ${gameState.rounds} ${Array.from(gameState.rounds.entries())}`);
+    return ( gameState.rounds.get(id) ?? { i18nId: "na", result: GameRoundResult.NotStarted } );
   }
 
   const setRoundResult = (roundId: string, result: GameRoundResult): void => {

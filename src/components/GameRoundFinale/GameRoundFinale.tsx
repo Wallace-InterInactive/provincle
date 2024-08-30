@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { getPotMapSvgUrl, getColorOfStatus } from "../../utils/utils.ts";
+import {
+  getPotMapSvgUrl,
+  getColorOfStatus,
+  mapGradeToEmoji,
+} from "../../utils/utils.ts";
 import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 //import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
@@ -83,7 +87,9 @@ function GameRoundFinale({
                   <p className="my-guess-p">{t(stat.i18nId)}</p>
                 </div>
                 <div className="my-guess-open">
-                  <p className="my-guess-p">{stat.result}</p>
+                  <p className="my-guess-p">
+                    {mapGradeToEmoji.get(stat.result) ?? "-"}
+                  </p>
                 </div>
               </div>
             );
