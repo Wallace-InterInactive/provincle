@@ -47,9 +47,23 @@ export interface PotData {
   coastlineInKM: number;
 }
 
+//export type GameRoundGrade = 1 | 2 | 3 | 4 | 5;
+export enum GameRoundResult {
+  NotStarted = 1,
+  Failed = 2,
+  Fair = 3,
+  Good = 4,
+  Excellent = 5,
+}
+
+export interface GameRoundStat {
+  i18nId: string; // TODO: shall we extract to type?
+  result: GameRoundResult;
+}
+
 export interface GameState {
-  potCode: string;
+  potCode: string; // lovas: PotCode ??
   currentRound: number;
-  //  currentRoundIsFinished: boolean;
-  //  rounds: Round[];
+  rounds: Map<string, GameRoundStat>;
+  //results: Map<string, GameRoundResult>;
 }

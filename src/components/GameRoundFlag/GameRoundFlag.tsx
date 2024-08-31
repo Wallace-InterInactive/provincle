@@ -3,27 +3,31 @@ import {
   getPotFlagSvgUrl,
   getColorOfStatus,
   shuffle,
-  //changeHtmlItemClass,
 } from "../../utils/utils.ts";
-import defaultGameState from "../../utils/gameState.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { PotCode } from "../../types/data.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { potCodes } from "../../utils/dataBank.ts";
+import confetti from "canvas-confetti";
+import { toastSuccess } from "../../utils/animations.ts";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
 
 function GameRoundFlag({
+  gameRoundId,
+  gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
+  setRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
+  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
 
-  const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
+  // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
     { length: potCodes.length },
     (_, i) => potCodes[i]
@@ -54,23 +58,34 @@ function GameRoundFlag({
     }
 
     console.log(`current guess ${guessedItem}`);
-    addGuess(guessedItem.split("-")[1]);
     if (`guess-${gameState.potCode}` == guessedItem) {
       setCurrentRoundStatus("won");
+      toastSuccess(t("guessedIt"));
+      confetti();
+      setRoundResult(gameRoundId, grade(guess));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
+      setRoundResult(gameRoundId, grade(guess));
     }
-    // changeHtmlItemClass( guessedItem, border-won-lost )
+    addGuess(guess);
   };
+
+  // prettier-ignore
+  function grade(guess: string): GameRoundResult {
+    if (guess === gameState.potCode) {
+      return guesses.length === 0 ? GameRoundResult.Excellent
+           : guesses.length === 1 ? GameRoundResult.Good
+           :                        GameRoundResult.Fair;
+    } else {
+      return guesses.length == 0 ? GameRoundResult.NotStarted
+                                 : GameRoundResult.Failed;
+    }
+  }
 
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>
-          {t("gameFlagRoundInstruction")}{" "}
-          <i>{tGeo(`of_${gameState.potCode}`)}</i>
-          {"!"}
-        </p>
+        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}!`}</p>
       </div>
       <div>
         <div
@@ -102,12 +117,12 @@ function GameRoundFlag({
                 <img
                   src={getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
-                  className={`cursor-pointer max-h-24 m-auto my-5 h-20 ${myBorder}`}
+                  className={`cursor-pointer max-h-24 m-auto h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
                   id={`guess-${aPot}`}
                 />
                 <p
-                  className={`visible h-6 rounded-2xl -m-1 text-black bg-${bgColor}`}
+                  className={`visible h-6 rounded-xl -mx-2 px-2 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
                     ? t("guessVerb")

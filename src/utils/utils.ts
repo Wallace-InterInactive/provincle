@@ -1,6 +1,11 @@
 import accentsMap from "./accentsMap.ts";
 import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
-import { CardinalDirection, GameRoundStatus, PotCode } from "../types/data.ts";
+import {
+  CardinalDirection,
+  GameRoundStatus,
+  PotCode,
+  GameRoundResult,
+} from "../types/data.ts";
 import dataBank, {
   getPotNamesByLang,
   getPseudoRandomNumber,
@@ -23,6 +28,14 @@ const directionEmojiMap = new Map<CardinalDirection, string>([
   // note: https://www.toptal.com/designers/htmlarrows/arrows/
   //   &uarr; &rarr; &darr; &larr; &nwarr; &nearr; &swarr; &searr; &#x25CE;
   // https://emojigraph.org/right-arrow/ - for escape codes of emojis
+]);
+
+export const mapGradeToEmoji = new Map<GameRoundResult, string>([
+  [1, "🚫"],
+  [2, "★"],
+  [3, "★★★"],
+  [4, "★⭐★"],
+  [5, "⭐🌟⭐"],
 ]);
 
 export function sanitizeString(str: string): string {

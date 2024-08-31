@@ -1,6 +1,7 @@
 import { GuessRow } from "../GuessRow/GuessRow.tsx";
 import { GameRoundStatus, PotCode } from "../../types/data.ts";
 import { useTranslation } from "react-i18next";
+import { getColorOfStatus } from "../../utils/utils.ts";
 
 export interface GuessesProps {
   currentRoundStatus: GameRoundStatus;
@@ -35,7 +36,7 @@ export function Guesses({
         <div className="my-span-2">
           <span
             // TODO: use custom class name for colors
-            className={`my-span-3 text-white ${currentRoundStatus === "won" ? "bg-green-700" : "bg-red-600"}`}
+            className={`my-span-3 text-black bg-${getColorOfStatus(currentRoundStatus)}`}
           >
             {tGeo(solutionCode)}
           </span>

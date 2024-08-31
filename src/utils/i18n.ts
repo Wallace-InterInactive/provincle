@@ -32,6 +32,7 @@ i18next
           unknownCity: "Unknown city!",
           alreadyGuessed: "Already Guessed!",
           guessedIt: "Spot on!",
+          failedIt: "Sorry, you missed it!",
         },
         geo: {
           ca: "Canada",
@@ -79,7 +80,7 @@ i18next
           capitalCity: "Ville capitale",
           attempts: "Essais",
           // game round instructions
-          gamePotRoundInstruction: "TODO", // TODO: we probably don't need this
+          gamePotRoundInstruction: "Devinez la province", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
           gameNeighborRoundInstruction: "Quelles sont les voisins",
@@ -89,6 +90,7 @@ i18next
           unknownCity: "Ville inconnue!",
           alreadyGuessed: "Déjà deviné!",
           guessedIt: "Touché-coulé!",
+          failedIt: "Désolé, vous l'avez manqué!",
         },
         geo: {
           ca: "Canada",

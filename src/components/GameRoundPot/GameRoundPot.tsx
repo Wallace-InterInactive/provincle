@@ -5,10 +5,9 @@ import {
   isValidPot,
   getPotMapSvgUrl,
 } from "../../utils/utils.ts";
-import defaultGameState from "../../utils/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { PotCode } from "../../types/data.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import i18n from "../../utils/i18n.ts";
@@ -16,46 +15,24 @@ import {
   SQUARE_ANIMATION_LENGTH,
   squares,
   toastError,
+  toastFailed,
   toastSuccess,
 } from "../../utils/animations.ts";
 import { Guesses } from "../Guesses/Guesses.tsx";
 import confetti from "canvas-confetti";
 
 function GameRoundPot({
+  gameRoundId,
+  gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
+  setRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
   // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
 
-  //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [newGameState, setNewGameState] = useState(defaultGameState);
-
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const updateGameState = (key: string, val: any): void => {
-    setNewGameState(prevState => ({
-      ...prevState,
-      [key]: val,
-    }));
-  };
-
-  // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const { potCode, currentRound } = newGameState;
-
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const setPotCode = (newPotCode: string): void => {
-    updateGameState("potCode", newPotCode);
-  };
-
-  // TODO: remove ts-ignore
-  // @ts-ignore
-  const setCurrentRound = (newCurrentRound: number): void => {
-    updateGameState("currentRound", newCurrentRound);
-  };
+  const potCode: string = gameState.potCode;
 
   const maxAttempts = 3;
 
@@ -78,6 +55,19 @@ function GameRoundPot({
     setCurrentGuess("");
   }, [guesses]);
 
+  // prettier-ignore
+  function grade(guess: string): GameRoundResult {
+    //if (guess === gameState.potCode) {
+    if (sanitizeString(tGeo(potCode)) === sanitizeString(guess)) {
+      return guesses.length === 0 ? GameRoundResult.Excellent
+           : guesses.length === 1 ? GameRoundResult.Good
+           :                        GameRoundResult.Fair;
+    } else {
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
+    }
+  }
+
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -97,10 +87,14 @@ function GameRoundPot({
         toastSuccess(t("guessedIt"));
         confetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
+      setRoundResult(gameRoundId, grade(currentGuess));
+      console.log("grade " + grade(currentGuess));
     } else if (guesses.length + 1 === maxAttempts) {
       setTimeout(() => {
+        toastFailed(t("failedIt"));
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
+      setRoundResult(gameRoundId, grade(currentGuess));
     }
 
     addGuess(currentGuess);
