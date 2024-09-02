@@ -3,13 +3,16 @@ import dataBank from "../../utils/dataBank.ts";
 import { calculateDistanceInMeters } from "../../utils/geo.ts";
 import { getSquaresByDistance } from "../../utils/animations.ts";
 
+// prettier-ignore
 describe("test square animation based on distance", () => {
   it("returns all green for same pots", () => {
     const dist = calculateDistanceInMeters(
       dataBank.yt.coordinates,
       dataBank.yt.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟩", "🟩", "🟩", "🟩", "🟩"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟩", "🟩", "🟩", "🟩", "🟩"]
+    );
   });
 
   it("returns almost all green", () => {
@@ -17,7 +20,9 @@ describe("test square animation based on distance", () => {
       dataBank.pe.coordinates,
       dataBank.nb.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟩", "🟩", "🟩", "🟩", "🟨"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟩", "🟩", "🟩", "🟩", "🟨"]
+    );
   });
 
   it("returns mostly green", () => {
@@ -25,7 +30,9 @@ describe("test square animation based on distance", () => {
       dataBank.ab.coordinates,
       dataBank.sk.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟩", "🟩", "🟩", "🟨", "🟨"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟩", "🟩", "🟩", "🟨", "🟨"]
+    );
   });
 
   it("returns yellowish", () => {
@@ -33,7 +40,9 @@ describe("test square animation based on distance", () => {
       dataBank.yt.coordinates,
       dataBank.ab.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟩", "🟩", "🟨", "🟨", "🟧"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟩", "🟩", "🟨", "🟨", "🟧"]
+    );
   });
 
   it("returns somewhat orange", () => {
@@ -41,7 +50,9 @@ describe("test square animation based on distance", () => {
       dataBank.yt.coordinates,
       dataBank.mb.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟩", "🟨", "🟨", "🟧", "🟧"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟩", "🟨", "🟨", "🟧", "🟧"]
+    );
   });
 
   it("returns some red", () => {
@@ -49,7 +60,9 @@ describe("test square animation based on distance", () => {
       dataBank.nt.coordinates,
       dataBank.nl.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟩", "🟨", "🟨", "🟧", "🟧", "🟥"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟩", "🟨", "🟨", "🟧", "🟧", "🟥"]
+    );
   });
 
   it("returns the most red", () => {
@@ -57,6 +70,8 @@ describe("test square animation based on distance", () => {
       dataBank.yt.coordinates,
       dataBank.ns.coordinates,
     );
-    expect(getSquaresByDistance(dist)).toStrictEqual(["🟨", "🟨", "🟧", "🟧", "🟥", "🟥"]);
+    expect(getSquaresByDistance(dist)).toStrictEqual(
+      ["🟨", "🟨", "🟧", "🟧", "🟥", "🟥"]
+    );
   });
 });

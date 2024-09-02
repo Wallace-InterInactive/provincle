@@ -6,14 +6,13 @@ export const squares = ["🟩", "🟩", "🟨", "🟧", "🟥", "⬛️"];
 // prettier-ignore
 export function getSquaresByDistance(distanceInMeters: number): string[] {
   const distanceInKms = Math.floor(distanceInMeters / 1000);
-  return distanceInKms === 0 ?
-    ["🟩", "🟩", "🟩", "🟩", "🟩", "🟩"] : distanceInKms <= 300 ?
-    ["🟩", "🟩", "🟩", "🟩", "🟩", "🟨"] : distanceInKms <= 1300 ?
-    ["🟩", "🟩", "🟩", "🟩", "🟨", "🟨"] : distanceInKms <= 2300 ?
-    ["🟩", "🟩", "🟩", "🟨", "🟨", "🟧"] : distanceInKms <= 3300 ?
-    ["🟩", "🟩", "🟨", "🟨", "🟧", "🟧"] : distanceInKms <= 4300 ?
-    ["🟩", "🟨", "🟨", "🟧", "🟧", "🟥"] :
-    ["🟨", "🟨", "🟧", "🟧", "🟥", "🟥"];
+  return distanceInKms === 0 ? ["🟩", "🟩", "🟩", "🟩", "🟩", "🟩"]
+    : distanceInKms <= 300   ? ["🟩", "🟩", "🟩", "🟩", "🟩", "🟨"]
+    : distanceInKms <= 1300  ? ["🟩", "🟩", "🟩", "🟩", "🟨", "🟨"]
+    : distanceInKms <= 2300  ? ["🟩", "🟩", "🟩", "🟨", "🟨", "🟧"]
+    : distanceInKms <= 3300  ? ["🟩", "🟩", "🟨", "🟨", "🟧", "🟧"]
+    : distanceInKms <= 4300  ? ["🟩", "🟨", "🟨", "🟧", "🟧", "🟥"]
+    :                          ["🟨", "🟨", "🟧", "🟧", "🟥", "🟥"];
 }
 
 export function toastError(text: string): void {
