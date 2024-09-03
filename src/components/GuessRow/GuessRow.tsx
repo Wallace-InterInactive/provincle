@@ -3,9 +3,14 @@ import {
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
 } from "../../utils/utils.ts";
-import { getPotCodeByName } from "../../utils/dataBank.ts";
+import dataBank, { getPotCodeByName } from "../../utils/dataBank.ts";
 import { useEffect, useState } from "react";
-import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
+import {
+  getSquaresByDistance,
+  SQUARE_ANIMATION_LENGTH,
+  squares,
+} from "../../utils/animations.ts";
+import { calculateDistanceInMeters } from "../../utils/geo.ts";
 
 export interface GuessRowProps {
   guess: string;
@@ -52,7 +57,12 @@ export function GuessRow({ guess, solutionCode }: GuessRowProps) {
       </div>
     ) : (
       <div className="grid grid-cols-6 gap-1 text-center py-0.5 text-l w-full justify-evenly items-center border-2 h-8 overflow-hidden">
-        {squares.map((character, index) => (
+        {getSquaresByDistance(
+          calculateDistanceInMeters(
+            dataBank[guessCode as PotCode].coordinates,
+            dataBank[solutionCode].coordinates
+          )
+        ).map((character, index) => (
           <div
             key={index}
             className="opacity-0 animate-reveal"
