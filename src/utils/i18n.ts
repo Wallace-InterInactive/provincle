@@ -10,6 +10,8 @@ i18next
     fallbackLng: "en",
     fallbackNS: "base",
     resources: {
+      // we strive to use only one flavor of English on the UI, with that being
+      // Canadian English - in the code, we stick to U.S. spelling if possible
       en: {
         base: {
           guessVerb: "Guess",
@@ -25,7 +27,7 @@ i18next
           gamePotRoundInstruction: "Select the province", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Select the flag",
           gameCapitalRoundInstruction: "What is the capital",
-          gameNeighborRoundInstruction: "What are the neighbors",
+          gameNeighborRoundInstruction: "What are the neighbours",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Unknown province ot territory!",
@@ -147,6 +149,7 @@ i18next
           unknownCity: "LOLUnknown city!",
           alreadyGuessed: "LOLAlready Guessed!",
           guessedIt: "LOLSpot on!",
+          failedIt: "LOLSorry, you missed it!",
         },
         geo: {
           ca: "LOLCanada",
