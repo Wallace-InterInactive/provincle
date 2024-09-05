@@ -17,6 +17,7 @@ i18next
           guessVerb: "Guess",
           guessNoun: "Guess",
           giveUp: "Give up",
+          areYouSure: "Are you sure",
           nextRound: "Next Round",
           province: "Province",
           territory: "Territory",
@@ -75,6 +76,7 @@ i18next
           guessVerb: "Deviner",
           guessNoun: "Guess", // since there is no such word in French
           giveUp: "Abandonner",
+          areYouSure: "Tu es sûr",
           nextRound: "Prochaine Manche",
           province: "Province",
           territory: "Territoire",
@@ -134,6 +136,7 @@ i18next
           guessNoun: "LOLGuess",
           giveUp: "LOLGive up",
           nextRound: "LOLNext Round",
+          areYouSure: "LOLAre you sure",
           province: "LOLProvince",
           territory: "LOLTerritory",
           provinceOrTerritory: "LOLProvince or Territory",
