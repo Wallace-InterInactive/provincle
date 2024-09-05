@@ -2,6 +2,7 @@ import { GameRoundStatus } from "../../types/data.ts";
 import { useTranslation } from "react-i18next";
 
 interface NextRoundButtonProps {
+  currentRound: number;
   currentRoundStatus: GameRoundStatus;
   handleNextButtonClicked: () => void;
   handleGiveUpButtonClicked: () => void;
@@ -9,6 +10,7 @@ interface NextRoundButtonProps {
 }
 
 export function NextRoundButton({
+  currentRound,
   currentRoundStatus,
   handleNextButtonClicked,
   handleGiveUpButtonClicked,
@@ -27,13 +29,16 @@ export function NextRoundButton({
         >
           🍁 {t("nextRound")}
         </button>
-      ) : (
+      ) : currentRound > 1 ? (
         <button
           onClick={handleGiveUpButtonClicked}
-          className="border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
+          className="rounded-xl flex-shrink-0 font-medium px-4 py-2 text-black bg-custom-light-blue-2"
+          // className=  "border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
         >
-          😱 {t("giveUp")} (clicked: {giveUpCnt}) 😱
+          {giveUpCnt === 0 ? `🤷‍♀️ ${t("giveUp")}` : `️🙀 ${t("areYouSure")}?`}
         </button>
+      ) : (
+        <></>
       )}
     </div>
   );

@@ -23,7 +23,7 @@ import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
 // Todo: could be extracted or it's just the place to centralize game-configuration
 // prettier-ignore
 function initGameState(): GameState {
-  let ret = defaultGameState;
+  const ret = defaultGameState;
   ret.potCode = getTodaysPotCode(); // lovas: shall we raise here?
   ret.rounds.set("pot",       { i18nId: "gamePotRoundInstruction",      result: GameRoundResult.NotStarted });
   ret.rounds.set("neighbors", { i18nId: "gameNeighborRoundInstruction", result: GameRoundResult.NotStarted, });
@@ -33,7 +33,6 @@ function initGameState(): GameState {
 }
 
 export function Game() {
-  const maxRounds = 10;
   const [gameState, setGameState] = useState(() => initGameState()); // warning: useState(initGameState()) sux!
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -55,7 +54,7 @@ export function Game() {
 
   const setRoundResult = (roundId: string, result: GameRoundResult): void => {
     console.log(`set ${roundId} ==> ${result}`);
-    let newState: GameState = gameState;
+    const newState: GameState = gameState;
     // lovas: not really good, it's not deep copy
     // lovas it should be merged into one expression
     newState.rounds.set(roundId, {
@@ -135,8 +134,9 @@ export function Game() {
           />
         )}
       </div>
-      {currentRound < maxRounds ? (
+      {currentRound <= gameState.rounds.size ? (
         <NextRoundButton
+          currentRound={currentRound}
           currentRoundStatus={currentRoundStatus}
           giveUpCnt={giveupCnt}
           handleGiveUpButtonClicked={handleGiveUpButtonClicked}
