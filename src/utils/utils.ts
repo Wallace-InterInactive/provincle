@@ -131,13 +131,6 @@ export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "✅" : "❌";
 }
 
-export function getPotMapSvgUrl(potCode: PotCode): string {
-  return new URL(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
-    import.meta.url
-  ).href;
-}
-
 export function getPotFlagSvgUrl(potCode: PotCode): string {
   return new URL(
     `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,

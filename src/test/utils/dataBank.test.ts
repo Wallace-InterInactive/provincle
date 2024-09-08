@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import dataBank, {
   getCapitalsByLang,
   getPotCodeByName,
@@ -9,8 +9,15 @@ import dataBank, {
   potCodes,
 } from "../../utils/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
+import i18n from '../../../src/utils/i18n'; // Import the actual i18n instance
+
 
 describe("test functions in dataBank", () => {
+  beforeAll(() => {
+    // Ensure i18n is initialized properly
+    return i18n.init();
+  });
+
   it("returns a potCode from the dataBank", () => {
     expect(potCodes).toContain(getTodaysPotCode());
   });
@@ -19,7 +26,8 @@ describe("test functions in dataBank", () => {
     expect(potCodes).toContain(getPseudoRandomPotCode(3));
   });
 
-  it("should return the code of the pot", () => {
+  it("should return the code of the pot", async () => {
+    await i18n.changeLanguage('en'); // Set language to English
     expect(getPotCodeByName("British Columbia")).toBe("bc");
     expect(getPotCodeByName("Colombie-Britannique")).toBe("bc");
     expect(getPotCodeByName("Colombie-Britannique")).toBe("bc");

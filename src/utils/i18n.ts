@@ -69,6 +69,19 @@ i18next
           of_yt: "of the Yukon", // irregular, but it's also correct w/o 'the'
           of_nu: "of Nunavut",
           // TODO: names of cities and towns (capitals & perhaps more)
+          capital_on: "Toronto",
+          capital_qc: "Quebec City",
+          capital_ns: "Halifax",
+          capital_nb: "Fredericton",
+          capital_mb: "Winnipeg",
+          capital_bc: "Victoria",
+          capital_pe: "Charlottetown",
+          capital_sk: "Regina",
+          capital_ab: "Edmonton",
+          capital_nl: "St. John's",
+          capital_nt: "Yellowknife",
+          capital_yt: "Whitehorse",
+          capital_nu: "Iqaluit",
         },
       },
       fr: {
@@ -128,6 +141,7 @@ i18next
           of_yt: "du Yukon", // irregular, but it's also correct w/o 'the'
           of_nu: "du Nunavut",
           // TODO: names of cities and towns (capitals & perhaps more)
+          capital_qc: "Ville de Québec",
         },
       },
       LOLcalize: {

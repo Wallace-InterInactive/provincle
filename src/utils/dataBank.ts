@@ -1,5 +1,6 @@
-import { PotCode, PotData, MultiLangName } from "../types/data.ts";
-import i18n from "../utils/i18n.ts";
+import { PotCode, PotData } from "../types/data.ts";
+//import { useTranslation } from "react-i18next";
+//import i18n from "../utils/i18n.ts";
 
 // data sources
 // - https://en.wikipedia.org/wiki/Geography_of_Canada
@@ -14,15 +15,8 @@ import i18n from "../utils/i18n.ts";
 
 const dataBank: Record<PotCode, PotData> = {
   on: {
-    name: {
-      en: "Ontario",
-      fr: "Ontario",
-    },
     neighbors: ["nu", "qc", "mb"],
-    capital: {
-      en: "Toronto",
-      fr: "Toronto",
-    },
+    capital: "capital_on",
     coordinates: {
       latitude: 49.25,
       longitude: -84.5,
@@ -38,15 +32,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 3840,
   },
   qc: {
-    name: {
-      en: "Quebec",
-      fr: "Québec",
-    },
     neighbors: ["nu", "nl", "pe", "nb", "on"],
-    capital: {
-      en: "Quebec City",
-      fr: "Ville de Québec",
-    },
+    capital: "capital_qc",
     coordinates: {
       latitude: 52,
       longitude: -72,
@@ -60,15 +47,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 13000,
   },
   ns: {
-    name: {
-      en: "Nova Scotia",
-      fr: "Nouvelle-Écosse",
-    },
     neighbors: ["nl", "nb", "pe"],
-    capital: {
-      en: "Halifax",
-      fr: "Halifax",
-    },
+    capital: "capital_ns",
     coordinates: {
       latitude: 45,
       longitude: -63,
@@ -82,15 +62,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 7579,
   },
   nb: {
-    name: {
-      en: "New Brunswick",
-      fr: "Nouveau-Brunswick",
-    },
     neighbors: ["pe", "ns", "qc"],
-    capital: {
-      en: "Fredericton",
-      fr: "Fredericton",
-    },
+    capital: "capital_nb",
     coordinates: {
       latitude: 46.5,
       longitude: -66,
@@ -104,15 +77,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 5500,
   },
   mb: {
-    name: {
-      en: "Manitoba",
-      fr: "Manitoba",
-    },
     neighbors: ["nu", "on", "sk"],
-    capital: {
-      en: "Winnipeg",
-      fr: "Winnipeg",
-    },
+    capital: "capital_mb",
     coordinates: {
       latitude: 55,
       longitude: -97,
@@ -127,15 +93,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1210,
   },
   bc: {
-    name: {
-      en: "British Columbia",
-      fr: "Colombie-Britannique",
-    },
     neighbors: ["yt", "nt", "ab"],
-    capital: {
-      en: "Victoria",
-      fr: "Victoria",
-    },
+    capital: "capital_bc",
     coordinates: {
       latitude: 54,
       longitude: -125,
@@ -149,15 +108,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 27200,
   },
   pe: {
-    name: {
-      en: "Prince Edward Island",
-      fr: "Île-du-Prince-Édouard",
-    },
     neighbors: ["qc", "nl", "ns", "nb"],
-    capital: {
-      en: "Charlottetown",
-      fr: "Charlottetown",
-    },
+    capital: "capital_pe",
     coordinates: {
       latitude: 46.4,
       longitude: -63.2,
@@ -172,15 +124,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 1260,
   },
   sk: {
-    name: {
-      en: "Saskatchewan",
-      fr: "Saskatchewan",
-    },
     neighbors: ["nt", "nu", "mb", "ab"],
-    capital: {
-      en: "Regina",
-      fr: "Regina",
-    },
+    capital: "capital_sk",
     coordinates: {
       latitude: 54.5,
       longitude: -106.000556,
@@ -194,15 +139,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   ab: {
-    name: {
-      en: "Alberta",
-      fr: "Alberta",
-    },
     neighbors: ["nt", "sk", "bc"],
-    capital: {
-      en: "Edmonton",
-      fr: "Edmonton",
-    },
+    capital: "capital_ab",
     coordinates: {
       latitude: 54.5,
       longitude: -114.376667,
@@ -217,15 +155,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 0,
   },
   nl: {
-    name: {
-      en: "Newfoundland and Labrador",
-      fr: "Terre-Neuve-et-Labrador",
-    },
     neighbors: ["nu", "ns", "pe", "qc"],
-    capital: {
-      en: "St. John's",
-      fr: "St. John's",
-    },
+    capital: "capital_nl",
     coordinates: {
       latitude: 53.23,
       longitude: -59.999167,
@@ -241,15 +172,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 29000,
   },
   nt: {
-    name: {
-      en: "Northwest Territories",
-      fr: "Territoires du Nord-Ouest",
-    },
     neighbors: ["nu", "sk", "ab", "bc", "yt"],
-    capital: {
-      en: "Yellowknife",
-      fr: "Yellowknife",
-    },
+    capital: "capital_nt",
     coordinates: {
       latitude: 67,
       longitude: -121,
@@ -263,15 +187,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 25000,
   },
   yt: {
-    name: {
-      en: "Yukon",
-      fr: "Yukon",
-    },
     neighbors: ["nt", "bc"],
-    capital: {
-      en: "Whitehorse",
-      fr: "Whitehorse",
-    },
+    capital: "capital_yt",
     coordinates: {
       latitude: 63,
       longitude: -135,
@@ -286,15 +203,8 @@ const dataBank: Record<PotCode, PotData> = {
     coastlineInKM: 213,
   },
   nu: {
-    name: {
-      en: "Nunavut",
-      fr: "Nunavut",
-    },
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
-    capital: {
-      en: "Iqaluit",
-      fr: "Iqaluit",
-    },
+    capital: "capital_nu",
     coordinates: {
       latitude: 73,
       longitude: -93,
@@ -309,50 +219,62 @@ const dataBank: Record<PotCode, PotData> = {
   },
 };
 
-export function getPotNamesByLang(langCode: string): string[] {
-  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
-    throw new Error("invalid language");
-  }
-  langCode = langCode.substring(0, 2);
-  return Object.values(dataBank).map(
-    (entry: PotData) => entry.name[langCode as keyof MultiLangName]
-  );
+//export function getPotNamesByLang(langCode: string): string[] {
+export function getPotNamesByLang(tGeo: (key: string) => string): string[] {
+  return Object.keys(dataBank).map((code: string) => tGeo(code));
 }
 
-export function getPotNameByLang(potCode: PotCode, langCode: string): string {
-  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
-    throw new Error("invalid language");
-  }
-  langCode = langCode.substring(0, 2);
-  return dataBank[potCode as PotCode].name[langCode as keyof MultiLangName];
+export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string): string {
+  return tGeo(potCode as PotCode);
 }
+// export function getPotNameByLangX(potCode: PotCode, langCode: string): string {
+//   //const { t } = useTranslation();
+//   // const t = i18n.getFixedT("LOLcalize");
+//   const { t: tGeo } = useTranslation("geo");
 
-export function getPotName(potCode: PotCode): string {
-  return getPotNameByLang(potCode, i18n.language);
-}
+//   if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+//     throw new Error("invalid language");
+//   }
+//   langCode = langCode.substring(0, 2);
+//   return tGeo(potCode as PotCode);
+//   //return dataBank[potCode as PotCode].name[langCode as keyof MultiLangName];
+// }
 
-export function getPotCodeByName(name: string): string {
-  for (const [key, val] of Object.entries(dataBank)) {
-    if (name === val.name.en || name === val.name.fr) {
-      return key as PotCode;
-    }
-  }
-  return "invalid";
-}
+//export function getPotName(potCode: PotCode): string {
+//  return getPotNameByLang(potCode, i18n.language);
+//}
 
-export function getListOfCapitals(): string[] {
-  return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
-}
+// export function getPotCodeByName(name: string): string {
+//   const { t: tGeo } = useTranslation("geo");
 
-export function getCapitalsByLang(langCode: string): string[] {
-  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
-    throw new Error("invalid language");
-  }
-  langCode = langCode.substring(0, 2);
-  return Object.values(dataBank).map(
-    (entry: PotData) => entry.capital[langCode as keyof MultiLangName]
-  );
-}
+//   for (const [code] of Object.keys(dataBank)) {
+//     if (name === tGeo(code)) {
+//       return code; // as PotCode;
+//     }
+//   }
+//   return "invalid";
+// }
+
+// export function getListOfCapitals(): string[] {
+//   const { t: tGeo } = useTranslation("geo");
+//   return Object.values(dataBank).map(
+//     (entry: PotData) => tGeo(entry.capital) // tGeo(`capital${code}`) ?
+//   );
+//   //return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
+// }
+
+// export function getCapitalsByLang(langCode: string): string[] {
+//   const { t: tGeo } = useTranslation("geo");
+
+//   if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+//     throw new Error("invalid language");
+//   }
+//   langCode = langCode.substring(0, 2);
+//   //return Object.entries(dataBank).map(
+//   return Object.values(dataBank).map(
+//     (entry: PotData) => tGeo(entry.capital) // tGeo(`capital${code}`) ?
+//   );
+// }
 
 export const potCodes = Object.keys(dataBank) as PotCode[];
 // export const potNamesEn: string[] = getPotNamesByLang("en-ca");
@@ -396,6 +318,14 @@ export function getTodaysPotCode(): string {
 export function getPseudoRandomPotCode(n: number): string {
   const idx2 = (getTodaysPotCodeIndex() + n) % potCodes.length; // TODO: improve or delete
   return potCodes[idx2];
+}
+
+export function getPotMapSvgUrl(potCode: PotCode): string {
+  //export function getPotMapSvgUrl(potCode: string): string {
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
+    import.meta.url
+  ).href;
 }
 
 export default dataBank;

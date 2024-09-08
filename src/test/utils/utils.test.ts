@@ -7,14 +7,13 @@ import {
   getOkNokEmoji,
   getBullseyeEmoji,
   getPotFlagSvgUrl,
-  getPotMapSvgUrl,
   isValidGuess,
   isValidPot,
   sanitizeString,
   shuffle,
 } from "../../utils/utils.ts";
 import { PotCode } from "../../types/data.ts";
-import { getPotNamesByLang } from "../../utils/dataBank.ts";
+import { getPotNamesByLang, getPotMapSvgUrl } from "../../utils/dataBank.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {

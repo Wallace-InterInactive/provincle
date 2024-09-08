@@ -3,11 +3,11 @@ import dataBank, {
   getPotNamesByLang,
   getPotCodeByName,
   getPotName,
+  getPotMapSvgUrl,
 } from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidPot,
-  getPotMapSvgUrl,
   getOkNokEmoji,
   changeHtmlItemClass,
   getColorOfStatus,
@@ -213,7 +213,8 @@ function GameRoundNeighbors({
               >
                 <div className="my-guess-div col-span-6">
                   <p className="my-guess-p">
-                    {getPotName(guessCode as PotCode) || "-"}
+                    {tGeo(guessCode as PotCode)}
+                    {/*getPotName(guessCode as PotCode) || "-"*/}
                   </p>
                 </div>
                 <div className="my-guess-div">
