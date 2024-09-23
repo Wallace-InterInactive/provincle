@@ -13,6 +13,27 @@ import { PotCode, PotData } from "../types/data.ts";
 // - https://en.wikipedia.org/wiki/List_of_highest_points_of_Canadian_provinces_and_territories
 // - https://www.google.com/maps/search/?api=1&query=<lat>,<lng>
 
+export interface MyGeoMapping {
+  // lovas???
+  (key: string): string;
+}
+
+const listOfPotCodes: PotCode[] = [
+  // lovas: get it
+  "on",
+  "qc",
+  "ns",
+  "nb",
+  "mb",
+  "bc",
+  "pe",
+  "sk",
+  "ab",
+  "nl",
+  "nt",
+  "yt",
+  "nu",
+];
 const dataBank: Record<PotCode, PotData> = {
   on: {
     neighbors: ["nu", "qc", "mb"],
@@ -220,12 +241,14 @@ const dataBank: Record<PotCode, PotData> = {
 };
 
 //export function getPotNamesByLang(langCode: string): string[] {
-export function getPotNamesByLang(tGeo: (key: string) => string): string[] {
+//export function getPotNamesByLang(tGeo: (key: string) => string): string[] {
+export function getPotNamesByLang(tGeo: MyGeoMapping): string[] {
   return Object.keys(dataBank).map((code: string) => tGeo(code));
 }
 
-export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string): string {
-  return tGeo(potCode as PotCode);
+//export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string): string {
+export function getPotNameByLang(potCode: PotCode, tGeo: MyGeoMapping): string {
+  return tGeo(potCode); // lovas: as PotCode
 }
 // export function getPotNameByLangX(potCode: PotCode, langCode: string): string {
 //   //const { t } = useTranslation();
@@ -244,16 +267,16 @@ export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string
 //  return getPotNameByLang(potCode, i18n.language);
 //}
 
-// export function getPotCodeByName(name: string): string {
-//   const { t: tGeo } = useTranslation("geo");
-
-//   for (const [code] of Object.keys(dataBank)) {
-//     if (name === tGeo(code)) {
-//       return code; // as PotCode;
-//     }
-//   }
-//   return "invalid";
-// }
+export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
+  console.log(`getPotCode name:${name}`);
+  //for (const [code] of Object.keys(dataBank)) {
+  for (const code of listOfPotCodes) {
+    if (name === tGeo(code)) {
+      return code; // as PotCode;
+    }
+  }
+  return "invalid";
+}
 
 // export function getListOfCapitals(): string[] {
 //   const { t: tGeo } = useTranslation("geo");
@@ -263,18 +286,17 @@ export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string
 //   //return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
 // }
 
-// export function getCapitalsByLang(langCode: string): string[] {
-//   const { t: tGeo } = useTranslation("geo");
-
-//   if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
-//     throw new Error("invalid language");
-//   }
-//   langCode = langCode.substring(0, 2);
-//   //return Object.entries(dataBank).map(
-//   return Object.values(dataBank).map(
-//     (entry: PotData) => tGeo(entry.capital) // tGeo(`capital${code}`) ?
-//   );
-// }
+export function getCapitalsByLang(tGeo: MyGeoMapping): string[] {
+  //   const { t: tGeo } = useTranslation("geo");
+  // if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
+  //   throw new Error("invalid language");
+  // }
+  // langCode = langCode.substring(0, 2);
+  //return Object.entries(dataBank).map(
+  return Object.values(dataBank).map(
+    (entry: PotData) => tGeo(entry.capital) // tGeo(`capital${code}`) ?
+  );
+}
 
 export const potCodes = Object.keys(dataBank) as PotCode[];
 // export const potNamesEn: string[] = getPotNamesByLang("en-ca");

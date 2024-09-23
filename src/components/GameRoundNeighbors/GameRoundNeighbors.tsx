@@ -2,7 +2,6 @@ import { FormEvent, useState, useEffect } from "react";
 import dataBank, {
   getPotNamesByLang,
   getPotCodeByName,
-  getPotName,
   getPotMapSvgUrl,
 } from "../../utils/dataBank.ts";
 import {
@@ -19,7 +18,6 @@ import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-import i18n from "../../utils/i18n.ts";
 //import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
 import confetti from "canvas-confetti";
 
@@ -57,7 +55,7 @@ function GameRoundNeighbors({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess, i18n.language)) {
+    if (!isValidPot(currentGuess, tGeo)) {
       console.log("Unknown province or territory!");
       return;
     }
@@ -70,7 +68,7 @@ function GameRoundNeighbors({
     const isGuessCorrect = neighbors.some(
       apot => sanitizeString(tGeo(apot)) === sanitizeString(currentGuess)
     );
-    const guessedPot = getPotCodeByName(currentGuess);
+    const guessedPot = getPotCodeByName(currentGuess, tGeo);
     if (isGuessCorrect) {
       console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
       changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
@@ -182,7 +180,7 @@ function GameRoundNeighbors({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={getPotNamesByLang(i18n.language)}
+            suggestionsArray={getPotNamesByLang(tGeo)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}

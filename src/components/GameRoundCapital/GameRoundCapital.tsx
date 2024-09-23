@@ -16,7 +16,7 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-import i18n from "../../utils/i18n.ts";
+//import i18n from "../../utils/i18n.ts";
 import {
   SQUARE_ANIMATION_LENGTH,
   squares,
@@ -37,7 +37,7 @@ function GameRoundCapital(props: GameRoundProps) {
     //   dataBank[gameState.potCode as PotCode]["capital"][
     //     i18n.language.substring(0, 2) as keyof MultiLangName
     //   ],
-    possibleValues: getCapitalsByLang(i18n.language),
+    possibleValues: getCapitalsByLang(tGeo),
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);
