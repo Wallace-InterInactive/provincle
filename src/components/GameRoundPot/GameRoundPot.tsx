@@ -1,16 +1,12 @@
 import { FormEvent, useState, useEffect } from "react";
-import { getPotNamesByLang } from "../../utils/dataBank.ts";
-import {
-  sanitizeString,
-  isValidPot,
-  getPotMapSvgUrl,
-} from "../../utils/utils.ts";
+import { getPotNamesByLang, getPotMapSvgUrl } from "../../utils/dataBank.ts";
+import { sanitizeString, isValidPot } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-import i18n from "../../utils/i18n.ts";
+//import i18n from "../../utils/i18n.ts";
 import {
   SQUARE_ANIMATION_LENGTH,
   squares,
@@ -71,7 +67,7 @@ function GameRoundPot({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess, i18n.language)) {
+    if (!isValidPot(currentGuess, tGeo)) {
       toastError(t("unknownPot"));
       return;
     }
@@ -131,7 +127,7 @@ function GameRoundPot({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={getPotNamesByLang(i18n.language)}
+            suggestionsArray={getPotNamesByLang(tGeo)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}

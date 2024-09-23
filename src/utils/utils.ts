@@ -7,6 +7,7 @@ import {
   GameRoundResult,
 } from "../types/data.ts";
 import dataBank, {
+  MyGeoMapping,
   getPotNamesByLang,
   getPseudoRandomNumber,
 } from "./dataBank.ts";
@@ -49,22 +50,18 @@ export function sanitizeString(str: string): string {
   return retVal;
 }
 
-export function isValidPot(currentGuess: string, langCode: string): boolean {
+//export function isValidPot(currentGuess: string, langCode: string): boolean {
+export function isValidPot(currentGuess: string, tGeo: MyGeoMapping): boolean {
   if (!currentGuess) {
     return false;
   }
 
-  if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
-    throw new Error("invalid language");
-  }
-
-  langCode = langCode.substring(0, 2);
   const sanitized = sanitizeString(currentGuess);
 
   return (
     undefined !== sanitized &&
     "" !== sanitized &&
-    getPotNamesByLang(langCode).some(name => sanitizeString(name) === sanitized)
+    getPotNamesByLang(tGeo).some(name => sanitizeString(name) === sanitized)
   );
 }
 
@@ -129,13 +126,6 @@ export function getBullseyeEmoji(isOk: boolean): string {
 
 export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "✅" : "❌";
-}
-
-export function getPotMapSvgUrl(potCode: PotCode): string {
-  return new URL(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
-    import.meta.url
-  ).href;
 }
 
 export function getPotFlagSvgUrl(potCode: PotCode): string {

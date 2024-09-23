@@ -68,6 +68,20 @@ i18next
           of_nt: "of Northwest Territories",
           of_yt: "of the Yukon", // irregular, but it is also correct w/o 'the'
           of_nu: "of Nunavut",
+          // capitals
+          capital_on: "Toronto",
+          capital_qc: "Quebec City",
+          capital_ns: "Halifax",
+          capital_nb: "Fredericton",
+          capital_mb: "Winnipeg",
+          capital_bc: "Victoria",
+          capital_pe: "Charlottetown",
+          capital_sk: "Regina",
+          capital_ab: "Edmonton",
+          capital_nl: "St. John's",
+          capital_nt: "Yellowknife",
+          capital_yt: "Whitehorse",
+          capital_nu: "Iqaluit",
           // most populous cities/municipalities
           city_toronto: "Toronto",
           city_ottawa: "Ottawa",
@@ -179,6 +193,8 @@ i18next
           of_nt: "des Territoires du Nord-Ouest",
           of_yt: "du Yukon", // irregular, but it's also correct w/o 'the'
           of_nu: "du Nunavut",
+          // capitals
+          capital_qc: "Ville de Québec",
           // most populous cities/municipalities
           city_montreal: "Montréal",
           city_quebec: "Québec City",

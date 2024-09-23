@@ -33,10 +33,12 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface MultiLangName {
-  en: string;
-  fr: string;
-}
+//export type MultiLangName = string;
+export type GeoNameKey = string;
+// export interface MultiLangName2 {
+//   en: string;
+//   fr: string;
+// }
 
 export interface City {
   name: GeoNameKey;
@@ -44,9 +46,9 @@ export interface City {
 }
 
 export interface PotData {
-  name: MultiLangName;
+  //name: MultiLangName;
   neighbors: string[];
-  capital: MultiLangName;
+  capital: GeoNameKey;
   coordinates: Coordinates;
   population: number;
   largestCities: City[];

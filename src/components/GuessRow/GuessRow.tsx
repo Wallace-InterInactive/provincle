@@ -11,6 +11,7 @@ import {
   squares,
 } from "../../utils/animations.ts";
 import { calculateDistanceInMeters } from "../../utils/geo.ts";
+import { useTranslation } from "react-i18next";
 
 export interface GuessRowProps {
   guess: string;
@@ -18,7 +19,8 @@ export interface GuessRowProps {
 }
 
 export function GuessRow({ guess, solutionCode }: GuessRowProps) {
-  const guessCode = getPotCodeByName(guess);
+  const { t: tGeo } = useTranslation("geo");
+  const guessCode = getPotCodeByName(guess, tGeo);
 
   const [animationIsActive, setAnimationIsActive] = useState<boolean>(false);
 
