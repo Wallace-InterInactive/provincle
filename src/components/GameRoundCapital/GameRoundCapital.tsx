@@ -23,7 +23,7 @@ import {
 } from "../../utils/animations.ts";
 import confetti from "canvas-confetti";
 
-function GameRoundCapital(props: GameRoundProps) {
+export function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
 
   const extendedProps: GameRoundPropsExtended = {

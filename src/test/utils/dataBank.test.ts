@@ -5,7 +5,6 @@ import dataBank, {
   getPotNamesByLang,
   getPseudoRandomPotCode,
   getTodaysPotCode,
-  getListOfCapitals,
   potCodes,
 } from "../../utils/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
@@ -78,12 +77,27 @@ describe("test functions in dataBank", () => {
     expect(capitals).toContain("Ville de Québec");
   });
 
-  it("should return a list of capitals", () => {
-    const capitals = getListOfCapitals();
-    expect(capitals).toBeTypeOf("object");
-    expect(capitals[0]).toBeTypeOf("string");
-    expect(capitals.length).toBe(13);
+  /*
+  it("should return the the largest cities of each province in English", () => {
+    let cities = getLargestCitiesByLang("en");
+    expect(cities.length).toBe(13 * 4);
+    expect(cities).toContain("Quebec City");
+
+    cities = getLargestCitiesByLang("en-us");
+    expect(cities.length).toBe(13 * 4);
+    expect(cities).toContain("Montreal");
   });
+
+  it("should return the the largest cities of each province in French", () => {
+    let cities = getLargestCitiesByLang("fr");
+    expect(cities.length).toBe(13 * 4);
+    expect(cities).toContain("Ville de Québec");
+
+    cities = getLargestCitiesByLang("fr-ca");
+    expect(cities.length).toBe(13 * 4);
+    expect(cities).toContain("Montréal");
+  });
+  */
 });
 
 describe("check geo distances", () => {

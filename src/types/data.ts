@@ -1,3 +1,5 @@
+export type GeoNameKey = string;
+
 export type GameRoundStatus = "won" | "lost" | "pending";
 
 export type CardinalDirection =
@@ -36,12 +38,18 @@ export interface MultiLangName {
   fr: string;
 }
 
+export interface City {
+  name: GeoNameKey;
+  population: number;
+}
+
 export interface PotData {
   name: MultiLangName;
   neighbors: string[];
   capital: MultiLangName;
   coordinates: Coordinates;
   population: number;
+  largestCities: City[];
   interestingFacts: string[];
   highestPoint: string;
   coastlineInKM: number;
