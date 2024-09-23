@@ -26,17 +26,17 @@ export type PotCode =
   | "yt"
   | "nu";
 
+export type GeoNameKey = string;
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
 }
 
-//export type MultiLangName = string;
-export type GeoNameKey = string;
-// export interface MultiLangName2 {
-//   en: string;
-//   fr: string;
-// }
+export interface City {
+  name: GeoNameKey;
+  population: number;
+}
 
 export interface PotData {
   //name: MultiLangName;
@@ -44,6 +44,7 @@ export interface PotData {
   capital: GeoNameKey;
   coordinates: Coordinates;
   population: number;
+  largestCities: City[];
   interestingFacts: string[];
   highestPoint: string;
   coastlineInKM: number;
