@@ -8,7 +8,7 @@ import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-import { potCodes } from "../../utils/dataBank.ts";
+import { potCodes } from "../../canadata/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
 

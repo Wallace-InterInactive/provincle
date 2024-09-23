@@ -1,12 +1,12 @@
 import { useState } from "react";
-import defaultGameState from "../../utils/gameState.ts";
+import defaultGameState from "../../canadata/gameState.ts";
 import {
   GameRoundStatus,
   GameRoundStat,
   GameState,
   GameRoundResult,
 } from "../../types/data.ts";
-import { getTodaysPotCode } from "../../utils/dataBank.ts"; // lovas: see below use
+import { getTodaysPotCode } from "../../canadata/dataBank.ts"; // lovas: see below use
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";

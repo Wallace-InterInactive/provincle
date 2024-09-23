@@ -1,13 +1,16 @@
 import { FormEvent, useState, useEffect } from "react";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-import dataBank, { getCities, getPotMapSvgUrl } from "../../utils/dataBank.ts";
+import dataBank, {
+  getCities,
+  getPotMapSvgUrl,
+} from "../../canadata/dataBank.ts";
 import {
   sanitizeString,
   isValidGuess,
   getOkNokEmoji,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import defaultGameState from "../../utils/gameState.ts";
+import defaultGameState from "../../canadata/gameState.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";

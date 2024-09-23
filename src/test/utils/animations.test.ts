@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import dataBank from "../../utils/dataBank.ts";
+import dataBank from "../../canadata/dataBank.ts";
 import { calculateDistanceInMeters } from "../../utils/geo.ts";
 import { getSquaresByDistance } from "../../utils/animations.ts";
 

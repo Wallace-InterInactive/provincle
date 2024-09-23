@@ -1,4 +1,4 @@
-import { toggleLanguage } from "../../utils/settings.ts";
+import { toggleLanguage } from "../../canadata/settings.ts";
 
 export function Settings() {
   return (

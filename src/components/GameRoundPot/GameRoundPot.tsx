@@ -1,6 +1,10 @@
 import { FormEvent, useState, useEffect } from "react";
-import { getPotNamesByLang, getPotMapSvgUrl } from "../../utils/dataBank.ts";
-import { sanitizeString, isValidPot } from "../../utils/utils.ts";
+import {
+  getPotNamesByLang,
+  getPotMapSvgUrl,
+  isValidPot,
+} from "../../canadata/dataBank.ts";
+import { sanitizeString } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { getColorOfStatus, mapGradeToEmoji } from "../../utils/utils.ts";
-
-import { getPotMapSvgUrl } from "../../utils/dataBank.ts";
-
-import defaultGameState from "../../utils/gameState.ts";
+import { getPotMapSvgUrl } from "../../canadata/dataBank.ts";
+import defaultGameState from "../../canadata/gameState.ts";
 import { useTranslation } from "react-i18next";
 //import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
 import { PotCode, GameState } from "../../types/data.ts";

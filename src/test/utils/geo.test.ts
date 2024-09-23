@@ -5,7 +5,7 @@ import {
   calculateDistanceInMeters,
   calculateDistanceInMi,
 } from "../../utils/geo.ts";
-import dataBank from "../../utils/dataBank.ts";
+import dataBank from "../../canadata/dataBank.ts"; // WTF, is this geo test or databank test?
 
 describe("test distance calculation", () => {
   it("should return 0 for distance in meters from self", () => {

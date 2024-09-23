@@ -1,4 +1,15 @@
 import { City, PotCode, PotData } from "../types/data.ts";
+import {
+  MyGeoMapping,
+  sanitizeString,
+  getTodaysCodeIndex,
+  directionEmojiMap,
+} from "../utils/utils.ts";
+import {
+  calculateAngle,
+  angle15ToDir,
+  calculateDistanceInKm,
+} from "../utils/geo.ts";
 //import { useTranslation } from "react-i18next";
 //import i18n from "../utils/i18n.ts";
 
@@ -12,11 +23,6 @@ import { City, PotCode, PotData } from "../types/data.ts";
 // - https://history.howstuffworks.com/world-history/canadian-provinces.htm
 // - https://en.wikipedia.org/wiki/List_of_highest_points_of_Canadian_provinces_and_territories
 // - https://www.google.com/maps/search/?api=1&query=<lat>,<lng>
-
-export interface MyGeoMapping {
-  // lovas???
-  (key: string): string;
-}
 
 const listOfPotCodes: PotCode[] = [
   // lovas: get it
@@ -356,6 +362,21 @@ export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
   return "invalid";
 }
 
+//export function isValidPot(currentGuess: string, langCode: string): boolean {
+export function isValidPot(currentGuess: string, tGeo: MyGeoMapping): boolean {
+  if (!currentGuess) {
+    return false;
+  }
+
+  const sanitized = sanitizeString(currentGuess);
+
+  return (
+    undefined !== sanitized &&
+    "" !== sanitized &&
+    getPotNamesByLang(tGeo).some(name => sanitizeString(name) === sanitized)
+  );
+}
+
 // export function getListOfCapitals(): string[] {
 //   const { t: tGeo } = useTranslation("geo");
 //   return Object.values(dataBank).map(
@@ -363,6 +384,23 @@ export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
 //   );
 //   //return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
 // }
+
+/**
+ * Returns a string of the distance between the guess and
+ * the solution in kilometers or miles and the corresponding
+ * unit based on the current setting.
+ */
+export function getDistanceWithUnitBySetting(
+  fromGuess: PotCode,
+  toSolution: PotCode
+): string {
+  // TODO: setting for mi
+  const distance = calculateDistanceInKm(
+    dataBank[toSolution].coordinates,
+    dataBank[fromGuess].coordinates
+  );
+  return `${distance} km`;
+}
 
 export function getCapitals(tGeo: MyGeoMapping): string[] {
   //   const { t: tGeo } = useTranslation("geo");
@@ -423,39 +461,34 @@ export function getCapitalsAndLargestCitiesByLang(langCode: string): string[] {
 }
 */
 
+export function getDirectionEmoji(
+  fromGuess: PotCode,
+  toSolution: PotCode
+): string {
+  if (fromGuess === toSolution) {
+    return directionEmojiMap.get("*") as string;
+  }
+  const angle: number = calculateAngle(
+    dataBank[fromGuess].coordinates,
+    dataBank[toSolution].coordinates
+  );
+  // console.log(
+  //   `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
+  // );
+  return directionEmojiMap.get(angle15ToDir(angle)) as string;
+  // const direction: CardinalDirection = calculateDirection(
+  //   fromGuess,
+  //   toSolution
+  // );
+  // return directionEmojiMap.get(direction) as string;
+}
+
 export const potCodes = Object.keys(dataBank) as PotCode[];
 // export const potNamesEn: string[] = getPotNamesByLang("en-ca");
 // export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
-export function getCurrentDateString(): string {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-  return `${year}-0${month}-0${day}`;
-}
-
-function hashString(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    // TODO: replace this ole for loop
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0;
-  }
-  return hash;
-}
-
-export function getPseudoRandomNumber(): number {
-  const dateString = getCurrentDateString();
-  const hash = hashString(dateString);
-  return Math.abs(hash);
-}
-
 export function getTodaysPotCodeIndex(): number {
-  const dateString = getCurrentDateString();
-  const hash = hashString(dateString);
-  return Math.abs(hash) % potCodes.length;
+  return getTodaysCodeIndex(potCodes.length);
 }
 
 export function getTodaysPotCode(): string {
