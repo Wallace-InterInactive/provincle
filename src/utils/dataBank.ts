@@ -330,7 +330,6 @@ export function getPotNameByLang(potCode: PotCode, tGeo: MyGeoMapping): string {
 }
 // export function getPotNameByLangX(potCode: PotCode, langCode: string): string {
 //   //const { t } = useTranslation();
-//   // const t = i18n.getFixedT("LOLcalize");
 //   const { t: tGeo } = useTranslation("geo");
 
 //   if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {

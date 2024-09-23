@@ -33,7 +33,6 @@ function GameRoundNeighbors({
   const potNameOf: string = tGeo(`of_${gameState.potCode}`);
 
   const idPrefix: string = "roundNbor-";
-  // const t = i18n.getFixedT("LOLcalize");
 
   // const gameState: GameState = defaultGameState;
   const neighbors: string[] = dataBank[gameState.potCode as PotCode].neighbors;

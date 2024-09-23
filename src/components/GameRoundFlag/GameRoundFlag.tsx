@@ -23,7 +23,6 @@ function GameRoundFlag({
   setRoundResult,
 }: GameRoundProps) {
   const { t } = useTranslation();
-  // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
   const potNameOf: string = tGeo(`of_${gameState.potCode}`);
 

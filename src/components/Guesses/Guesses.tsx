@@ -19,7 +19,6 @@ export function Guesses({
   guessNum,
 }: GuessesProps) {
   const { t } = useTranslation();
-  // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
 
   return (
