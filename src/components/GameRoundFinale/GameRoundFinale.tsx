@@ -16,7 +16,6 @@ function GameRoundFinale({
   roundStats /*, setCurrentRoundStatus*/,
 }: GameFinaleProps) {
   const { t } = useTranslation();
-  // const t = i18n.getFixedT("LOLcalize");
   const { t: tGeo } = useTranslation("geo");
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {

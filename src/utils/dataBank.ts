@@ -1,4 +1,4 @@
-import { PotCode, PotData } from "../types/data.ts";
+import { City, PotCode, PotData } from "../types/data.ts";
 //import { useTranslation } from "react-i18next";
 //import i18n from "../utils/i18n.ts";
 
@@ -34,6 +34,7 @@ const listOfPotCodes: PotCode[] = [
   "yt",
   "nu",
 ];
+
 const dataBank: Record<PotCode, PotData> = {
   on: {
     neighbors: ["nu", "qc", "mb"],
@@ -44,10 +45,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 15996989,
     largestCities: [
-      { name: "city_toronto", population: 0 },
-      { name: "city_ottawa", population: 0 },
-      { name: "city_mississauga", population: 0 },
-      { name: "city_brampton", population: 0 },
+      { key: "city_toronto", population: 0 },
+      { key: "city_ottawa", population: 0 },
+      { key: "city_mississauga", population: 0 },
+      { key: "city_brampton", population: 0 },
     ],
     interestingFacts: [
       "home of the world's longest street",
@@ -67,10 +68,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 9030684,
     largestCities: [
-      { name: "city_montreal", population: 0 },
-      { name: "city_quebec", population: 0 },
-      { name: "city_gatineau", population: 0 },
-      { name: "city_sherbrooke", population: 0 },
+      { key: "city_montreal", population: 0 },
+      { key: "city_quebec", population: 0 },
+      { key: "city_gatineau", population: 0 },
+      { key: "city_sherbrooke", population: 0 },
     ],
     interestingFacts: [
       "largest province",
@@ -88,10 +89,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 1072545,
     largestCities: [
-      { name: "city_halifax", population: 0 },
-      { name: "city_cape_breton", population: 0 },
-      { name: "city_truro", population: 0 },
-      { name: "city_new_glasgow", population: 0 },
+      { key: "city_halifax", population: 0 },
+      { key: "city_cape_breton", population: 0 },
+      { key: "city_truro", population: 0 },
+      { key: "city_new_glasgow", population: 0 },
     ],
     interestingFacts: [
       "home to world's highest tides",
@@ -109,10 +110,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 850894,
     largestCities: [
-      { name: "city_moncton", population: 0 },
-      { name: "city_fredericton", population: 0 },
-      { name: "city_saint_John", population: 0 },
-      { name: "city_quispamsis", population: 0 },
+      { key: "city_moncton", population: 0 },
+      { key: "city_fredericton", population: 0 },
+      { key: "city_saint_john", population: 0 },
+      { key: "city_quispamsis", population: 0 },
     ],
     interestingFacts: [
       "the only bilingual province",
@@ -130,10 +131,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 1484135,
     largestCities: [
-      { name: "city_winnipeg", population: 0 },
-      { name: "city_brandon", population: 0 },
-      { name: "city_steinbach", population: 0 },
-      { name: "city_winkler", population: 0 },
+      { key: "city_winnipeg", population: 0 },
+      { key: "city_brandon", population: 0 },
+      { key: "city_steinbach", population: 0 },
+      { key: "city_winkler", population: 0 },
     ],
     interestingFacts: [
       "the lowest population density",
@@ -152,10 +153,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 5646467,
     largestCities: [
-      { name: "city_vancouver", population: 0 },
-      { name: "city_victoria", population: 0 },
-      { name: "city_kelowna", population: 0 },
-      { name: "city_abbotsford", population: 0 },
+      { key: "city_vancouver", population: 0 },
+      { key: "city_victoria", population: 0 },
+      { key: "city_kelowna", population: 0 },
+      { key: "city_abbotsford", population: 0 },
     ],
     interestingFacts: [
       "home of World's tallest tree",
@@ -173,10 +174,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 177081,
     largestCities: [
-      { name: "city_charlottetown", population: 0 },
-      { name: "city_summerside", population: 0 },
-      { name: "city_montague", population: 0 },
-      { name: "city_kensington", population: 0 },
+      { key: "city_charlottetown", population: 0 },
+      { key: "city_summerside", population: 0 },
+      { key: "city_montague", population: 0 },
+      { key: "city_kensington", population: 0 },
     ],
     interestingFacts: [
       "smallest province (5660km2)",
@@ -195,10 +196,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 1231043,
     largestCities: [
-      { name: "city_saskatoon", population: 0 },
-      { name: "city_regina", population: 0 },
-      { name: "city_prince_albert", population: 0 },
-      { name: "city_moose_jaw", population: 0 },
+      { key: "city_saskatoon", population: 0 },
+      { key: "city_regina", population: 0 },
+      { key: "city_prince_albert", population: 0 },
+      { key: "city_moose_jaw", population: 0 },
     ],
     interestingFacts: [
       "home to held the world's potash reserves",
@@ -216,10 +217,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 4849906,
     largestCities: [
-      { name: "city_calgary", population: 0 },
-      { name: "city_edmonton", population: 0 },
-      { name: "city_red_deer", population: 0 },
-      { name: "city_lethbridge", population: 0 },
+      { key: "city_calgary", population: 0 },
+      { key: "city_edmonton", population: 0 },
+      { key: "city_red_deer", population: 0 },
+      { key: "city_lethbridge", population: 0 },
     ],
     interestingFacts: [
       "has the most lakes",
@@ -238,10 +239,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 541391,
     largestCities: [
-      { name: "city_st_johns", population: 0 },
-      { name: "city_corner_brook", population: 0 },
-      { name: "city_grand_falls_windsor", population: 0 },
-      { name: "city_gander", population: 0 },
+      { key: "city_st_johns", population: 0 },
+      { key: "city_corner_brook", population: 0 },
+      { key: "city_grand_falls_windsor", population: 0 },
+      { key: "city_gander", population: 0 },
     ],
     interestingFacts: [
       "easternmost province",
@@ -261,10 +262,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 44920,
     largestCities: [
-      { name: "city_yellowknife", population: 0 },
-      { name: "city_hay_river", population: 0 },
-      { name: "city_inuvik", population: 0 },
-      { name: "city_fort_smith", population: 0 },
+      { key: "city_yellowknife", population: 0 },
+      { key: "city_hay_river", population: 0 },
+      { key: "city_inuvik", population: 0 },
+      { key: "city_fort_smith", population: 0 },
     ],
     interestingFacts: [
       "It was once french",
@@ -282,10 +283,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 45750,
     largestCities: [
-      { name: "city_whitehorse", population: 0 },
-      { name: "city_dawson", population: 0 },
-      { name: "city_watson_lake", population: 0 },
-      { name: "city_haines_junction", population: 0 },
+      { key: "city_whitehorse", population: 0 },
+      { key: "city_dawson", population: 0 },
+      { key: "city_watson_lake", population: 0 },
+      { key: "city_haines_junction", population: 0 },
     ],
     interestingFacts: [
       "there is no sun for 24 hours",
@@ -304,10 +305,10 @@ const dataBank: Record<PotCode, PotData> = {
     },
     population: 40758,
     largestCities: [
-      { name: "city_iqaluit", population: 0 },
-      { name: "city_rankin_inlet", population: 0 },
-      { name: "city_arviat", population: 0 },
-      { name: "city_baker_lake", population: 0 },
+      { key: "city_iqaluit", population: 0 },
+      { key: "city_rankin_inlet", population: 0 },
+      { key: "city_arviat", population: 0 },
+      { key: "city_baker_lake", population: 0 },
     ],
     interestingFacts: [
       "did not exist until 1999",
@@ -330,7 +331,6 @@ export function getPotNameByLang(potCode: PotCode, tGeo: MyGeoMapping): string {
 }
 // export function getPotNameByLangX(potCode: PotCode, langCode: string): string {
 //   //const { t } = useTranslation();
-//   // const t = i18n.getFixedT("LOLcalize");
 //   const { t: tGeo } = useTranslation("geo");
 
 //   if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
@@ -364,7 +364,7 @@ export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
 //   //return potCodes.map((pot: PotCode) => dataBank[pot].capital.en); // how to make it work for FR?
 // }
 
-export function getCapitalsByLang(tGeo: MyGeoMapping): string[] {
+export function getCapitals(tGeo: MyGeoMapping): string[] {
   //   const { t: tGeo } = useTranslation("geo");
   // if (!langCode.startsWith("en") && !langCode.startsWith("fr")) {
   //   throw new Error("invalid language");
@@ -374,6 +374,24 @@ export function getCapitalsByLang(tGeo: MyGeoMapping): string[] {
   return Object.values(dataBank).map(
     (entry: PotData) => tGeo(entry.capital) // tGeo(`capital${code}`) ?
   );
+}
+
+export function getLargestCities(tGeo: MyGeoMapping): string[] {
+  return Object.values(dataBank).flatMap((pot: PotData) =>
+    pot.largestCities.map((city: City) => tGeo(city.key))
+  );
+}
+
+export function getCities(tGeo: MyGeoMapping): string[] {
+  const retVal = getLargestCities(tGeo);
+  getCapitals(tGeo).forEach((cap: string) => {
+    if (!retVal.includes(cap)) {
+      retVal.push(cap);
+    }
+  });
+  retVal.sort();
+
+  return retVal;
 }
 
 /*

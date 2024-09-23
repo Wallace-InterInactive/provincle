@@ -34,7 +34,7 @@ export interface Coordinates {
 }
 
 export interface City {
-  name: GeoNameKey;
+  key: GeoNameKey;
   population: number;
 }
 
