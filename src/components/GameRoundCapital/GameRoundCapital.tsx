@@ -1,10 +1,12 @@
 import { FormEvent, useState, useEffect } from "react";
-import { MultiLangName, GameRoundResult, PotCode } from "../../types/data.ts";
-import dataBank, { getCapitalsByLang } from "../../utils/dataBank.ts";
+import { GameRoundResult, PotCode } from "../../types/data.ts";
+import dataBank, {
+  getCapitalsByLang,
+  getPotMapSvgUrl,
+} from "../../utils/dataBank.ts";
 import {
   sanitizeString,
   isValidGuess,
-  getPotMapSvgUrl,
   getOkNokEmoji,
   getColorOfStatus,
 } from "../../utils/utils.ts";
@@ -14,7 +16,7 @@ import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-import i18n from "../../utils/i18n.ts";
+//import i18n from "../../utils/i18n.ts";
 import {
   SQUARE_ANIMATION_LENGTH,
   squares,
@@ -25,15 +27,17 @@ import confetti from "canvas-confetti";
 
 function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
+  const { t: tGeo } = useTranslation("geo");
 
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target:
-      dataBank[gameState.potCode as PotCode]["capital"][
-        i18n.language.substring(0, 2) as keyof MultiLangName
-      ],
-    possibleValues: getCapitalsByLang(i18n.language),
+    target: tGeo(dataBank[gameState.potCode as PotCode].capital),
+    // target:
+    //   dataBank[gameState.potCode as PotCode]["capital"][
+    //     i18n.language.substring(0, 2) as keyof MultiLangName
+    //   ],
+    possibleValues: getCapitalsByLang(tGeo),
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);
