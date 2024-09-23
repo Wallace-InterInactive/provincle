@@ -1,19 +1,22 @@
 import accentsMap from "./accentsMap.ts";
-import { calculateDistanceInKm, angle15ToDir, calculateAngle } from "./geo.ts";
+//import { calculateDistanceInKm } from "./geo.ts";
 import {
   CardinalDirection,
   GameRoundStatus,
   PotCode,
   GameRoundResult,
 } from "../types/data.ts";
-import dataBank, {
-  MyGeoMapping,
-  getPotNamesByLang,
-  getPseudoRandomNumber,
-} from "./dataBank.ts";
+// import dataBank, {
+//   getPotNamesByLang,
+//   getPseudoRandomNumber,
+// } from "./dataBank.ts";
+
+export interface MyGeoMapping {
+  (key: string): string;
+}
 
 // TODO some UI or i18n module
-const directionEmojiMap = new Map<CardinalDirection, string>([
+export const directionEmojiMap = new Map<CardinalDirection, string>([
   ["N", "⬆️"],
   ["S", "⬇️"],
   ["W", "⬅️"],
@@ -50,19 +53,35 @@ export function sanitizeString(str: string): string {
   return retVal;
 }
 
-//export function isValidPot(currentGuess: string, langCode: string): boolean {
-export function isValidPot(currentGuess: string, tGeo: MyGeoMapping): boolean {
-  if (!currentGuess) {
-    return false;
+export function getCurrentDateString(): string {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  return `${year}-0${month}-0${day}`;
+}
+
+export function getPseudoRandomNumber(): number {
+  const dateString = getCurrentDateString();
+  const hash = hashString(dateString);
+  return Math.abs(hash);
+}
+
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    // TODO: replace this ole for loop
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
   }
+  return hash;
+}
 
-  const sanitized = sanitizeString(currentGuess);
-
-  return (
-    undefined !== sanitized &&
-    "" !== sanitized &&
-    getPotNamesByLang(tGeo).some(name => sanitizeString(name) === sanitized)
-  );
+export function getTodaysCodeIndex(maxNumOfCodes: number): number {
+  const dateString = getCurrentDateString();
+  const hash = hashString(dateString);
+  return Math.abs(hash) % maxNumOfCodes;
 }
 
 export function isValidGuess(
@@ -79,45 +98,6 @@ export function isValidGuess(
     "" !== sanitized &&
     listOfValues.some(name => sanitizeString(name) === sanitized)
   );
-}
-
-/**
- * Returns a string of the distance between the guess and
- * the solution in kilometers or miles and the corresponding
- * unit based on the current setting.
- */
-export function getDistanceWithUnitBySetting(
-  fromGuess: PotCode,
-  toSolution: PotCode
-): string {
-  // TODO: setting for mi
-  const distance = calculateDistanceInKm(
-    dataBank[toSolution].coordinates,
-    dataBank[fromGuess].coordinates
-  );
-  return `${distance} km`;
-}
-
-export function getDirectionEmoji(
-  fromGuess: PotCode,
-  toSolution: PotCode
-): string {
-  if (fromGuess === toSolution) {
-    return directionEmojiMap.get("*") as string;
-  }
-  const angle: number = calculateAngle(
-    dataBank[fromGuess].coordinates,
-    dataBank[toSolution].coordinates
-  );
-  // console.log(
-  //   `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
-  // );
-  return directionEmojiMap.get(angle15ToDir(angle)) as string;
-  // const direction: CardinalDirection = calculateDirection(
-  //   fromGuess,
-  //   toSolution
-  // );
-  // return directionEmojiMap.get(direction) as string;
 }
 
 export function getBullseyeEmoji(isOk: boolean): string {

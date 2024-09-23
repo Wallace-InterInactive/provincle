@@ -3,10 +3,10 @@ import dataBank, {
   getPotNamesByLang,
   getPotCodeByName,
   getPotMapSvgUrl,
-} from "../../utils/dataBank.ts";
+  isValidPot,
+} from "../../canadata/dataBank.ts";
 import {
   sanitizeString,
-  isValidPot,
   getOkNokEmoji,
   changeHtmlItemClass,
   getColorOfStatus,

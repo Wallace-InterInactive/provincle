@@ -1,9 +1,9 @@
 import { PotCode } from "../../types/data.ts";
-import {
+import dataBank, {
+  getPotCodeByName,
   getDirectionEmoji,
   getDistanceWithUnitBySetting,
-} from "../../utils/utils.ts";
-import dataBank, { getPotCodeByName } from "../../utils/dataBank.ts";
+} from "../../canadata/dataBank.ts";
 import { useEffect, useState } from "react";
 import {
   getSquaresByDistance,

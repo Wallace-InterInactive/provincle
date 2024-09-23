@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { PotCode } from "../../types/data.ts";
 import dataBank, {
   // getCapitalsByLang,
   // getPotCodeByName,
@@ -6,7 +7,10 @@ import dataBank, {
   getPseudoRandomPotCode,
   getTodaysPotCode,
   potCodes,
-} from "../../utils/dataBank.ts";
+  getDirectionEmoji,
+  getPotMapSvgUrl,
+  getDistanceWithUnitBySetting,
+} from "../../canadata/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
 
 describe("test functions in dataBank", () => {
@@ -16,6 +20,30 @@ describe("test functions in dataBank", () => {
 
   it("returns a potCode from the dataBank", () => {
     expect(potCodes).toContain(getTodaysPotCode());
+  });
+});
+
+describe("getDistanceWithUnitBySetting returns the formatted distance", () => {
+  it("should return 0 when the user guessed it", () => {
+    const pot: PotCode = "bc";
+    expect(getDistanceWithUnitBySetting(pot, pot)).toBe("0 km");
+  });
+  // TODO: add more tests
+});
+
+describe("getDirectionEmoji returns the correct arrow emoji based on the cardinal direction", () => {
+  it("should return 🎯 when the player guessed it", () => {
+    const pot: PotCode = "yt";
+    expect(getDirectionEmoji(pot, pot)).toBe("🎯");
+  });
+  // TODO: add more tests
+});
+
+describe("getPotMapSvgUrl returns the href of the map SVG of the given potCode", () => {
+  it("returns the href", () => {
+    const pattern: RegExp =
+      /\/assets\/provinces-and-territories\/qc\/qc-map\.svg$/;
+    expect(getPotMapSvgUrl("qc")).toMatch(pattern);
   });
 });
 
@@ -157,5 +185,88 @@ describe("check geo distances", () => {
     expect(
       calculateDistanceInKm(dataBank.mb.coordinates, dataBank.nu.coordinates)
     ).toBe(2009);
+  });
+});
+
+describe("getDirectionEmoji should return the corresponding emoji for a given CardinalDirection input", () => {
+  it("should return 🎯 for equal fromGuess and toSolution", () => {
+    const province = "qc";
+    expect(getDirectionEmoji(province, province)).toBe("🎯");
+  });
+
+  it("should return ⬆️ for North", () => {
+    expect(getDirectionEmoji("mb", "nu")).toBe("⬆️");
+  });
+
+  it("should return ⬇️️ for South", () => {
+    expect(getDirectionEmoji("nu", "mb")).toBe("⬇️");
+  });
+
+  it("should return ➡️️ for East", () => {
+    expect(getDirectionEmoji("ab", "sk")).toBe("\u27A1\uFE0F"); // ➡️️
+  });
+
+  it("should return ⬅️️ for West", () => {
+    expect(getDirectionEmoji("ab", "bc")).toBe("⬅️");
+  });
+
+  it("should return ↗️ for ", () => {
+    expect(getDirectionEmoji("bc", "nu")).toBe("↗️");
+  });
+
+  it("should return ↘️ for ", () => {
+    expect(getDirectionEmoji("nt", "on")).toBe("↘️");
+  });
+
+  it("should return ↙️ for ", () => {
+    expect(getDirectionEmoji("nu", "sk")).toBe("↙️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("bc", "yt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "bc")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nb")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("ns", "nl")).toBe("↗️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "ns")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "sk")).toBe("↘️");
+  });
+  it("should return ↘️ for yt,mb", () => {
+    expect(getDirectionEmoji("yt", "mb")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("yt", "on")).toBe("↘️");
+  });
+
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "sk")).toBe("⬅️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "nt")).toBe("↖️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "nu")).toBe("⬆️");
+  });
+  it("should return ↘️ for mb,ns", () => {
+    expect(getDirectionEmoji("mb", "ns")).toBe("↘️");
+  });
+  it("should return ↘️ for mb,pe", () => {
+    expect(getDirectionEmoji("mb", "pe")).toBe("↘️");
+  });
+  it("should return ↖️ for ", () => {
+    expect(getDirectionEmoji("mb", "on")).toBe("↘️");
   });
 });

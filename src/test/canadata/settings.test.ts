@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import i18next from "../../utils/i18n";
-import { toggleLanguage } from "../../utils/settings.ts";
+import i18next from "../../canadata/i18n";
+import { toggleLanguage } from "../../canadata/settings.ts";
 
 describe("it should test switching the language", () => {
   it("should switch to French from English", () => {
