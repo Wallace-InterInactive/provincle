@@ -117,12 +117,12 @@ describe("test functions in dataBank", () => {
   });
   */
 
-  // it("should return a list of capitals", () => {
-  //   const capitals = getListOfCapitals();
-  //   expect(capitals).toBeTypeOf("object");
-  //   expect(capitals[0]).toBeTypeOf("string");
-  //   expect(capitals.length).toBe(13);
-  // });
+// it("should return a list of capitals", () => {
+//   const capitals = getListOfCapitals();
+//   expect(capitals).toBeTypeOf("object");
+//   expect(capitals[0]).toBeTypeOf("string");
+//   expect(capitals.length).toBe(13);
+// });
 // });
 
 describe("check geo distances", () => {

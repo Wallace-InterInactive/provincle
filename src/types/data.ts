@@ -1,5 +1,3 @@
-export type GeoNameKey = string;
-
 export type GameRoundStatus = "won" | "lost" | "pending";
 
 export type CardinalDirection =
@@ -28,17 +26,12 @@ export type PotCode =
   | "yt"
   | "nu";
 
+export type GeoNameKey = string;
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
 }
-
-//export type MultiLangName = string;
-export type GeoNameKey = string;
-// export interface MultiLangName2 {
-//   en: string;
-//   fr: string;
-// }
 
 export interface City {
   name: GeoNameKey;
