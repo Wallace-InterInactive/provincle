@@ -121,7 +121,7 @@ i18next
           city_lethbridge: "Lethbridge",
           city_st_johns: "St. John's",
           city_corner_brook: "Corner Brook",
-          city_falls_windsor: "Grand Falls-Windsor",
+          city_grand_falls_windsor: "Grand Falls-Windsor",
           city_gander: "Gander",
           city_yellowknife: "Yellowknife",
           city_hay_river: "Hay River",
@@ -197,7 +197,7 @@ i18next
           capital_qc: "Ville de Québec",
           // most populous cities/municipalities
           city_montreal: "Montréal",
-          city_quebec: "Québec City",
+          city_quebec: "Ville de Québec",
           city_cape_breton: "Cap-Breton",
         },
       },
