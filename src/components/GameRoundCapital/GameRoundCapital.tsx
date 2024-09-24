@@ -1,6 +1,7 @@
 import { FormEvent, useState, useEffect } from "react";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-import dataBank, {
+import {
+  dataBank,
   getCities,
   getPotMapSvgUrl,
 } from "../../canadata/dataBank.ts";
@@ -31,7 +32,7 @@ export function GameRoundCapital(props: GameRoundProps) {
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: tGeo(dataBank[gameState.potCode as PotCode].capital),
+    target: tGeo(dataBank.data[gameState.potCode as PotCode].capital),
     possibleValues: getCities(tGeo),
     maxAttempts: 3,
   };

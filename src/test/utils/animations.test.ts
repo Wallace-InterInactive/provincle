@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import dataBank from "../../canadata/dataBank.ts";
+import { dataBank } from "../../canadata/dataBank.ts";
 import { calculateDistanceInMeters } from "../../utils/geo.ts";
 import { getSquaresByDistance } from "../../utils/animations.ts";
 
@@ -7,8 +7,8 @@ import { getSquaresByDistance } from "../../utils/animations.ts";
 describe("test square animation based on distance", () => {
   it("returns all green for same pots", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.yt.coordinates,
-      dataBank.yt.coordinates,
+      dataBank.data.yt.coordinates,
+      dataBank.data.yt.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟩", "🟩", "🟩", "🟩", "🟩"]
@@ -17,8 +17,8 @@ describe("test square animation based on distance", () => {
 
   it("returns almost all green", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.pe.coordinates,
-      dataBank.nb.coordinates,
+      dataBank.data.pe.coordinates,
+      dataBank.data.nb.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟩", "🟩", "🟩", "🟩", "🟨"]
@@ -27,8 +27,8 @@ describe("test square animation based on distance", () => {
 
   it("returns mostly green", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.ab.coordinates,
-      dataBank.sk.coordinates,
+      dataBank.data.ab.coordinates,
+      dataBank.data.sk.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟩", "🟩", "🟩", "🟨", "🟨"]
@@ -37,8 +37,8 @@ describe("test square animation based on distance", () => {
 
   it("returns yellowish", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.yt.coordinates,
-      dataBank.ab.coordinates,
+      dataBank.data.yt.coordinates,
+      dataBank.data.ab.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟩", "🟩", "🟨", "🟨", "🟧"]
@@ -47,8 +47,8 @@ describe("test square animation based on distance", () => {
 
   it("returns somewhat orange", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.yt.coordinates,
-      dataBank.mb.coordinates,
+      dataBank.data.yt.coordinates,
+      dataBank.data.mb.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟩", "🟨", "🟨", "🟧", "🟧"]
@@ -57,8 +57,8 @@ describe("test square animation based on distance", () => {
 
   it("returns some red", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.nt.coordinates,
-      dataBank.nl.coordinates,
+      dataBank.data.nt.coordinates,
+      dataBank.data.nl.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟩", "🟨", "🟨", "🟧", "🟧", "🟥"]
@@ -67,8 +67,8 @@ describe("test square animation based on distance", () => {
 
   it("returns the most red", () => {
     const dist = calculateDistanceInMeters(
-      dataBank.yt.coordinates,
-      dataBank.ns.coordinates,
+      dataBank.data.yt.coordinates,
+      dataBank.data.ns.coordinates,
     );
     expect(getSquaresByDistance(dist)).toStrictEqual(
       ["🟨", "🟨", "🟧", "🟧", "🟥", "🟥"]

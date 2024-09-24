@@ -1,7 +1,7 @@
 import { GuessRow } from "../GuessRow/GuessRow.tsx";
-import { GameRoundStatus, PotCode } from "../../types/data.ts";
-import { useTranslation } from "react-i18next";
+import { GameRoundStatus, PotCode, DataBank } from "../../types/data.ts";
 import { getColorOfStatus } from "../../utils/utils.ts";
+import { MyGeoMapping } from "../../utils/utils.ts";
 
 export interface GuessesProps {
   currentRoundStatus: GameRoundStatus;
@@ -9,6 +9,9 @@ export interface GuessesProps {
   maxAttempts: number;
   solutionCode: PotCode;
   guessNum: number;
+  t: MyGeoMapping;
+  tGeo: MyGeoMapping;
+  dataBank: DataBank;
 }
 
 export function Guesses({
@@ -17,10 +20,10 @@ export function Guesses({
   maxAttempts,
   solutionCode,
   guessNum,
+  t,
+  tGeo,
+  dataBank,
 }: GuessesProps) {
-  const { t } = useTranslation();
-  const { t: tGeo } = useTranslation("geo");
-
   return (
     <div>
       {currentRoundStatus === "pending" ? (
@@ -43,10 +46,13 @@ export function Guesses({
       )}
       <div>
         {Array.from({ length: maxAttempts }, (_, i) => {
+          console.log(`guesses.${i} = ${guesses[i]}`);
           return (
             <GuessRow
               guess={guesses[i]}
               solutionCode={solutionCode as PotCode}
+              tGeo={tGeo}
+              dataBank={dataBank}
             />
           );
         })}

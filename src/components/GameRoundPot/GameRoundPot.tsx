@@ -1,9 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import {
-  getPotNamesByLang,
-  getPotMapSvgUrl,
-  isValidPot,
-} from "../../canadata/dataBank.ts";
+import { dataBank } from "../../canadata/dataBank.ts";
 import { sanitizeString } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -66,11 +62,22 @@ function GameRoundPot({
                                   : GameRoundResult.Failed;
     }
   }
+  function getPotMapSvgUrl(potCode: PotCode): string {
+    return `./provincle/src/assets/provinces-and-territories/${potCode}/${potCode}-map.svg`;
+    //return `../../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`;
+  }
+  // function getPotMapSvgUrl(potCode: PotCode): string {
+  //   //export function getPotMapSvgUrl(potCode: string): string {
+  //   return new URL(
+  //     `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
+  //     import.meta.url
+  //   ).href;
+  // }
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess, tGeo)) {
+    if (!dataBank.isValidCode(currentGuess, tGeo)) {
       toastError(t("unknownPot"));
       return;
     }
@@ -130,7 +137,7 @@ function GameRoundPot({
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
             placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={getPotNamesByLang(tGeo)}
+            suggestionsArray={dataBank.getPotNamesByLang(tGeo)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
@@ -144,6 +151,9 @@ function GameRoundPot({
         maxAttempts={maxAttempts}
         solutionCode={potCode as PotCode}
         guessNum={guessNum}
+        t={t}
+        tGeo={tGeo}
+        dataBank={dataBank}
       />
     </div>
   );

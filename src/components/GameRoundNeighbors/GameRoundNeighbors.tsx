@@ -1,5 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
-import dataBank, {
+import {
+  dataBank,
   getPotNamesByLang,
   getPotCodeByName,
   getPotMapSvgUrl,
@@ -35,7 +36,8 @@ function GameRoundNeighbors({
   const idPrefix: string = "roundNbor-";
 
   // const gameState: GameState = defaultGameState;
-  const neighbors: string[] = dataBank[gameState.potCode as PotCode].neighbors;
+  const neighbors: string[] =
+    dataBank.data[gameState.potCode as PotCode].neighbors;
 
   const maxAttempts = neighbors.length + 2;
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -128,7 +130,7 @@ function GameRoundNeighbors({
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {
-          const aPot = dataBank[gameState.potCode as PotCode].neighbors[i];
+          const aPot = dataBank.data[gameState.potCode as PotCode].neighbors[i];
           const lastRowOdd = i == neighbors.length - 1 && i % 2 == 0;
           const bgColor: string = guessedCodes.includes(neighbors[i])
             ? getColorOfStatus("won")

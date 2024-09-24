@@ -1,15 +1,11 @@
-import { City, PotCode, PotData } from "../types/data.ts";
+import { City, PotCode, PotData, DataBank } from "../types/data.ts";
 import {
   MyGeoMapping,
   sanitizeString,
   getTodaysCodeIndex,
   directionEmojiMap,
 } from "../utils/utils.ts";
-import {
-  calculateAngle,
-  angle15ToDir,
-  calculateDistanceInKm,
-} from "../utils/geo.ts";
+import { calculateAngle, angle15ToDir } from "../utils/geo.ts";
 //import { useTranslation } from "react-i18next";
 //import i18n from "../utils/i18n.ts";
 
@@ -41,7 +37,7 @@ const listOfPotCodes: PotCode[] = [
   "nu",
 ];
 
-const dataBank: Record<PotCode, PotData> = {
+const dataBankData: Record<PotCode, PotData> = {
   on: {
     neighbors: ["nu", "qc", "mb"],
     capital: "capital_on",
@@ -328,7 +324,7 @@ const dataBank: Record<PotCode, PotData> = {
 //export function getPotNamesByLang(langCode: string): string[] {
 //export function getPotNamesByLang(tGeo: (key: string) => string): string[] {
 export function getPotNamesByLang(tGeo: MyGeoMapping): string[] {
-  return Object.keys(dataBank).map((code: string) => tGeo(code));
+  return Object.keys(dataBank.data).map((code: string) => tGeo(code));
 }
 
 //export function getPotNameByLang(potCode: PotCode, tGeo: (key: string) => string): string {
@@ -352,7 +348,6 @@ export function getPotNameByLang(potCode: PotCode, tGeo: MyGeoMapping): string {
 //}
 
 export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
-  console.log(`getPotCode name:${name}`);
   //for (const [code] of Object.keys(dataBank)) {
   for (const code of listOfPotCodes) {
     if (name === tGeo(code)) {
@@ -390,17 +385,17 @@ export function isValidPot(currentGuess: string, tGeo: MyGeoMapping): boolean {
  * the solution in kilometers or miles and the corresponding
  * unit based on the current setting.
  */
-export function getDistanceWithUnitBySetting(
-  fromGuess: PotCode,
-  toSolution: PotCode
-): string {
-  // TODO: setting for mi
-  const distance = calculateDistanceInKm(
-    dataBank[toSolution].coordinates,
-    dataBank[fromGuess].coordinates
-  );
-  return `${distance} km`;
-}
+// export function getDistanceWithUnitBySetting(
+//   fromGuess: PotCode,
+//   toSolution: PotCode
+// ): string {
+//   // TODO: setting for mi
+//   const distance = calculateDistanceInKm(
+//     dataBank[toSolution].coordinates,
+//     dataBank[fromGuess].coordinates
+//   );
+//   return `${distance} km`;
+// }
 
 export function getCapitals(tGeo: MyGeoMapping): string[] {
   //   const { t: tGeo } = useTranslation("geo");
@@ -469,8 +464,8 @@ export function getDirectionEmoji(
     return directionEmojiMap.get("*") as string;
   }
   const angle: number = calculateAngle(
-    dataBank[fromGuess].coordinates,
-    dataBank[toSolution].coordinates
+    dataBankData[fromGuess].coordinates,
+    dataBankData[toSolution].coordinates
   );
   // console.log(
   //   `.calculateAngle(${fromGuess}, ${toSolution})=>${angle}:${angle15ToDir(angle)}:${directionEmojiMap.get(angle15ToDir(angle))}`
@@ -483,7 +478,7 @@ export function getDirectionEmoji(
   // return directionEmojiMap.get(direction) as string;
 }
 
-export const potCodes = Object.keys(dataBank) as PotCode[];
+export const potCodes = Object.keys(dataBankData) as PotCode[];
 // export const potNamesEn: string[] = getPotNamesByLang("en-ca");
 // export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
@@ -508,4 +503,13 @@ export function getPotMapSvgUrl(potCode: PotCode): string {
   ).href;
 }
 
-export default dataBank;
+//export default dataBank;
+//export default dataBank;
+export const dataBank: DataBank = {
+  data: dataBankData,
+  isValidCode: isValidPot,
+  getPotCodeByName: getPotCodeByName,
+  getPotNamesByLang: getPotNamesByLang,
+  //getDistanceWithUnitBySetting:getDistanceWithUnitBySetting,
+  getDirectionEmoji: getDirectionEmoji,
+};
