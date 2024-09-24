@@ -1,26 +1,30 @@
-import { PotCode } from "../../types/data.ts";
-import dataBank, {
-  getPotCodeByName,
-  getDirectionEmoji,
-  getDistanceWithUnitBySetting,
-} from "../../canadata/dataBank.ts";
+import { PotCode, DataBank } from "../../types/data.ts";
+import { MyGeoMapping } from "../../utils/utils.ts";
 import { useEffect, useState } from "react";
 import {
   getSquaresByDistance,
   SQUARE_ANIMATION_LENGTH,
   squares,
 } from "../../utils/animations.ts";
-import { calculateDistanceInMeters } from "../../utils/geo.ts";
-import { useTranslation } from "react-i18next";
+import {
+  calculateDistanceInKm,
+  calculateDistanceInMeters,
+} from "../../utils/geo.ts";
 
 export interface GuessRowProps {
   guess: string;
   solutionCode: PotCode;
+  tGeo: MyGeoMapping;
+  dataBank: DataBank;
 }
 
-export function GuessRow({ guess, solutionCode }: GuessRowProps) {
-  const { t: tGeo } = useTranslation("geo");
-  const guessCode = getPotCodeByName(guess, tGeo);
+export function GuessRow({
+  guess,
+  solutionCode,
+  tGeo,
+  dataBank,
+}: GuessRowProps) {
+  const guessCode = dataBank.getPotCodeByName(guess, tGeo);
 
   const [animationIsActive, setAnimationIsActive] = useState<boolean>(false);
 
@@ -48,12 +52,18 @@ export function GuessRow({ guess, solutionCode }: GuessRowProps) {
         </div>
         <div className="my-guess-div col-span-2">
           <p className="my-guess-p">
-            {getDistanceWithUnitBySetting(guessCode as PotCode, solutionCode)}
+            {
+              calculateDistanceInKm(
+                dataBank.data[guessCode].coordinates,
+                dataBank.data[solutionCode].coordinates
+              ) + " km"
+              //{dataBank.getDistanceWithUnitBySetting(guessCode as PotCode, solutionCode)}
+            }
           </p>
         </div>
         <div className="my-guess-div">
           <p className="my-guess-p text-xl">
-            {getDirectionEmoji(guessCode as PotCode, solutionCode)}
+            {dataBank.getDirectionEmoji(guessCode as PotCode, solutionCode)}
           </p>
         </div>
       </div>
@@ -61,8 +71,8 @@ export function GuessRow({ guess, solutionCode }: GuessRowProps) {
       <div className="grid grid-cols-6 gap-1 text-center py-0.5 text-l w-full justify-evenly items-center border-2 h-8 overflow-hidden">
         {getSquaresByDistance(
           calculateDistanceInMeters(
-            dataBank[guessCode as PotCode].coordinates,
-            dataBank[solutionCode].coordinates
+            dataBank.data[guessCode as PotCode].coordinates,
+            dataBank.data[solutionCode].coordinates
           )
         ).map((character, index) => (
           <div

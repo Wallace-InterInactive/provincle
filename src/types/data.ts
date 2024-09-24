@@ -1,3 +1,5 @@
+import { MyGeoMapping } from "../utils/utils";
+
 export type GameRoundStatus = "won" | "lost" | "pending";
 
 export type CardinalDirection =
@@ -11,7 +13,8 @@ export type CardinalDirection =
   | "SW"
   | "SE";
 
-export type PotCode =
+export type PotCode = string; // YYYY make a superclass of GameCode ?
+export type PotCode2 =
   | "on"
   | "qc"
   | "ns"
@@ -69,4 +72,13 @@ export interface GameState {
   currentRound: number;
   rounds: Map<string, GameRoundStat>;
   //results: Map<string, GameRoundResult>;
+}
+
+export interface DataBank {
+  data: Record<PotCode, PotData>;
+  isValidCode(currentGuess: string, tGeo: MyGeoMapping): boolean;
+  getPotCodeByName(name: string, tGeo: MyGeoMapping): string;
+  getPotNamesByLang(tGeo: MyGeoMapping): string[];
+  //getDistanceWithUnitBySetting(from: PotCode,to: PotCode): string;
+  getDirectionEmoji(fromGuess: PotCode, toSolution: PotCode): string;
 }

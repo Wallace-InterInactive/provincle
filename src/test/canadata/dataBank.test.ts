@@ -1,15 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { PotCode } from "../../types/data.ts";
-import dataBank, {
-  // getCapitalsByLang,
-  // getPotCodeByName,
-  // getPotNamesByLang,
+import {
+  dataBank,
   getPseudoRandomPotCode,
   getTodaysPotCode,
   potCodes,
   getDirectionEmoji,
   getPotMapSvgUrl,
-  getDistanceWithUnitBySetting,
+  //getDistanceWithUnitBySetting,
 } from "../../canadata/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
 
@@ -23,13 +21,13 @@ describe("test functions in dataBank", () => {
   });
 });
 
-describe("getDistanceWithUnitBySetting returns the formatted distance", () => {
-  it("should return 0 when the user guessed it", () => {
-    const pot: PotCode = "bc";
-    expect(getDistanceWithUnitBySetting(pot, pot)).toBe("0 km");
-  });
-  // TODO: add more tests
-});
+// describe("getDistanceWithUnitBySetting returns the formatted distance", () => {
+//   it("should return 0 when the user guessed it", () => {
+//     const pot: PotCode = "bc";
+//     expect(getDistanceWithUnitBySetting(pot, pot)).toBe("0 km");
+//   });
+//   // TODO: add more tests
+// });
 
 describe("getDirectionEmoji returns the correct arrow emoji based on the cardinal direction", () => {
   it("should return 🎯 when the player guessed it", () => {
@@ -156,34 +154,52 @@ describe("test functions in dataBank", () => {
 describe("check geo distances", () => {
   it("returns 0 for same self-compare", () => {
     expect(
-      calculateDistanceInKm(dataBank.on.coordinates, dataBank.on.coordinates)
-    ).toBe(0);
-    expect(
       calculateDistanceInKm(
-        dataBank["on"].coordinates,
-        dataBank["on"].coordinates
+        dataBank.data.on.coordinates,
+        dataBank.data.on.coordinates
       )
     ).toBe(0);
     expect(
-      calculateDistanceInKm(dataBank.ab.coordinates, dataBank.ab.coordinates)
+      calculateDistanceInKm(
+        dataBank.data["on"].coordinates,
+        dataBank.data["on"].coordinates
+      )
+    ).toBe(0);
+    expect(
+      calculateDistanceInKm(
+        dataBank.data.ab.coordinates,
+        dataBank.data.ab.coordinates
+      )
     ).toBe(0);
   });
 
   it("check distances ab-on", () => {
     expect(
-      calculateDistanceInKm(dataBank.ab.coordinates, dataBank.on.coordinates)
+      calculateDistanceInKm(
+        dataBank.data.ab.coordinates,
+        dataBank.data.on.coordinates
+      )
     ).toBe(2114);
     expect(
-      calculateDistanceInKm(dataBank.on.coordinates, dataBank.ab.coordinates)
+      calculateDistanceInKm(
+        dataBank.data.on.coordinates,
+        dataBank.data.ab.coordinates
+      )
     ).toBe(2114);
   });
 
   it("check distances nu-ma", () => {
     expect(
-      calculateDistanceInKm(dataBank.nu.coordinates, dataBank.mb.coordinates)
+      calculateDistanceInKm(
+        dataBank.data.nu.coordinates,
+        dataBank.data.mb.coordinates
+      )
     ).toBe(2009);
     expect(
-      calculateDistanceInKm(dataBank.mb.coordinates, dataBank.nu.coordinates)
+      calculateDistanceInKm(
+        dataBank.data.mb.coordinates,
+        dataBank.data.nu.coordinates
+      )
     ).toBe(2009);
   });
 });

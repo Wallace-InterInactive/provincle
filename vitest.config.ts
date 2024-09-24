@@ -6,9 +6,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    exclude: [...configDefaults.exclude, "./src/utils/i18n.ts"],
+    exclude: [...configDefaults.exclude, "./src/canadata/i18n.ts"],
     coverage: {
-      exclude: [...configDefaults.exclude, "./src/utils/i18n.ts"],
+      exclude: [...configDefaults.exclude, "./src/canadata/i18n.ts"],
     },
   },
 });

@@ -56,6 +56,18 @@ const dirCodes15: CardinalDirection[] = ["NW", "N",  "NE",     // N-ish adjusted
 export function angle15ToDir(angle: number): CardinalDirection {
   return dirCodes15[Math.floor(((angle + 22.5) % 360) / 15)];
 }
+// XXXX
+export function getDirectionCode(
+  from: Coordinates, // use full PotData instead?
+  to: Coordinates
+): string {
+  if (from === to) {
+    return "*"; //directionEmojiMap.get("*") as string;
+  }
+  const angle: number = calculateAngle(from, to);
+  return angle15ToDir(angle);
+  //return directionEmojiMap.get(angle15ToDir(angle)) as string;
+}
 
 // no usages - perhaps delete some time
 // const dirCodes45: CardinalDirection[] = [
