@@ -410,7 +410,7 @@ export function getCapitals(tGeo: MyGeoMapping): string[] {
 }
 
 export function getLargestCities(tGeo: MyGeoMapping): string[] {
-  return Object.values(dataBank).flatMap((pot: PotData) =>
+  return Object.values(dataBank.data).flatMap((pot: PotData) =>
     pot.largestCities.map((city: City) => tGeo(city.key))
   );
 }

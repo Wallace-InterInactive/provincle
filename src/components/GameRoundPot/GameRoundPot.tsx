@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { dataBank } from "../../canadata/dataBank.ts";
+import { dataBank, getPotMapSvgUrl } from "../../canadata/dataBank.ts";
 import { sanitizeString } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
@@ -62,17 +62,6 @@ function GameRoundPot({
                                   : GameRoundResult.Failed;
     }
   }
-  function getPotMapSvgUrl(potCode: PotCode): string {
-    return `./provincle/src/assets/provinces-and-territories/${potCode}/${potCode}-map.svg`;
-    //return `../../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`;
-  }
-  // function getPotMapSvgUrl(potCode: PotCode): string {
-  //   //export function getPotMapSvgUrl(potCode: string): string {
-  //   return new URL(
-  //     `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
-  //     import.meta.url
-  //   ).href;
-  // }
 
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
