@@ -84,7 +84,7 @@ function GameRoundFlag({
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}!`}</p>
+        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}?`}</p>
       </div>
       <div>
         <div

@@ -26,7 +26,7 @@ i18next
           attempts: "Attempts",
           // game round instructions
           gamePotRoundInstruction: "Select the province", // TODO: we probably don't need this
-          gameFlagRoundInstruction: "Select the flag",
+          gameFlagRoundInstruction: "Which is the flag",
           gameCapitalRoundInstruction: "What is the capital",
           gameNeighborRoundInstruction: "What are the neighbours",
           gamePotRoundFinaleStats: "Stats",
