@@ -35,6 +35,16 @@ i18next
           unknownCity: "Unknown city!",
           alreadyGuessed: "Already Guessed!",
           guessedIt: "Spot on!",
+          guessedItList: [
+            "Spot on!",
+            "Way to go!",
+            "Well done!",
+            "Awesome!",
+            "Beaut!",
+            "Clutch play!",
+            "Toy department!",
+            "Shnipe!",
+          ],
           failedIt: "Sorry, you missed it!",
         },
         geo: {
@@ -160,6 +170,13 @@ i18next
           unknownCity: "Ville inconnue!",
           alreadyGuessed: "Déjà deviné!",
           guessedIt: "Touché-coulé!",
+          guessedItList: [
+            "Touché-coulé!",
+            "Magnifique!",
+            "Coup du chapeau!",
+            "Splendide!",
+            "Génial!",
+          ],
           failedIt: "Désolé, vous l'avez manqué!",
         },
         geo: {
