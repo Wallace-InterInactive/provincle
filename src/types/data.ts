@@ -51,6 +51,7 @@ export interface PotData {
   interestingFacts: string[];
   highestPoint: string;
   coastlineInKM: number;
+  majorLeagueTeams: string[];
 }
 
 //export type GameRoundGrade = 1 | 2 | 3 | 4 | 5;
