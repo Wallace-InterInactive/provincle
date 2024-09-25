@@ -4,6 +4,7 @@ import {
   sanitizeString,
   getTodaysCodeIndex,
   directionEmojiMap,
+  getSvgUrlForAsset,
 } from "../utils/utils.ts";
 import { calculateAngle, angle15ToDir } from "../utils/geo.ts";
 //import { useTranslation } from "react-i18next";
@@ -528,11 +529,19 @@ export function getPseudoRandomPotCode(n: number): string {
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
-  //export function getPotMapSvgUrl(potCode: string): string {
-  return new URL(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
-    import.meta.url
-  ).href;
+  return getSvgUrlForAsset(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`
+  );
+}
+
+export function getPotFlagSvgUrl(potCode: PotCode): string {
+  return getSvgUrlForAsset(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`
+  );
+}
+
+export function getTeamLogoSvgUrl(teamName: string): string {
+  return getSvgUrlForAsset(`../assets/major-league/team-${teamName}.svg`);
 }
 
 //export default dataBank;

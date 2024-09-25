@@ -8,6 +8,7 @@ import {
   getDirectionEmoji,
   getPotMapSvgUrl,
   getMajorLeagueTeamKeys,
+  getPotFlagSvgUrl,
 } from "../../canadata/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
 
@@ -42,6 +43,14 @@ describe("getPotMapSvgUrl returns the href of the map SVG of the given potCode",
     const pattern: RegExp =
       /\/assets\/provinces-and-territories\/qc\/qc-map\.svg$/;
     expect(getPotMapSvgUrl("qc")).toMatch(pattern);
+  });
+});
+
+describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode", () => {
+  it("returns the href", () => {
+    const pattern: RegExp =
+      /\/assets\/provinces-and-territories\/qc\/qc-flag\.svg$/;
+    expect(getPotFlagSvgUrl("qc")).toMatch(pattern);
   });
 });
 

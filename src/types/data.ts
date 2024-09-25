@@ -1,6 +1,6 @@
 import { MyGeoMapping } from "../utils/utils";
 
-export type GameRoundStatus = "won" | "lost" | "pending";
+export type GameRoundStatus = "won" | "lost" | "pending" | "n/a";
 
 export type CardinalDirection =
   | "*"
@@ -54,8 +54,8 @@ export interface PotData {
   majorLeagueTeams: string[];
 }
 
-//export type GameRoundGrade = 1 | 2 | 3 | 4 | 5;
 export enum GameRoundResult {
+  NoRoundToday = 0,
   NotStarted = 1,
   Failed = 2,
   Fair = 3,

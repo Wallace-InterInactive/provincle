@@ -29,6 +29,7 @@ i18next
           gameFlagRoundInstruction: "Which is the flag",
           gameCapitalRoundInstruction: "What is the capital",
           gameNeighborRoundInstruction: "What are the neighbours",
+          gameMajorLeagueRoundInstruction: "Which team is from",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Unknown province ot territory!",
@@ -148,7 +149,7 @@ i18next
           expos: "Montreal Expos",
           flames: "Calgary Flames",
           jets: "Winnipeg Jets",
-          leafs: "Toronto Maple Leafs",
+          mapleleafs: "Toronto Maple Leafs",
           lions: "BC Lions",
           oilers: "Edmonton Oilers",
           raptors: "Toronto Raptors",
@@ -178,6 +179,7 @@ i18next
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
           gameNeighborRoundInstruction: "Quelles sont les voisins",
+          gameMajorLeagueRoundInstruction: "Quelle équipe vient",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Province ou territoire inconnu!",

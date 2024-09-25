@@ -4,7 +4,6 @@ import {
   getColorOfStatus,
   getOkNokEmoji,
   getBullseyeEmoji,
-  getPotFlagSvgUrl,
   isValidGuess,
   //isValidPot,
   sanitizeString,
@@ -109,14 +108,6 @@ describe("isValidPot only accepts existing provinces or territories", () => {
 //     expect(getDirectionFromSolution("", "")).toBe("*");
 //   });
 // });
-
-describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode", () => {
-  it("returns the href", () => {
-    const pattern: RegExp =
-      /\/assets\/provinces-and-territories\/qc\/qc-flag\.svg$/;
-    expect(getPotFlagSvgUrl("qc")).toMatch(pattern);
-  });
-});
 
 describe("getColorOfStatus returns the correct class name based on status", () => {
   it("should return the correct value when the game is in progress", () => {
