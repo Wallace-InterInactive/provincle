@@ -1,15 +1,9 @@
 import accentsMap from "./accentsMap.ts";
-//import { calculateDistanceInKm } from "./geo.ts";
 import {
   CardinalDirection,
   GameRoundStatus,
-  PotCode,
   GameRoundResult,
 } from "../types/data.ts";
-// import dataBank, {
-//   getPotNamesByLang,
-//   getPseudoRandomNumber,
-// } from "./dataBank.ts";
 
 export interface MyGeoMapping {
   (key: string): string;
@@ -35,11 +29,12 @@ export const directionEmojiMap = new Map<CardinalDirection, string>([
 ]);
 
 export const mapGradeToEmoji = new Map<GameRoundResult, string>([
+  [0, "N/A"],
   [1, "🚫"],
-  [2, "★"],
-  [3, "★★★"],
-  [4, "★⭐★"],
-  [5, "⭐🌟⭐"],
+  [2, "★★★"],
+  [3, "⭐★★"],
+  [4, "⭐⭐★"],
+  [5, "⭐⭐⭐"],
 ]);
 
 export function sanitizeString(str: string): string {
@@ -106,13 +101,6 @@ export function getBullseyeEmoji(isOk: boolean): string {
 
 export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "✅" : "❌";
-}
-
-export function getPotFlagSvgUrl(potCode: PotCode): string {
-  return new URL(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
-    import.meta.url
-  ).href;
 }
 
 export function getColorOfStatus(

@@ -125,7 +125,7 @@ function GameRoundTextInputWithImage({
         <div />
       ) : (
         <div className="gap-1 text-center">
-          <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}!`}</p>
+          <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}?`}</p>
         </div>
       )}
       <div>

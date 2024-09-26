@@ -3,15 +3,20 @@ import { getColorOfStatus, shuffle } from "../../utils/utils.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
-import { getPotFlagSvgUrl, potCodes } from "../../canadata/dataBank.ts";
+import { GameRoundResult } from "../../types/data.ts";
+import {
+  dataBank,
+  getMajorLeagueTeamKeys,
+  getTeamLogoSvgUrl,
+} from "../../canadata/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
+import i18n from "../../canadata/i18n.ts";
 
 const maxAttempts = 3;
-const numFlagsToShow = 6;
+const numLogosToShow = 6;
 
-function GameRoundFlag({
+function GameRoundMajorLeague({
   gameRoundId,
   gameState,
   currentRoundStatus,
@@ -20,14 +25,34 @@ function GameRoundFlag({
 }: GameRoundProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
-  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
+  const { t: tML } = useTranslation("majorLeague");
 
-  // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
-  const myPotList: string[] = Array.from(
-    { length: potCodes.length },
-    (_, i) => potCodes[i]
-  );
-  shuffle(myPotList);
+  const localTeams: string[] = [];
+  const otherTeams: string[] = [];
+  getMajorLeagueTeamKeys().forEach((team: string) => {
+    if (dataBank.data[gameState.potCode].majorLeagueTeams.includes(team)) {
+      localTeams.push(team);
+    } else {
+      otherTeams.push(team);
+    }
+  });
+
+  if (localTeams.length === 0 && currentRoundStatus !== "n/a") {
+    setCurrentRoundStatus("n/a");
+    setRoundResult(gameRoundId, GameRoundResult.NoRoundToday);
+  } else {
+    shuffle(localTeams);
+    shuffle(otherTeams);
+  }
+  console.log(`Local teams: ${localTeams}`);
+  console.log(`Other teams: ${otherTeams}`);
+
+  // a single correct solution, the rest are decoys
+  // TODO: perhaps make it multi-choice
+  const solutionTeam = localTeams[0];
+  const teamList = [solutionTeam, ...otherTeams.slice(0, numLogosToShow - 1)];
+  shuffle(teamList);
+  console.log(`teamList: ${teamList}`);
 
   const [guesses, setGuesses] = useState<string[]>([]);
 
@@ -42,9 +67,7 @@ function GameRoundFlag({
     //setCurrentGuess("");
   }, [guesses]);
 
-  //const handleGuessButtonClickedRound2 = (guess:number): void => {
-  const handleFlagGuessClicked = (e: any): void => {
-    // TODO: get the id of the image clicked at...
+  const handleLogoClicked = (e: any): void => {
     const guessedItem = `${e.target.id}`;
     const guess = guessedItem.split("-")[1];
     console.log(`Guess button clicked: '${e.target.id}'`);
@@ -53,7 +76,7 @@ function GameRoundFlag({
     }
 
     console.log(`current guess ${guessedItem}`);
-    if (`guess-${gameState.potCode}` == guessedItem) {
+    if (`guess-${solutionTeam}` === guessedItem) {
       setCurrentRoundStatus("won");
       toastSuccess(t("guessedIt"));
       confetti();
@@ -67,7 +90,7 @@ function GameRoundFlag({
 
   // prettier-ignore
   function grade(guess: string): GameRoundResult {
-    if (guess === gameState.potCode) {
+    if (guess === solutionTeam) {
       return guesses.length === 0 ? GameRoundResult.Excellent
            : guesses.length === 1 ? GameRoundResult.Good
            :                        GameRoundResult.Fair;
@@ -77,51 +100,44 @@ function GameRoundFlag({
     }
   }
 
-  return (
+  return localTeams.length === 0 ? (
+    <div className="gap-1 text-center">
+      <p>No Major League Round Today 😢</p>
+    </div>
+  ) : (
     <div>
       <div className="gap-1 text-center">
-        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}?`}</p>
+        <p>
+          {`${t("gameMajorLeagueRoundInstruction")} ${i18n.language.startsWith("en") ? tGeo(gameState.potCode) : tGeo(`of_${gameState.potCode}`)}?`}
+        </p>
       </div>
       <div>
         <div
           id="main"
           className="grid image-grid justify-items-stretch grid-cols-2"
         >
-          {Array.from({ length: numFlagsToShow }, (_, i) => {
-            // todo: extract these out
-            // note: i0 is to ensure that myPotList[i0.. +6] to contains gameState.potCode
-            // class...  transition-transform duration-500 ease-in
-            const i0: number =
-              myPotList.indexOf(gameState.potCode) < numFlagsToShow
-                ? 0
-                : myPotList.indexOf(gameState.potCode) - 4;
-            const i1 = (i0 + i) % myPotList.length;
-            const aPot: PotCode = myPotList[i1] as PotCode;
-            const myBorder: string = !guesses.includes(aPot)
-              ? "border-4 border-black"
-              : aPot === gameState.potCode
-                ? "border-4 border-green-700"
-                : "border-4 border-red-600";
-            const bgColor: string = !guesses.includes(aPot)
+          {Array.from({ length: numLogosToShow }, (_, i) => {
+            const team = teamList[i];
+            const bgColor: string = !guesses.includes(team)
               ? getColorOfStatus("pending")
-              : aPot === gameState.potCode
+              : team === solutionTeam
                 ? getColorOfStatus("won")
                 : getColorOfStatus("lost");
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img
-                  src={getPotFlagSvgUrl(aPot)}
-                  alt={`flag of a pot:${i}:${aPot}`}
-                  className={`cursor-pointer max-h-24 m-auto h-20 ${myBorder}`}
-                  onClick={handleFlagGuessClicked}
-                  id={`guess-${aPot}`}
+                  src={getTeamLogoSvgUrl(team)}
+                  alt={`logo of a team:${i}:${team}`}
+                  className={`cursor-pointer max-h-24 m-auto h-20`}
+                  onClick={handleLogoClicked}
+                  id={`guess-${team}`}
                 />
                 <p
                   className={`visible h-6 rounded-xl -mx-2 px-2 text-black bg-${bgColor}`}
                 >
-                  {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
+                  {currentRoundStatus === "pending" && !guesses.includes(team) // or display if already guessed (show names or wrong guess)
                     ? t("guessVerb")
-                    : tGeo(myPotList[i1])}
+                    : tML(teamList[i])}
                 </p>
               </div>
             );
@@ -132,7 +148,7 @@ function GameRoundFlag({
       <div>
         {currentRoundStatus === "pending" ? (
           <div
-            className={`grid grid-cols-${numFlagsToShow} gap-1 text-center py-0.5`}
+            className={`grid grid-cols-${numLogosToShow} gap-1 text-center py-0.5`}
           >
             <div className="my-div-1">
               <span className="opacity-70">
@@ -148,4 +164,4 @@ function GameRoundFlag({
   );
 }
 
-export default GameRoundFlag;
+export default GameRoundMajorLeague;

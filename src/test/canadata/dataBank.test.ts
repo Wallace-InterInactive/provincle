@@ -7,7 +7,8 @@ import {
   potCodes,
   getDirectionEmoji,
   getPotMapSvgUrl,
-  //getDistanceWithUnitBySetting,
+  getMajorLeagueTeamKeys,
+  getPotFlagSvgUrl,
 } from "../../canadata/dataBank.ts";
 import { calculateDistanceInKm } from "../../utils/geo.ts";
 
@@ -42,6 +43,14 @@ describe("getPotMapSvgUrl returns the href of the map SVG of the given potCode",
     const pattern: RegExp =
       /\/assets\/provinces-and-territories\/qc\/qc-map\.svg$/;
     expect(getPotMapSvgUrl("qc")).toMatch(pattern);
+  });
+});
+
+describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode", () => {
+  it("returns the href", () => {
+    const pattern: RegExp =
+      /\/assets\/provinces-and-territories\/qc\/qc-flag\.svg$/;
+    expect(getPotFlagSvgUrl("qc")).toMatch(pattern);
   });
 });
 
@@ -284,5 +293,11 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
   });
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("mb", "on")).toBe("↘️");
+  });
+});
+
+describe("test major league teams data", () => {
+  it("should have 22 teams overall (NHL + MLB [incl. Expos] + NBA + CFL + MLS)", () => {
+    expect(getMajorLeagueTeamKeys().length).toBe(23);
   });
 });

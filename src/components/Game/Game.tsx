@@ -14,6 +14,7 @@ import GameRoundNeighbors from "../GameRoundNeighbors/GameRoundNeighbors.tsx";
 import GameRoundFinale from "../GameRoundFinale/GameRoundFinale.tsx";
 import { toast } from "react-toastify";
 import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
+import GameRoundMajorLeague from "../GameRoundMajorLeague/GameRoundMajorLeague.tsx";
 
 // lovas: just thinking aloud indexing options, idx->info
 // if GameState.rounds is Map, we need to map the roundIndex->roundId, see state.round[id[state.currentRound]]
@@ -25,10 +26,11 @@ import { NextRoundButton } from "../NextRoundButton/NextRoundButton.tsx";
 function initGameState(): GameState {
   const ret = defaultGameState;
   ret.potCode = getTodaysPotCode(); // lovas: shall we raise here?
-  ret.rounds.set("pot",       { i18nId: "gamePotRoundInstruction",      result: GameRoundResult.NotStarted });
-  ret.rounds.set("neighbors", { i18nId: "gameNeighborRoundInstruction", result: GameRoundResult.NotStarted, });
-  ret.rounds.set("capital",   { i18nId: "gameCapitalRoundInstruction",  result: GameRoundResult.NotStarted, });
-  ret.rounds.set("flag",      { i18nId: "gameFlagRoundInstruction",     result: GameRoundResult.NotStarted, });
+  ret.rounds.set("pot",         { i18nId: "gamePotRoundInstruction",           result: GameRoundResult.NotStarted });
+  ret.rounds.set("neighbors",   { i18nId: "gameNeighborRoundInstruction",      result: GameRoundResult.NotStarted });
+  ret.rounds.set("capital",     { i18nId: "gameCapitalRoundInstruction",       result: GameRoundResult.NotStarted });
+  ret.rounds.set("flag",        { i18nId: "gameFlagRoundInstruction",          result: GameRoundResult.NotStarted });
+  ret.rounds.set("majorLeague", { i18nId: "gameMajorLeagueRoundInstruction",   result: GameRoundResult.NotStarted });
   return ret;
 }
 
@@ -128,10 +130,16 @@ export function Game() {
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />
-        ) : (
-          <GameRoundFinale
-            roundStats={gameState} //{roundResult}
+        ) : currentRound === 5 ? (
+          <GameRoundMajorLeague
+            gameRoundId="majorLeague"
+            gameState={gameState}
+            currentRoundStatus={currentRoundStatus}
+            setCurrentRoundStatus={setCurrentRoundStatus}
+            setRoundResult={setRoundResult}
           />
+        ) : (
+          <GameRoundFinale roundStats={gameState} />
         )}
       </div>
       {currentRound <= gameState.rounds.size ? (

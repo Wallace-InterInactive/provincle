@@ -60,6 +60,16 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Ishpatina Ridge 693m",
     coastlineInKM: 3840,
+    majorLeagueTeams: [
+      "senators",
+      "mapleleafs",
+      "bluejays",
+      "raptors",
+      "argonauts",
+      "redblacks",
+      "torontofc",
+      "tigercats",
+    ],
   },
   qc: {
     neighbors: ["nu", "nl", "pe", "nb", "on"],
@@ -81,6 +91,13 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mont D'Iberville 1652m",
     coastlineInKM: 13000,
+    majorLeagueTeams: [
+      "canadiens",
+      "nordiques",
+      "expos",
+      "alouettes",
+      "cfmontreal",
+    ],
   },
   ns: {
     neighbors: ["nl", "nb", "pe"],
@@ -102,6 +119,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "White Hill 532m",
     coastlineInKM: 7579,
+    majorLeagueTeams: [],
   },
   nb: {
     neighbors: ["pe", "ns", "qc"],
@@ -123,6 +141,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Carleton 817m",
     coastlineInKM: 5500,
+    majorLeagueTeams: [],
   },
   mb: {
     neighbors: ["nu", "on", "sk"],
@@ -145,6 +164,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Baldy Mountain 832m",
     coastlineInKM: 1210,
+    majorLeagueTeams: ["jets", "bluebombers"],
   },
   bc: {
     neighbors: ["yt", "nt", "ab"],
@@ -166,6 +186,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Fairweather 4663m",
     coastlineInKM: 27200,
+    majorLeagueTeams: ["canucks", "whitecaps", "lions"],
   },
   pe: {
     neighbors: ["qc", "nl", "ns", "nb"],
@@ -188,6 +209,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Unnamed point 142m",
     coastlineInKM: 1260,
+    majorLeagueTeams: [],
   },
   sk: {
     neighbors: ["nt", "nu", "mb", "ab"],
@@ -209,6 +231,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Unnamed Point 1392m",
     coastlineInKM: 0,
+    majorLeagueTeams: ["roughriders"],
   },
   ab: {
     neighbors: ["nt", "sk", "bc"],
@@ -231,6 +254,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Columbia 3747m",
     coastlineInKM: 0,
+    majorLeagueTeams: ["flames", "oilers", "stampeders", "elks"],
   },
   nl: {
     neighbors: ["nu", "ns", "pe", "qc"],
@@ -254,6 +278,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Caubvick 1652m",
     coastlineInKM: 29000,
+    majorLeagueTeams: [],
   },
   nt: {
     neighbors: ["nu", "sk", "ab", "bc", "yt"],
@@ -275,6 +300,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Nirvana 2773",
     coastlineInKM: 25000,
+    majorLeagueTeams: [],
   },
   yt: {
     neighbors: ["nt", "bc"],
@@ -297,6 +323,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mount Logan, 5959m",
     coastlineInKM: 213,
+    majorLeagueTeams: [],
   },
   nu: {
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
@@ -318,6 +345,7 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Barbeau Peek 2616m",
     coastlineInKM: 38000,
+    majorLeagueTeams: [],
   },
 };
 
@@ -456,6 +484,16 @@ export function getCapitalsAndLargestCitiesByLang(langCode: string): string[] {
 }
 */
 
+export function getMajorLeagueTeamKeys(): string[] {
+  return Object.values(dataBankData).flatMap(
+    (potData: PotData) => potData.majorLeagueTeams
+  );
+}
+
+export function getMajorLeagueTeams(tML: MyGeoMapping): string[] {
+  return getMajorLeagueTeamKeys().map((team: string) => tML(team));
+}
+
 export function getDirectionEmoji(
   fromGuess: PotCode,
   toSolution: PotCode
@@ -496,11 +534,22 @@ export function getPseudoRandomPotCode(n: number): string {
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
-  //export function getPotMapSvgUrl(potCode: string): string {
   return new URL(
     `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
     import.meta.url
   ).href;
+}
+
+export function getPotFlagSvgUrl(potCode: PotCode): string {
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
+    import.meta.url
+  ).href;
+}
+
+export function getTeamLogoSvgUrl(teamName: string): string {
+  return new URL(`../assets/major-league/team-${teamName}.svg`, import.meta.url)
+    .href;
 }
 
 //export default dataBank;

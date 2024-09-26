@@ -26,9 +26,10 @@ i18next
           attempts: "Attempts",
           // game round instructions
           gamePotRoundInstruction: "Select the province", // TODO: we probably don't need this
-          gameFlagRoundInstruction: "Select the flag",
+          gameFlagRoundInstruction: "Which is the flag",
           gameCapitalRoundInstruction: "What is the capital",
           gameNeighborRoundInstruction: "What are the neighbours",
+          gameMajorLeagueRoundInstruction: "Which team is from",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Unknown province ot territory!",
@@ -146,6 +147,31 @@ i18next
           city_arviat: "Arviat",
           city_baker_lake: "Baker Lake",
         },
+        majorLeague: {
+          alouettes: "Montreal Alouettes",
+          argonauts: "Toronto Argonauts",
+          bluebombers: "Winnipeg Blue Bombers",
+          bluejays: "Toronto Blue Jays",
+          canadiens: "Montreal Canadiens",
+          canucks: "Vancouver Canucks",
+          cfmontreal: "CF Montreal",
+          elks: "Edmonton Elks",
+          expos: "Montreal Expos",
+          flames: "Calgary Flames",
+          jets: "Winnipeg Jets",
+          nordiques: "Quebec Nordiques",
+          mapleleafs: "Toronto Maple Leafs",
+          lions: "BC Lions",
+          oilers: "Edmonton Oilers",
+          raptors: "Toronto Raptors",
+          redblacks: "Ottawa Redblacks",
+          roughriders: "Saskatchewan Roughriders",
+          senators: "Ottawa Senators",
+          stampeders: "Calgary Stampeders",
+          tigercats: "Hamilton Tiger-Cats",
+          torontofc: "Toronto FC",
+          whitecaps: "Vancouver Whitecaps",
+        },
       },
       fr: {
         base: {
@@ -164,6 +190,7 @@ i18next
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
           gameNeighborRoundInstruction: "Quels sont les voisins",
+          gameMajorLeagueRoundInstruction: "Quelle équipe vient",
           gamePotRoundFinaleStats: "Stats",
           // alerts
           unknownPot: "Province ou territoire inconnu !",
@@ -217,7 +244,7 @@ i18next
           of_ab: "de l'Alberta",
           of_nl: "de Terre-Neuve-et-Labrador",
           of_nt: "des Territoires du Nord-Ouest",
-          of_yt: "du Yukon", // irregular, but it's also correct w/o 'the'
+          of_yt: "du Yukon", // irregular, but it is also correct w/o 'the'
           of_nu: "du Nunavut",
           // capitals
           capital_qc: "Ville de Québec",
@@ -225,6 +252,15 @@ i18next
           city_montreal: "Montréal",
           city_quebec: "Ville de Québec",
           city_cape_breton: "Cap-Breton",
+        },
+        majorLeague: {
+          alouettes: "Alouettes de Montréal",
+          canadiens: "Canadiens de Montréal",
+          cfmontreal: "CF Montréal",
+          expos: "Expos de Montréal",
+          nordiques: "Nordiques de Québec",
+          redblacks: "Rouge et Noir d'Ottawa",
+          senators: "Sénateurs d'Ottawa",
         },
       },
     },

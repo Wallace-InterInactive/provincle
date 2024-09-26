@@ -126,7 +126,7 @@ function GameRoundNeighbors({
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>{`${t("gameNeighborRoundInstruction")} ${potNameOf}!`}</p>
+        <p>{`${t("gameNeighborRoundInstruction")} ${potNameOf}?`}</p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {

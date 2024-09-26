@@ -74,7 +74,7 @@ function GameRoundFinale({
           <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
         {
-          //Array.from({ length: roundStats.rounds.size }, (_, i) => {  // roundStats.rounds.entries.length?
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           Array.from(roundStats.rounds.entries()).map(([_, stat], _i) => {
             // lovas: think on the OkNok Emoji, maybe useless if we have stars
             return (

@@ -24,7 +24,7 @@ export function NextRoundButton({
         <button
           onClick={handleNextButtonClicked}
           className={
-            "w-full rounded-xl flex-shrink-0 font-medium px-4 py-2 bg-custom-green-1"
+            "w-full rounded-xl flex-shrink-0 font-medium px-4 py-2 bg-custom-green-1 hover:bg-green-700"
           }
         >
           🍁 {t("nextRound")}
