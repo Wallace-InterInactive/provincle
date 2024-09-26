@@ -298,6 +298,6 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
 
 describe("test major league teams data", () => {
   it("should have 22 teams overall (NHL + MLB [incl. Expos] + NBA + CFL + MLS)", () => {
-    expect(getMajorLeagueTeamKeys().length).toBe(22);
+    expect(getMajorLeagueTeamKeys().length).toBe(23);
   });
 });

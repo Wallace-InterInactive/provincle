@@ -96,7 +96,7 @@ const dataBankData: Record<PotCode, PotData> = {
       "nordiques",
       "expos",
       "alouettes",
-      "cfmontreal"
+      "cfmontreal",
     ],
   },
   ns: {
@@ -548,10 +548,8 @@ export function getPotFlagSvgUrl(potCode: PotCode): string {
 }
 
 export function getTeamLogoSvgUrl(teamName: string): string {
-  return new URL(
-    `../assets/major-league/team-${teamName}.svg`,
-    import.meta.url
-  ).href;
+  return new URL(`../assets/major-league/team-${teamName}.svg`, import.meta.url)
+    .href;
 }
 
 //export default dataBank;
