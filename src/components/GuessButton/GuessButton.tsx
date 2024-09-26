@@ -5,7 +5,7 @@ export function GuessButton({ onClick, text }: GuessButtonProps) {
     <button
       type="submit"
       onClick={onClick}
-      className="dark:bg-slate-800 border-2 rounded uppercase flex-shrink-0 p-1 font-semibold"
+      className="dark:bg-slate-800 dark:hover:bg-slate-700 border-2 rounded uppercase flex-shrink-0 p-1 font-semibold"
     >
       {text}
     </button>
