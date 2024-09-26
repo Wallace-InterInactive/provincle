@@ -79,7 +79,12 @@ function GameRoundPot({
     if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
       setTimeout(() => {
         setCurrentRoundStatus("won");
-        toastSuccess(t("guessedIt"));
+        const guessedItText = t("guessedItList", {
+          returnObjects: true,
+        }) as string[];
+        const randomText =
+          guessedItText[Math.floor(Math.random() * guessedItText.length)];
+        toastSuccess(randomText);
         confetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
       setRoundResult(gameRoundId, grade(currentGuess));
