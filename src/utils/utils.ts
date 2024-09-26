@@ -103,10 +103,6 @@ export function getOkNokEmoji(isOk: boolean): string {
   return isOk ? "✅" : "❌";
 }
 
-export function getSvgUrlForAsset(relativePath: string) {
-  return new URL(relativePath, import.meta.url).href;
-}
-
 export function getColorOfStatus(
   currentRoundStatus: GameRoundStatus /*, shade: number = 0 */
 ): string {
@@ -124,7 +120,7 @@ export function fetchSuggestions(elements: string[], value: string): string[] {
 }
 
 export function shuffle<T>(alist: T[]): void {
-  let hash = getPseudoRandomNumber() + 1;
+  let hash = getPseudoRandomNumber();
   for (let i1 = 0; i1 < alist.length; i1++) {
     // todo: numShuffle, numFlagsToShow
     const i2 = Math.floor(hash % alist.length);

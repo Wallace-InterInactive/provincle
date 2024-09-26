@@ -4,7 +4,6 @@ import {
   sanitizeString,
   getTodaysCodeIndex,
   directionEmojiMap,
-  getSvgUrlForAsset,
 } from "../utils/utils.ts";
 import { calculateAngle, angle15ToDir } from "../utils/geo.ts";
 //import { useTranslation } from "react-i18next";
@@ -92,7 +91,13 @@ const dataBankData: Record<PotCode, PotData> = {
     ],
     highestPoint: "Mont D'Iberville 1652m",
     coastlineInKM: 13000,
-    majorLeagueTeams: ["canadiens", "expos", "alouettes", "cfmontreal"],
+    majorLeagueTeams: [
+      "canadiens",
+      "nordiques",
+      "expos",
+      "alouettes",
+      "cfmontreal"
+    ],
   },
   ns: {
     neighbors: ["nl", "nb", "pe"],
@@ -529,19 +534,24 @@ export function getPseudoRandomPotCode(n: number): string {
 }
 
 export function getPotMapSvgUrl(potCode: PotCode): string {
-  return getSvgUrlForAsset(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`
-  );
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-map.svg`,
+    import.meta.url
+  ).href;
 }
 
 export function getPotFlagSvgUrl(potCode: PotCode): string {
-  return getSvgUrlForAsset(
-    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`
-  );
+  return new URL(
+    `../assets/provinces-and-territories/${potCode}/${potCode}-flag.svg`,
+    import.meta.url
+  ).href;
 }
 
 export function getTeamLogoSvgUrl(teamName: string): string {
-  return getSvgUrlForAsset(`../assets/major-league/team-${teamName}.svg`);
+  return new URL(
+    `../assets/major-league/team-${teamName}.svg`,
+    import.meta.url
+  ).href;
 }
 
 //export default dataBank;
