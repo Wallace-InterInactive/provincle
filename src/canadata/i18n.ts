@@ -36,6 +36,16 @@ i18next
           unknownCity: "Unknown city!",
           alreadyGuessed: "Already Guessed!",
           guessedIt: "Spot on!",
+          guessedItList: [
+            "Spot on!",
+            "Way to go!",
+            "Well done!",
+            "Awesome!",
+            "Beaut!",
+            "Clutch play!",
+            "Toy department!",
+            "Shnipe!",
+          ],
           failedIt: "Sorry, you missed it!",
         },
         geo: {
@@ -176,18 +186,34 @@ i18next
           capitalCity: "Ville capitale",
           attempts: "Essais",
           // game round instructions
-          gamePotRoundInstruction: "Devinez la province", // TODO: we probably don't need this
+          gamePotRoundInstruction: "Deviner la province", // TODO: we probably don't need this
           gameFlagRoundInstruction: "Quel est le drapeau",
           gameCapitalRoundInstruction: "Quelle est la capitale",
-          gameNeighborRoundInstruction: "Quelles sont les voisins",
+          gameNeighborRoundInstruction: "Quels sont les voisins",
           gameMajorLeagueRoundInstruction: "Quelle équipe vient",
           gamePotRoundFinaleStats: "Stats",
           // alerts
-          unknownPot: "Province ou territoire inconnu!",
-          unknownCity: "Ville inconnue!",
-          alreadyGuessed: "Déjà deviné!",
-          guessedIt: "Touché-coulé!",
-          failedIt: "Désolé, vous l'avez manqué!",
+          unknownPot: "Province ou territoire inconnu !",
+          unknownCity: "Ville inconnue !",
+          alreadyGuessed: "Déjà deviné !",
+          guessedIt: "Touché-coulé !",
+          guessedItList: [
+            "Touché-coulé !",
+            "Magnifique !",
+            "Chapeau !",
+            "Splendide !",
+            "Génial !",
+            "Impec' !",
+            "Nickel !",
+            "Bien joué !",
+            "Bien vu !",
+          ],
+          failedIt: "Désolé, vous avez échoué !",
+          failedItList: [
+            "Désolé, vous avez échoué !",
+            "Vous n'avez pas réussi aujourd'hui !",
+            "Désolé, essayez encore demain !",
+          ],
         },
         geo: {
           ca: "Canada",
