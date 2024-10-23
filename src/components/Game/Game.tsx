@@ -6,7 +6,12 @@ import {
   GameState,
   GameRoundResult,
 } from "../../types/data.ts";
-import { getTodaysPotCode } from "../../canadata/dataBank.ts"; // lovas: see below use
+import { useTranslation } from "react-i18next";
+import {
+  dataBank,
+  getTodaysPotCode,
+  getPotMapSvgUrl,
+} from "../../canadata/dataBank.ts"; // lovas: see below use
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";
@@ -36,6 +41,12 @@ function initGameState(): GameState {
 
 export function Game() {
   const [gameState, setGameState] = useState(() => initGameState()); // warning: useState(initGameState()) sux!
+
+  // TBD: here or initGameState.
+  // note: we have access to i18next here in React component, but not in gameData.
+  dataBank.tLang = useTranslation().t;
+  dataBank.tGeo = useTranslation("geo").t;
+  dataBank.getPotMapSvgUrl = getPotMapSvgUrl; // ??? maybe because of VITE or React or URL
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const updateGameState = (key: string, val: any): void => {
@@ -103,6 +114,7 @@ export function Game() {
             gameRoundId="pot"
             gameState={gameState}
             currentRoundStatus={currentRoundStatus}
+            dataBank={dataBank}
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />
@@ -111,6 +123,7 @@ export function Game() {
             gameRoundId="neighbors"
             gameState={gameState}
             currentRoundStatus={currentRoundStatus}
+            dataBank={dataBank}
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />
@@ -119,6 +132,7 @@ export function Game() {
             gameRoundId="capital"
             gameState={gameState}
             currentRoundStatus={currentRoundStatus}
+            dataBank={dataBank}
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />
@@ -127,6 +141,7 @@ export function Game() {
             gameRoundId="flag"
             gameState={gameState}
             currentRoundStatus={currentRoundStatus}
+            dataBank={dataBank}
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />
@@ -135,6 +150,7 @@ export function Game() {
             gameRoundId="majorLeague"
             gameState={gameState}
             currentRoundStatus={currentRoundStatus}
+            dataBank={dataBank}
             setCurrentRoundStatus={setCurrentRoundStatus}
             setRoundResult={setRoundResult}
           />

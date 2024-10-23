@@ -1,10 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
-import {
-  dataBank,
-  getCities,
-  getPotMapSvgUrl,
-} from "../../canadata/dataBank.ts";
+import { GameRoundResult, PotCode, DataBank } from "../../types/data.ts";
 import {
   sanitizeString,
   isValidGuess,
@@ -12,7 +7,6 @@ import {
   getColorOfStatus,
 } from "../../utils/utils.ts";
 import defaultGameState from "../../canadata/gameState.ts";
-import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
@@ -27,13 +21,13 @@ import confetti from "canvas-confetti";
 
 export function GameRoundCapital(props: GameRoundProps) {
   const gameState = defaultGameState;
-  const { t: tGeo } = useTranslation("geo");
+  const dataBank: DataBank = props.dataBank;
 
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: tGeo(dataBank.data[gameState.potCode as PotCode].capital),
-    possibleValues: getCities(tGeo),
+    target: dataBank.tGeo(dataBank.data[gameState.potCode as PotCode].capital),
+    possibleValues: dataBank.getCities(dataBank.tGeo),
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);
@@ -44,16 +38,14 @@ function GameRoundTextInputWithImage({
   gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
+  dataBank,
   setRoundResult,
   roundInstructionId,
   target,
   possibleValues,
   maxAttempts,
 }: GameRoundPropsExtended) {
-  const { t } = useTranslation();
-  // const t = i18n.getFixedT("LOLcalize");
-  const { t: tGeo } = useTranslation("geo");
-  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
+  const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   //const [gameState] = useState(defaultGameState);
@@ -85,12 +77,12 @@ function GameRoundTextInputWithImage({
     event.preventDefault();
 
     if (!isValidGuess(currentGuess, possibleValues)) {
-      toastError(t("unknownCity"));
+      toastError(dataBank.tLang("unknownCity"));
       return;
     }
 
     if (guesses.includes(currentGuess)) {
-      toastError(t("alreadyGuessed"));
+      toastError(dataBank.tLang("alreadyGuessed"));
       return;
     }
 
@@ -98,7 +90,7 @@ function GameRoundTextInputWithImage({
 
     //sanitizeString(dataBank[potCode as PotCode].capital[0]) ===
     if (sanitizeString(target) === sanitizeString(currentGuess)) {
-      toastSuccess(t("guessedIt"));
+      toastSuccess(dataBank.tLang("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
       setRoundResult(gameRoundId, grade(currentGuess));
@@ -121,16 +113,16 @@ function GameRoundTextInputWithImage({
 
   return (
     <div>
-      {t(roundInstructionId) === "" ? (
+      {dataBank.tLang(roundInstructionId) === "" ? (
         <div />
       ) : (
         <div className="gap-1 text-center">
-          <p>{`${t("gameCapitalRoundInstruction")} ${potNameOf}?`}</p>
+          <p>{`${dataBank.tLang("gameCapitalRoundInstruction")} ${potNameOf}?`}</p>
         </div>
       )}
       <div>
         <img
-          src={getPotMapSvgUrl(gameState.potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(gameState.potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -144,12 +136,12 @@ function GameRoundTextInputWithImage({
           <AutoSuggestInput
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
-            placeholder={`${t("capitalCity")}`}
+            placeholder={`${dataBank.tLang("capitalCity")}`}
             suggestionsArray={possibleValues}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
-            text={`🍁 ${t("guessVerb")}`}
+            text={`${dataBank.getGuessEmoji()} ${dataBank.tLang("guessVerb")}`}
           />
         </div>
       </form>
@@ -159,7 +151,8 @@ function GameRoundTextInputWithImage({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
+                {dataBank.tLang("guessNoun")} {guesses.length + 1} /{" "}
+                {maxAttempts}
               </span>
             </div>
           </div>
