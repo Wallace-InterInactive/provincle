@@ -4,6 +4,7 @@ import {
   sanitizeString,
   getTodaysCodeIndex,
   directionEmojiMap,
+  defaultTFunction,
 } from "../utils/utils.ts";
 import { calculateAngle, angle15ToDir } from "../utils/geo.ts";
 //import { useTranslation } from "react-i18next";
@@ -552,6 +553,11 @@ export function getTeamLogoSvgUrl(teamName: string): string {
     .href;
 }
 
+// TBD: should this go to some i18n block, like tGeo?
+function getGuessEmoji(): string {
+  return "🍁";
+}
+
 //export default dataBank;
 //export default dataBank;
 export const dataBank: DataBank = {
@@ -559,6 +565,12 @@ export const dataBank: DataBank = {
   isValidCode: isValidPot,
   getPotCodeByName: getPotCodeByName,
   getPotNamesByLang: getPotNamesByLang,
+  getPotMapSvgUrl: getPotMapSvgUrl, // warning: does not work as I'd expect
+  getPotFlagSvgUrl: getPotFlagSvgUrl,
+  getCities: getCities,
   //getDistanceWithUnitBySetting:getDistanceWithUnitBySetting,
   getDirectionEmoji: getDirectionEmoji,
+  getGuessEmoji: getGuessEmoji,
+  tLang: defaultTFunction, // warning: to be set in Game.tsx
+  tGeo: defaultTFunction, // warning: to be set in Game.tsx
 };

@@ -1,4 +1,4 @@
-import { MyGeoMapping } from "../utils/utils";
+import { MyGeoMapping, MyTranslateFunction } from "../utils/utils";
 
 export type GameRoundStatus = "won" | "lost" | "pending" | "n/a";
 
@@ -80,6 +80,12 @@ export interface DataBank {
   isValidCode(currentGuess: string, tGeo: MyGeoMapping): boolean;
   getPotCodeByName(name: string, tGeo: MyGeoMapping): string;
   getPotNamesByLang(tGeo: MyGeoMapping): string[];
+  getPotMapSvgUrl(potCode: PotCode): string;
+  getPotFlagSvgUrl(potCode: PotCode): string;
+  getCities(tGeo: MyGeoMapping): string[];
   //getDistanceWithUnitBySetting(from: PotCode,to: PotCode): string;
   getDirectionEmoji(fromGuess: PotCode, toSolution: PotCode): string;
+  getGuessEmoji(): string;
+  tLang: MyTranslateFunction;
+  tGeo: MyGeoMapping;
 }

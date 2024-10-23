@@ -5,9 +5,14 @@ import {
   GameRoundResult,
 } from "../types/data.ts";
 
-export interface MyGeoMapping {
-  (key: string): string;
-}
+import { TFunction } from "i18next";
+
+// export interface MyTranslateFunction {
+//   (key: string): string;
+// } -- almost good, except for the 't("key", { returnObjects: true, }) as string[]' use
+export type MyTranslateFunction = TFunction;
+export type MyGeoMapping = MyTranslateFunction;
+export const defaultTFunction = (() => "") as TFunction;
 
 // TODO some UI or i18n module
 export const directionEmojiMap = new Map<CardinalDirection, string>([
