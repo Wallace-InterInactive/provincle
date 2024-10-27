@@ -1,12 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
 import {
-  dataBank,
-  getPotNamesByLang,
-  getPotCodeByName,
-  getPotMapSvgUrl,
-  isValidPot,
-} from "../../canadata/dataBank.ts";
-import {
   sanitizeString,
   getOkNokEmoji,
   changeHtmlItemClass,
@@ -15,7 +8,6 @@ import {
 import { GameRoundResult, PotCode } from "../../types/data.ts";
 // import { GameState } from "../../types/data.ts";
 // import defaultGameState from "../../utils/gameState.ts";
-import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
@@ -27,11 +19,10 @@ function GameRoundNeighbors({
   gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
+  dataBank,
   setRoundResult,
 }: GameRoundProps) {
-  const { t } = useTranslation();
-  const { t: tGeo } = useTranslation("geo");
-  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
+  const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
 
   const idPrefix: string = "roundNbor-";
 
@@ -56,7 +47,7 @@ function GameRoundNeighbors({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidPot(currentGuess, tGeo)) {
+    if (!dataBank.isValidCode(currentGuess, dataBank.tGeo)) {
       console.log("Unknown province or territory!");
       return;
     }
@@ -67,9 +58,10 @@ function GameRoundNeighbors({
     }
 
     const isGuessCorrect = neighbors.some(
-      apot => sanitizeString(tGeo(apot)) === sanitizeString(currentGuess)
+      apot =>
+        sanitizeString(dataBank.tGeo(apot)) === sanitizeString(currentGuess)
     );
-    const guessedPot = getPotCodeByName(currentGuess, tGeo);
+    const guessedPot = dataBank.getPotCodeByName(currentGuess, dataBank.tGeo);
     if (isGuessCorrect) {
       console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
       changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
@@ -123,10 +115,11 @@ function GameRoundNeighbors({
   }
 
   //const numCols = 4;
+  const guessNoun: string = dataBank.tLang("guessNoun");
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>{`${t("gameNeighborRoundInstruction")} ${potNameOf}?`}</p>
+        <p>{`${dataBank.tLang("gameNeighborRoundInstruction")} ${potNameOf}?`}</p>
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {
@@ -142,7 +135,7 @@ function GameRoundNeighbors({
               onClick={() => toggleZoom(aPot)}
             >
               <img
-                src={getPotMapSvgUrl(aPot as PotCode)}
+                src={dataBank.getPotMapSvgUrl(aPot as PotCode)}
                 alt="silhouette of a province or territory"
                 className="max-h-24 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
               />
@@ -151,8 +144,8 @@ function GameRoundNeighbors({
               >
                 {guessedCodes.includes(neighbors[i]) ||
                 currentRoundStatus !== "pending"
-                  ? tGeo(neighbors[i])
-                  : t("guessVerb")}
+                  ? dataBank.tGeo(neighbors[i])
+                  : dataBank.tLang("guessVerb")}
               </p>
             </div>
           );
@@ -164,7 +157,7 @@ function GameRoundNeighbors({
           onClick={() => toggleZoom(zoomedPot)}
         >
           <img
-            src={getPotMapSvgUrl(zoomedPot as PotCode)}
+            src={dataBank.getPotMapSvgUrl(zoomedPot as PotCode)}
             alt="silhouette of a province or territory"
             className="max-h-64 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
           />
@@ -180,12 +173,12 @@ function GameRoundNeighbors({
           <AutoSuggestInput
             currentGuess={currentGuess}
             setCurrentGuess={setCurrentGuess}
-            placeholder={`${t("province")}, ${t("territory")}`}
-            suggestionsArray={getPotNamesByLang(tGeo)}
+            placeholder={`${dataBank.tLang("province")}, ${dataBank.tLang("territory")}`}
+            suggestionsArray={dataBank.getPotNamesByLang(dataBank.tGeo)}
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
-            text={`🍁 ${t("guessVerb")}`}
+            text={`${dataBank.getGuessEmoji()} ${dataBank.tLang("guessVerb")}`}
           />
         </div>
       </form>
@@ -195,7 +188,7 @@ function GameRoundNeighbors({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
+                {guessNoun} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
@@ -212,7 +205,7 @@ function GameRoundNeighbors({
               >
                 <div className="my-guess-div col-span-6">
                   <p className="my-guess-p">
-                    {tGeo(guessCode as PotCode)}
+                    {dataBank.tGeo(guessCode as PotCode)}
                     {/*getPotName(guessCode as PotCode) || "-"*/}
                   </p>
                 </div>

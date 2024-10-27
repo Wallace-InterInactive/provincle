@@ -10,6 +10,7 @@ export interface GameFinaleProps {
   roundStats: GameState;
 }
 
+// TBD: Finale could be either generic or GameSpecific, leaving as-is for now
 function GameRoundFinale({
   roundStats /*, setCurrentRoundStatus*/,
 }: GameFinaleProps) {

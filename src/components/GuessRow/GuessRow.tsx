@@ -1,5 +1,4 @@
 import { PotCode, DataBank } from "../../types/data.ts";
-import { MyGeoMapping } from "../../utils/utils.ts";
 import { useEffect, useState } from "react";
 import {
   getSquaresByDistance,
@@ -14,17 +13,17 @@ import {
 export interface GuessRowProps {
   guess: string;
   solutionCode: PotCode;
-  tGeo: MyGeoMapping;
+  //  tGeo: MyGeoMapping;
   dataBank: DataBank;
 }
 
 export function GuessRow({
   guess,
   solutionCode,
-  tGeo,
+  //  tGeo,
   dataBank,
 }: GuessRowProps) {
-  const guessCode = dataBank.getPotCodeByName(guess, tGeo);
+  const guessCode = dataBank.getPotCodeByName(guess, dataBank.tGeo);
 
   const [animationIsActive, setAnimationIsActive] = useState<boolean>(false);
 

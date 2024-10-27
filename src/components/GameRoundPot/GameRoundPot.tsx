@@ -1,12 +1,10 @@
 import { FormEvent, useState, useEffect } from "react";
-import { dataBank, getPotMapSvgUrl } from "../../canadata/dataBank.ts";
 import { sanitizeString } from "../../utils/utils.ts";
-import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-//import i18n from "../../utils/i18n.ts";
 import {
   SQUARE_ANIMATION_LENGTH,
   squares,
@@ -21,11 +19,12 @@ function GameRoundPot({
   gameRoundId,
   gameState,
   currentRoundStatus,
+  dataBank,
   setCurrentRoundStatus,
   setRoundResult,
 }: GameRoundProps) {
-  const { t } = useTranslation();
-  const { t: tGeo } = useTranslation("geo");
+  const t: TFunction = dataBank.tLang;
+  const tGeo = dataBank.tGeo;
 
   const potCode: string = gameState.potCode;
 
@@ -117,7 +116,7 @@ function GameRoundPot({
        */}
       <div>
         <img
-          src={getPotMapSvgUrl(potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -135,7 +134,7 @@ function GameRoundPot({
           />
           <GuessButton
             onClick={handleGuessButtonClicked}
-            text={`🍁 ${t("guessVerb")}`}
+            text={`${dataBank.getGuessEmoji()} ${t("guessVerb")}`}
           />
         </div>
       </form>
@@ -145,8 +144,6 @@ function GameRoundPot({
         maxAttempts={maxAttempts}
         solutionCode={potCode as PotCode}
         guessNum={guessNum}
-        t={t}
-        tGeo={tGeo}
         dataBank={dataBank}
       />
     </div>

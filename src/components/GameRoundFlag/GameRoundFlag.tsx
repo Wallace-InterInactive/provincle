@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { getColorOfStatus, shuffle } from "../../utils/utils.ts";
 import "../../ImageGrid.css";
-import { useTranslation } from "react-i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-import { getPotFlagSvgUrl, potCodes } from "../../canadata/dataBank.ts";
 import confetti from "canvas-confetti";
 import { toastSuccess } from "../../utils/animations.ts";
 
@@ -16,11 +14,11 @@ function GameRoundFlag({
   gameState,
   currentRoundStatus,
   setCurrentRoundStatus,
+  dataBank,
   setRoundResult,
 }: GameRoundProps) {
-  const { t } = useTranslation();
-  const { t: tGeo } = useTranslation("geo");
-  const potNameOf: string = tGeo(`of_${gameState.potCode}`);
+  const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+  const potCodes = Object.keys(dataBank.data) as PotCode[];
 
   // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
@@ -55,7 +53,7 @@ function GameRoundFlag({
     console.log(`current guess ${guessedItem}`);
     if (`guess-${gameState.potCode}` == guessedItem) {
       setCurrentRoundStatus("won");
-      toastSuccess(t("guessedIt"));
+      toastSuccess(dataBank.tLang("guessedIt"));
       confetti();
       setRoundResult(gameRoundId, grade(guess));
     } else if (guesses.length + 1 === maxAttempts) {
@@ -77,10 +75,12 @@ function GameRoundFlag({
     }
   }
 
+  const guessNoun: string = dataBank.tLang("guessNoun");
+
   return (
     <div>
       <div className="gap-1 text-center">
-        <p>{`${t("gameFlagRoundInstruction")} ${potNameOf}?`}</p>
+        <p>{`${dataBank.tLang("gameFlagRoundInstruction")} ${potNameOf}?`}</p>
       </div>
       <div>
         <div
@@ -110,7 +110,7 @@ function GameRoundFlag({
             return (
               <div className="image-item justify-self-auto rounded-lg m-4">
                 <img
-                  src={getPotFlagSvgUrl(aPot)}
+                  src={dataBank.getPotFlagSvgUrl(aPot)}
                   alt={`flag of a pot:${i}:${aPot}`}
                   className={`cursor-pointer max-h-24 m-auto h-20 ${myBorder}`}
                   onClick={handleFlagGuessClicked}
@@ -120,8 +120,8 @@ function GameRoundFlag({
                   className={`visible h-6 rounded-xl -mx-2 px-2 text-black bg-${bgColor}`}
                 >
                   {currentRoundStatus === "pending" && !guesses.includes(aPot) // or display if already guessed (show names or wrong guess)
-                    ? t("guessVerb")
-                    : tGeo(myPotList[i1])}
+                    ? dataBank.tLang("guessVerb")
+                    : dataBank.tGeo(myPotList[i1])}
                 </p>
               </div>
             );
@@ -136,7 +136,7 @@ function GameRoundFlag({
           >
             <div className="my-div-1">
               <span className="opacity-70">
-                {t("guessNoun")} {guesses.length + 1} / {maxAttempts}
+                {guessNoun} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>

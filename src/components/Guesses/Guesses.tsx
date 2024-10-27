@@ -1,7 +1,6 @@
 import { GuessRow } from "../GuessRow/GuessRow.tsx";
 import { GameRoundStatus, PotCode, DataBank } from "../../types/data.ts";
 import { getColorOfStatus } from "../../utils/utils.ts";
-import { MyGeoMapping } from "../../utils/utils.ts";
 
 export interface GuessesProps {
   currentRoundStatus: GameRoundStatus;
@@ -9,8 +8,6 @@ export interface GuessesProps {
   maxAttempts: number;
   solutionCode: PotCode;
   guessNum: number;
-  t: MyGeoMapping;
-  tGeo: MyGeoMapping;
   dataBank: DataBank;
 }
 
@@ -20,8 +17,8 @@ export function Guesses({
   maxAttempts,
   solutionCode,
   guessNum,
-  t,
-  tGeo,
+  //t,
+  //tGeo,
   dataBank,
 }: GuessesProps) {
   return (
@@ -30,7 +27,7 @@ export function Guesses({
         <div className="grid grid-cols-6 gap-1 text-center py-0.5">
           <div className="my-div-1">
             <span className="opacity-70">
-              {t("guessNoun")} {guessNum} / {maxAttempts}
+              {dataBank.tLang("guessNoun")} {guessNum} / {maxAttempts}
             </span>
           </div>
         </div>
@@ -40,7 +37,7 @@ export function Guesses({
             // TODO: use custom class name for colors
             className={`my-span-3 text-black bg-${getColorOfStatus(currentRoundStatus)}`}
           >
-            {tGeo(solutionCode)}
+            {dataBank.tGeo(solutionCode)}
           </span>
         </div>
       )}
@@ -51,7 +48,6 @@ export function Guesses({
             <GuessRow
               guess={guesses[i]}
               solutionCode={solutionCode as PotCode}
-              tGeo={tGeo}
               dataBank={dataBank}
             />
           );
