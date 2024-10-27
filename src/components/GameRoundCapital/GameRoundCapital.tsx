@@ -6,7 +6,6 @@ import {
   getOkNokEmoji,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import defaultGameState from "../../canadata/gameState.ts";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
@@ -20,9 +19,8 @@ import {
 import confetti from "canvas-confetti";
 
 export function GameRoundCapital(props: GameRoundProps) {
-  const gameState = defaultGameState;
+  const gameState = props.gameState;
   const dataBank: DataBank = props.dataBank;
-
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
