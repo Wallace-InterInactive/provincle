@@ -107,8 +107,6 @@ function GameRoundPot({
     console.log("Guess button clicked.");
   };
 
-  console.log(`typeof getPot... ${typeof dataBank.getPotMapSvgUrl}`);
-
   return (
     <div>
       {/* page part 1: the problem statement - not shown on original Worldle on 1st round

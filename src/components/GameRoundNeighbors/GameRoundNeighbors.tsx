@@ -115,6 +115,7 @@ function GameRoundNeighbors({
   }
 
   //const numCols = 4;
+  const guessNoun: string = dataBank.tLang("guessNoun");
   return (
     <div>
       <div className="gap-1 text-center">
@@ -187,8 +188,7 @@ function GameRoundNeighbors({
           <div className="grid grid-cols-6 gap-1 text-center py-0.5">
             <div className="my-div-1">
               <span className="opacity-70">
-                {dataBank.tLang("guessNoun")} {guesses.length + 1} /{" "}
-                {maxAttempts}
+                {guessNoun} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>

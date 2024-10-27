@@ -75,6 +75,8 @@ function GameRoundFlag({
     }
   }
 
+  const guessNoun: string = dataBank.tLang("guessNoun");
+
   return (
     <div>
       <div className="gap-1 text-center">
@@ -134,8 +136,7 @@ function GameRoundFlag({
           >
             <div className="my-div-1">
               <span className="opacity-70">
-                {dataBank.tLang("guessNoun")} {guesses.length + 1} /{" "}
-                {maxAttempts}
+                {guessNoun} {guesses.length + 1} / {maxAttempts}
               </span>
             </div>
           </div>
