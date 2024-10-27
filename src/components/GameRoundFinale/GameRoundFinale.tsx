@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { getColorOfStatus, mapGradeToEmoji } from "../../utils/utils.ts";
 import { getPotMapSvgUrl } from "../../canadata/dataBank.ts";
-import defaultGameState from "../../canadata/gameState.ts";
 import { useTranslation } from "react-i18next";
 //import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
 import { PotCode, GameState } from "../../types/data.ts";
@@ -16,14 +14,13 @@ function GameRoundFinale({
 }: GameFinaleProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
+  const potCode = roundStats.potCode;
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
-  const [newGameState] = useState(defaultGameState);
 
   // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
   // TODO: remove ts-ignore
   // @ts-ignore
-  const { potCode, currentRound } = newGameState;
 
   return (
     <div>
