@@ -31,6 +31,7 @@ i18next
           gameNeighborRoundInstruction: "What are the neighbours",
           gameMajorLeagueRoundInstruction: "Which team is from",
           gamePotRoundFinaleStats: "Stats",
+          gameTryOurOtherGames: "Please test your knowledge in the following games",
           // alerts
           unknownPot: "Unknown province ot territory!",
           unknownCity: "Unknown city!",
