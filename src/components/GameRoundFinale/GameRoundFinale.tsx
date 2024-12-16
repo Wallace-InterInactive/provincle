@@ -16,6 +16,8 @@ function GameRoundFinale({
   const { t: tGeo } = useTranslation("geo");
   const potCode = roundStats.potCode;
 
+  const urlRoot: string = "https://wallace-interinactive.github.io/";
+  const ourGames: string[] = ["provincle", "eirele", "varmegyle"];
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
 
   // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
@@ -60,16 +62,12 @@ function GameRoundFinale({
           <div className="my-guess-div col-span-2">
             <a
               className="my-guess-p"
-              href={`https://www.google.com/maps?q=${tGeo(potCode)},Canada`}
+              href={`https://www.google.com/maps?q=${potCode},Canada`}
               target="_blank"
             >
               Google Maps
             </a>
           </div>
-        </div>
-        <div className="gap-1 text-center py-0.5">
-          <br />
-          <p>{t("gamePotRoundFinaleStats")}</p>
         </div>
         {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,6 +87,28 @@ function GameRoundFinale({
             );
           })
         }
+        <div className="gap-1 text-center py-0.5">
+          <br />
+          <p>{t("gameTryOurOtherGames")}</p>
+          <div className="grid grid-cols-2 gap-1 text-center py-0.5">
+            {Array.from(ourGames)
+              .filter(game => !window.location.href.includes(game))
+              .map(game => {
+                return (
+                  <div
+                    className={`text-black bg-${getColorOfStatus("won")} rounded-xl m-4`}
+                  >
+                    <a
+                      href={`${urlRoot.replace(/\/$/, "")}/${game}`}
+                      target="_blank"
+                    >
+                      {game}
+                    </a>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
       </div>
     </div>
   );
