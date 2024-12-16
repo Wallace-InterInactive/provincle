@@ -62,7 +62,7 @@ function GameRoundFinale({
           <div className="my-guess-div col-span-2">
             <a
               className="my-guess-p"
-              href={`https://www.google.com/maps?q=${tGeo(potCode)},province,Canada`}
+              href={`https://www.google.com/maps?q=${potCode},Canada`}
               target="_blank"
             >
               Google Maps
