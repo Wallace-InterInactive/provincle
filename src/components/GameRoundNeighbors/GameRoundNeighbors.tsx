@@ -6,12 +6,9 @@ import {
   getColorOfStatus,
 } from "../../utils/utils.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-// import { GameState } from "../../types/data.ts";
-// import defaultGameState from "../../utils/gameState.ts";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-//import { SQUARE_ANIMATION_LENGTH, squares } from "../../utils/animations.ts";
 import confetti from "canvas-confetti";
 
 function GameRoundNeighbors({
@@ -177,7 +174,7 @@ function GameRoundNeighbors({
             suggestionsArray={dataBank.getPotNamesByLang(dataBank.tGeo)}
           />
           <GuessButton
-            onClick={handleGuessButtonClicked}
+            handler={handleGuessButtonClicked}
             text={`${dataBank.getGuessEmoji()} ${dataBank.tLang("guessVerb")}`}
           />
         </div>
