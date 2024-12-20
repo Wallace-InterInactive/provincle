@@ -1,4 +1,4 @@
 export interface GuessButtonProps {
-  onClick: () => void;
+  handler: () => void;
   text: string;
 }

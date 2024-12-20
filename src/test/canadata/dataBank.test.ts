@@ -54,7 +54,7 @@ describe("getPotFlagSvgUrl returns the href of the flag SVG of the given potCode
   });
 });
 
-/** this shall go to i18n.test.ts or databank.test.ts
+/* this shall go to i18n.test.ts or databank.test.ts
 describe("test functions in dataBank", () => {
   const { t: tGeo } = useTranslation("geo");
   beforeAll(() => {
@@ -218,35 +218,27 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
     const province = "qc";
     expect(getDirectionEmoji(province, province)).toBe("🎯");
   });
-
   it("should return ⬆️ for North", () => {
     expect(getDirectionEmoji("mb", "nu")).toBe("⬆️");
   });
-
   it("should return ⬇️️ for South", () => {
     expect(getDirectionEmoji("nu", "mb")).toBe("⬇️");
   });
-
   it("should return ➡️️ for East", () => {
     expect(getDirectionEmoji("ab", "sk")).toBe("\u27A1\uFE0F"); // ➡️️
   });
-
   it("should return ⬅️️ for West", () => {
     expect(getDirectionEmoji("ab", "bc")).toBe("⬅️");
   });
-
   it("should return ↗️ for ", () => {
     expect(getDirectionEmoji("bc", "nu")).toBe("↗️");
   });
-
   it("should return ↘️ for ", () => {
     expect(getDirectionEmoji("nt", "on")).toBe("↘️");
   });
-
   it("should return ↙️ for ", () => {
     expect(getDirectionEmoji("nu", "sk")).toBe("↙️");
   });
-
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("bc", "yt")).toBe("↖️");
   });
@@ -262,7 +254,6 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("ns", "nl")).toBe("↗️");
   });
-
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("yt", "ns")).toBe("↘️");
   });
@@ -275,7 +266,6 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("yt", "on")).toBe("↘️");
   });
-
   it("should return ↖️ for ", () => {
     expect(getDirectionEmoji("mb", "sk")).toBe("⬅️");
   });
@@ -297,7 +287,7 @@ describe("getDirectionEmoji should return the corresponding emoji for a given Ca
 });
 
 describe("test major league teams data", () => {
-  it("should have 22 teams overall (NHL + MLB [incl. Expos] + NBA + CFL + MLS)", () => {
+  it("should have 23 teams overall (NHL [incl. Nordiques] + MLB [incl. Expos] + NBA + CFL + MLS)", () => {
     expect(getMajorLeagueTeamKeys().length).toBe(23);
   });
 });

@@ -19,13 +19,17 @@ export function NextRoundButton({
   const { t } = useTranslation();
 
   return (
-    <div className="container flex flex-col items-center mt-4">
+    <div
+      className="container flex flex-col items-center mt-4"
+      data-testid="next-round-btn-wrapper-div"
+    >
       {currentRoundStatus !== "pending" ? (
         <button
           onClick={handleNextButtonClicked}
           className={
             "w-full rounded-xl flex-shrink-0 font-medium px-4 py-2 bg-custom-green-1 hover:bg-green-700"
           }
+          data-testid={"next-round-btn-finished"}
         >
           🍁 {t("nextRound")}
         </button>
@@ -33,7 +37,7 @@ export function NextRoundButton({
         <button
           onClick={handleGiveUpButtonClicked}
           className="rounded-xl flex-shrink-0 font-medium px-4 py-2 text-black bg-custom-light-blue-2"
-          // className=  "border-2 rounded-xl flex-shrink-1 px-2 text-gray text-opacity-50 "
+          data-testid={"give-up-btn"}
         >
           {giveUpCnt === 0 ? `🤷‍♀️ ${t("giveUp")}` : `️🙀 ${t("areYouSure")}?`}
         </button>

@@ -8,7 +8,13 @@ export default defineConfig({
     environment: "jsdom",
     exclude: [...configDefaults.exclude, "./src/canadata/i18n.ts"],
     coverage: {
-      exclude: [...configDefaults.exclude, "./src/canadata/i18n.ts"],
+      exclude: [
+        ...configDefaults.exclude,
+        "src/canadata/i18n.ts",
+        "src/components/**/*.test.tsx",
+        "src/test/**/*.test.ts",
+        "src/test/App.test.tsx",
+      ],
     },
   },
 });

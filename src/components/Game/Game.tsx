@@ -11,7 +11,7 @@ import {
   dataBank,
   getTodaysPotCode,
   getPotMapSvgUrl,
-} from "../../canadata/dataBank.ts"; // lovas: see below use
+} from "../../canadata/dataBank.ts";
 import GameRoundPot from "../GameRoundPot/GameRoundPot.tsx";
 import GameRoundFlag from "../GameRoundFlag/GameRoundFlag.tsx";
 import GameRoundCapital from "../GameRoundCapital/GameRoundCapital.tsx";

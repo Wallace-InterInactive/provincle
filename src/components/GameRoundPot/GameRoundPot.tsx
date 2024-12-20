@@ -133,7 +133,7 @@ function GameRoundPot({
             suggestionsArray={dataBank.getPotNamesByLang(tGeo)}
           />
           <GuessButton
-            onClick={handleGuessButtonClicked}
+            handler={handleGuessButtonClicked}
             text={`${dataBank.getGuessEmoji()} ${t("guessVerb")}`}
           />
         </div>
