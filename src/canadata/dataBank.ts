@@ -58,7 +58,7 @@ const dataBankData: Record<PotCode, PotData> = {
       "it borders the most US states (5)",
       "the nickel capital of the world",
       "world largest skating rink",
-      "home of the nation's capital"
+      "home of the nation's capital",
     ],
     highestPoint: "Ishpatina Ridge 693m",
     coastlineInKM: 3840,
@@ -118,7 +118,7 @@ const dataBankData: Record<PotCode, PotData> = {
     interestingFacts: [
       "home to world's highest tides",
       "home to Sable Island, the graveyard of the Atlantic",
-      "Nova Scotia is closer to the Republic of Ireland, than British Columbia, CA"
+      "Nova Scotia is closer to the Republic of Ireland, than British Columbia, CA",
     ],
     highestPoint: "White Hill 532m",
     coastlineInKM: 7579,
@@ -231,7 +231,7 @@ const dataBankData: Record<PotCode, PotData> = {
     interestingFacts: [
       "home to held the world's potash reserves",
       "Cree is the 2nd most spoken language",
-      "Moose Jaw's tunnels are linked to Al Capone legends of Prohibition-era alcohol smuggling, though evidence is unclear"
+      "Moose Jaw's tunnels are linked to Al Capone legends of Prohibition-era alcohol smuggling, though evidence is unclear",
     ],
     highestPoint: "Unnamed Point 1392m",
     coastlineInKM: 0,
@@ -255,7 +255,7 @@ const dataBankData: Record<PotCode, PotData> = {
       "has the most lakes",
       "over half the population lives in two cities",
       "has the oldest national park",
-      "The Calgary Stampede is one of the largest rodeos and festivals in the world"
+      "The Calgary Stampede is one of the largest rodeos and festivals in the world",
     ],
     highestPoint: "Mount Columbia 3747m",
     coastlineInKM: 0,
