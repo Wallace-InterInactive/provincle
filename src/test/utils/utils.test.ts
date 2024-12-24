@@ -5,11 +5,9 @@ import {
   getOkNokEmoji,
   getBullseyeEmoji,
   isValidGuess,
-  //isValidPot,
   sanitizeString,
   shuffle,
 } from "../../utils/utils.ts";
-//import { getPotMapSvgUrl } from "../../utils/dataBank.ts";
 
 describe("sanitizeString replaces accented characters and converts string to lowercase", () => {
   it("changes nothing", () => {
@@ -51,7 +49,7 @@ describe("sanitizeString replaces accented characters and converts string to low
   });
 });
 
-/** this shall go to i18n.test.ts or databank.test.ts
+/* this shall go to i18n.test.ts or databank.test.ts
  * import i18n from "../../utils/i18n"; 
  * const enKeys = Object.keys(i18n.store.data.en.translation);
  * expect(i18n.store.data.fr.translation.key1).toBe("Bonjour");

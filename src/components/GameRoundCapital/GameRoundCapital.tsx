@@ -140,7 +140,7 @@ function GameRoundTextInputWithImage({
             suggestionsArray={possibleValues}
           />
           <GuessButton
-            onClick={handleGuessButtonClicked}
+            handler={handleGuessButtonClicked}
             text={`${dataBank.getGuessEmoji()} ${dataBank.tLang("guessVerb")}`}
           />
         </div>
