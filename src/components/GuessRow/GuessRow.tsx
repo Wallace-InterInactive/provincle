@@ -11,24 +11,22 @@ import {
 } from "../../utils/geo.ts";
 
 export interface GuessRowProps {
-  guess: string;
+  guessCode: string;
   solutionCode: PotCode;
   //  tGeo: MyGeoMapping;
   dataBank: DataBank;
 }
 
 export function GuessRow({
-  guess,
+  guessCode,
   solutionCode,
   //  tGeo,
   dataBank,
 }: GuessRowProps) {
-  const guessCode = dataBank.getPotCodeByName(guess, dataBank.tGeo);
-
   const [animationIsActive, setAnimationIsActive] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!guess) {
+    if (!guessCode || guessCode === "invalid") {
       return;
     }
 
@@ -41,13 +39,13 @@ export function GuessRow({
     }, totalAnimationTime);
 
     return () => clearTimeout(timeout);
-  }, [guess]);
+  }, [guessCode]);
 
-  return guess ? (
+  return guessCode ? (
     !animationIsActive ? (
       <div className="grid grid-cols-7 gap-1 text-center py-0.5">
         <div className="my-guess-div col-span-4">
-          <p className="my-guess-p">{guess || "-"}</p>
+          <p className="my-guess-p">{dataBank.tGeo(guessCode) || "-"}</p>
         </div>
         <div className="my-guess-div col-span-2">
           <p className="my-guess-p">

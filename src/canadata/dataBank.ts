@@ -387,7 +387,7 @@ export function getPotCodeByName(name: string, tGeo: MyGeoMapping): string {
       return code; // as PotCode;
     }
   }
-  return "invalid";
+  return "invalid"; // TBD, it should be extracted/standardized better
 }
 
 //export function isValidPot(currentGuess: string, langCode: string): boolean {

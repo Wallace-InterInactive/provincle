@@ -28,6 +28,7 @@ export type PotCode2 =
   | "nt"
   | "yt"
   | "nu";
+export const CodeInvalid: string = "invalid";
 
 export type GeoNameKey = string;
 
