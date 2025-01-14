@@ -3,6 +3,9 @@ import {
   CardinalDirection,
   GameRoundStatus,
   GameRoundResult,
+  DataBank,
+  PotData,
+  City,
 } from "../types/data.ts";
 
 import { TFunction } from "i18next";
@@ -139,4 +142,23 @@ export function changeHtmlItemClass(name: string, value: string) {
   if (element) {
     element.classList.add(`${value}`);
   }
+}
+
+export function getAllCityCodes(dataBank: DataBank): string[] {
+  return Object.values(dataBank.data).flatMap((pot: PotData) =>
+    pot.largestCities.map((city: City) => city.key)
+  );
+}
+
+export function getKeyMatchingSanitizedValue(
+  value: string,
+  keyList: string[],
+  tfunc: MyGeoMapping
+): string {
+  for (const code of keyList) {
+    if (sanitizeString(value) === sanitizeString(tfunc(code))) {
+      return code;
+    }
+  }
+  return "invalid"; // TBD, it should be extracted/standardized better
 }

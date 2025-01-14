@@ -29,6 +29,7 @@ export function AutoSuggestInput({
           className: "w-full dark:bg-slate-800 dark:text-slate-100",
         }}
         onSuggestionsFetchRequested={({ value }) =>
+          //setSuggestions(fetchSuggestions(CSSFontFeatureValuesRule, value))
           setSuggestions(fetchSuggestions(suggestionsArray, value))
         }
         onSuggestionsClearRequested={() => setSuggestions([])}

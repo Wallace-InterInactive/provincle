@@ -1,10 +1,10 @@
 import { FormEvent, useState, useEffect } from "react";
 import { GameRoundResult, PotCode, DataBank } from "../../types/data.ts";
 import {
-  sanitizeString,
-  isValidGuess,
   getOkNokEmoji,
   getColorOfStatus,
+  getAllCityCodes,
+  getKeyMatchingSanitizedValue,
 } from "../../utils/utils.ts";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
@@ -24,7 +24,7 @@ export function GameRoundCapital(props: GameRoundProps) {
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: dataBank.tGeo(dataBank.data[gameState.potCode as PotCode].capital),
+    target: dataBank.data[gameState.potCode as PotCode].capital,
     possibleValues: dataBank.getCities(dataBank.tGeo),
     maxAttempts: 3,
   };
@@ -44,6 +44,7 @@ function GameRoundTextInputWithImage({
   maxAttempts,
 }: GameRoundPropsExtended) {
   const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+  const cityCodeList: string[] = getAllCityCodes(dataBank);
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   //const [gameState] = useState(defaultGameState);
@@ -60,8 +61,9 @@ function GameRoundTextInputWithImage({
   }, [guesses]);
 
   // prettier-ignore
-  function grade(guess: string): GameRoundResult {
-    if (sanitizeString(target) === sanitizeString(guess)) {
+  function grade(guessedCityCode: string): GameRoundResult {
+    //if (sanitizeString(target) === sanitizeString(guess)) {
+    if (guessedCityCode === target) {
       return guesses.length === 0 ? GameRoundResult.Excellent
            : guesses.length === 1 ? GameRoundResult.Good
            :                        GameRoundResult.Fair;
@@ -74,30 +76,35 @@ function GameRoundTextInputWithImage({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidGuess(currentGuess, possibleValues)) {
+    const cityCode = getKeyMatchingSanitizedValue(
+      currentGuess,
+      cityCodeList,
+      dataBank.tGeo
+    );
+
+    if (cityCode === "invalid") {
       toastError(dataBank.tLang("unknownCity"));
       return;
     }
 
-    if (guesses.includes(currentGuess)) {
+    if (guesses.includes(cityCode)) {
       toastError(dataBank.tLang("alreadyGuessed"));
       return;
     }
 
-    setGuesses([...guesses, currentGuess]);
+    setGuesses([...guesses, cityCode]);
 
-    //sanitizeString(dataBank[potCode as PotCode].capital[0]) ===
-    if (sanitizeString(target) === sanitizeString(currentGuess)) {
+    if (cityCode === target) {
       toastSuccess(dataBank.tLang("guessedIt"));
       confetti();
       setCurrentRoundStatus("won");
-      setRoundResult(gameRoundId, grade(currentGuess));
+      setRoundResult(gameRoundId, grade(cityCode));
     } else if (guesses.length + 1 === maxAttempts) {
       //setCurrentRoundStatus("lost");
       setTimeout(() => {
         setCurrentRoundStatus("lost");
       }, SQUARE_ANIMATION_LENGTH * squares.length);
-      setRoundResult(gameRoundId, grade(currentGuess));
+      setRoundResult(gameRoundId, grade(cityCode));
     }
   };
 
@@ -117,7 +124,7 @@ function GameRoundTextInputWithImage({
         <div />
       ) : (
         <div className="gap-1 text-center">
-          <p>{`${dataBank.tLang("gameCapitalRoundInstruction")} ${potNameOf}?`}</p>
+          <p>{`${dataBank.tLang(roundInstructionId)} ${potNameOf}?`}</p>
         </div>
       )}
       <div>
@@ -160,7 +167,7 @@ function GameRoundTextInputWithImage({
             <span
               className={`my-span-3 text-black  bg-${getColorOfStatus(currentRoundStatus)}`}
             >
-              {target}
+              {dataBank.tGeo(target)}
             </span>
           </div>
         )}
@@ -174,7 +181,9 @@ function GameRoundTextInputWithImage({
                 className="grid grid-cols-[5fr_1fr] gap-1 text-center py-0.5"
               >
                 <div className="my-guess-div">
-                  <p className="my-guess-p">{guesses[i] || "-"}</p>
+                  <p className="my-guess-p">
+                    {dataBank.tGeo(guesses[i]) || "-"}
+                  </p>
                 </div>
                 <div className="my-guess-div">
                   <p className="my-guess-p text-xl">

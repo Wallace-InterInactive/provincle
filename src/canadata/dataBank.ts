@@ -41,7 +41,7 @@ const listOfPotCodes: PotCode[] = [
 const dataBankData: Record<PotCode, PotData> = {
   on: {
     neighbors: ["nu", "qc", "mb"],
-    capital: "capital_on",
+    capital: "city_toronto",
     coordinates: {
       latitude: 49.25,
       longitude: -84.5,
@@ -75,7 +75,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   qc: {
     neighbors: ["nu", "nl", "pe", "nb", "on"],
-    capital: "capital_qc",
+    capital: "city_quebec",
     coordinates: {
       latitude: 52,
       longitude: -72,
@@ -103,7 +103,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   ns: {
     neighbors: ["nl", "nb", "pe"],
-    capital: "capital_ns",
+    capital: "city_halifax",
     coordinates: {
       latitude: 45,
       longitude: -63,
@@ -126,7 +126,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   nb: {
     neighbors: ["pe", "ns", "qc"],
-    capital: "capital_nb",
+    capital: "city_fredericton",
     coordinates: {
       latitude: 46.5,
       longitude: -66,
@@ -148,7 +148,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   mb: {
     neighbors: ["nu", "on", "sk"],
-    capital: "capital_mb",
+    capital: "city_winnipeg",
     coordinates: {
       latitude: 55,
       longitude: -97,
@@ -171,7 +171,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   bc: {
     neighbors: ["yt", "nt", "ab"],
-    capital: "capital_bc",
+    capital: "city_victoria",
     coordinates: {
       latitude: 54,
       longitude: -125,
@@ -193,7 +193,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   pe: {
     neighbors: ["qc", "nl", "ns", "nb"],
-    capital: "capital_pe",
+    capital: "city_charlottetown",
     coordinates: {
       latitude: 46.4,
       longitude: -63.2,
@@ -216,7 +216,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   sk: {
     neighbors: ["nt", "nu", "mb", "ab"],
-    capital: "capital_sk",
+    capital: "city_regina",
     coordinates: {
       latitude: 54.5,
       longitude: -106.000556,
@@ -239,7 +239,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   ab: {
     neighbors: ["nt", "sk", "bc"],
-    capital: "capital_ab",
+    capital: "city_edmonton",
     coordinates: {
       latitude: 54.5,
       longitude: -114.376667,
@@ -263,7 +263,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   nl: {
     neighbors: ["nu", "ns", "pe", "qc"],
-    capital: "capital_nl",
+    capital: "city_st_johns",
     coordinates: {
       latitude: 53.23,
       longitude: -59.999167,
@@ -287,7 +287,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   nt: {
     neighbors: ["nu", "sk", "ab", "bc", "yt"],
-    capital: "capital_nt",
+    capital: "city_yellowknife",
     coordinates: {
       latitude: 67,
       longitude: -121,
@@ -309,7 +309,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   yt: {
     neighbors: ["nt", "bc"],
-    capital: "capital_yt",
+    capital: "city_whitehorse",
     coordinates: {
       latitude: 63,
       longitude: -135,
@@ -332,7 +332,7 @@ const dataBankData: Record<PotCode, PotData> = {
   },
   nu: {
     neighbors: ["qc", "nl", "on", "mb", "sk", "nt"],
-    capital: "capital_nu",
+    capital: "city_iqaluit",
     coordinates: {
       latitude: 73,
       longitude: -93,

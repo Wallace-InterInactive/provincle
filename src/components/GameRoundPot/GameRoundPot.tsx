@@ -26,8 +26,6 @@ function GameRoundPot({
   const t: TFunction = dataBank.tLang;
   const tGeo = dataBank.tGeo;
 
-  //const potCode: string = gameState.potCode;
-
   const maxAttempts = 3;
 
   const [guessNum, setGuessNum] = useState<number>(1);
