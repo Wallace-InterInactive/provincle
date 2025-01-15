@@ -44,6 +44,11 @@ function GameRoundTextInputWithImage({
   maxAttempts,
 }: GameRoundPropsExtended) {
   const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+  if (potNameOf === `of_${gameState.potCode}`) {
+    // add default, when i18n:of_pot is not defined
+    potNameOf === `of ${dataBank.tGeo(gameState.potCode)}`;
+  }
+
   const cityCodeList: string[] = getAllCityCodes(dataBank);
 
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
@@ -62,7 +67,6 @@ function GameRoundTextInputWithImage({
 
   // prettier-ignore
   function grade(guessedCityCode: string): GameRoundResult {
-    //if (sanitizeString(target) === sanitizeString(guess)) {
     if (guessedCityCode === target) {
       return guesses.length === 0 ? GameRoundResult.Excellent
            : guesses.length === 1 ? GameRoundResult.Good
