@@ -165,6 +165,7 @@ export function Game() {
           giveUpCnt={giveupCnt}
           handleGiveUpButtonClicked={handleGiveUpButtonClicked}
           handleNextButtonClicked={handleNextButtonClicked}
+          dataBank={dataBank}
         />
       ) : (
         <div />

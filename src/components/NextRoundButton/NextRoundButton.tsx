@@ -1,4 +1,4 @@
-import { GameRoundStatus } from "../../types/data.ts";
+import { DataBank, GameRoundStatus } from "../../types/data.ts";
 import { useTranslation } from "react-i18next";
 
 interface NextRoundButtonProps {
@@ -7,6 +7,7 @@ interface NextRoundButtonProps {
   handleNextButtonClicked: () => void;
   handleGiveUpButtonClicked: () => void;
   giveUpCnt: number;
+  dataBank: DataBank;
 }
 
 export function NextRoundButton({
@@ -15,6 +16,7 @@ export function NextRoundButton({
   handleNextButtonClicked,
   handleGiveUpButtonClicked,
   giveUpCnt,
+  dataBank,
 }: NextRoundButtonProps) {
   const { t } = useTranslation();
 
@@ -31,7 +33,7 @@ export function NextRoundButton({
           }
           data-testid={"next-round-btn-finished"}
         >
-          🍁 {t("nextRound")}
+          {dataBank.getGuessEmoji() + " " + t("nextRound")}
         </button>
       ) : currentRound > 1 ? (
         <button
