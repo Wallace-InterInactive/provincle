@@ -25,7 +25,6 @@ export function GameRoundCapital(props: GameRoundProps) {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
     target: dataBank.data[gameState.potCode as PotCode].capital,
-    possibleValues: dataBank.getCities(dataBank.tGeo),
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);
@@ -40,7 +39,6 @@ function GameRoundTextInputWithImage({
   setRoundResult,
   roundInstructionId,
   target,
-  possibleValues,
   maxAttempts,
 }: GameRoundPropsExtended) {
   let potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
@@ -49,8 +47,8 @@ function GameRoundTextInputWithImage({
   }
 
   const cityCodeList: string[] = getAllCityCodes(dataBank);
+  const possibleValues = cityCodeList.map(c => dataBank.tGeo(c)).sort();
 
-  //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
   //const [gameState] = useState(defaultGameState);
   const [guesses, setGuesses] = useState<string[]>([]);
 

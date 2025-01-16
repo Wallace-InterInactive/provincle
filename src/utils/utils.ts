@@ -145,6 +145,7 @@ export function changeHtmlItemClass(name: string, value: string) {
 }
 
 export function getAllCityCodes(dataBank: DataBank): string[] {
+  // is... add also pot.capitals?, is any expected NOT to be in largest cities list?
   return Object.values(dataBank.data).flatMap((pot: PotData) =>
     pot.largestCities.map((city: City) => city.key)
   );
