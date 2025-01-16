@@ -43,10 +43,9 @@ function GameRoundTextInputWithImage({
   possibleValues,
   maxAttempts,
 }: GameRoundPropsExtended) {
-  const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+  let potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
   if (potNameOf === `of_${gameState.potCode}`) {
-    // add default, when i18n:of_pot is not defined
-    potNameOf === `of ${dataBank.tGeo(gameState.potCode)}`;
+    potNameOf = `of ${dataBank.tGeo(gameState.potCode)}`;
   }
 
   const cityCodeList: string[] = getAllCityCodes(dataBank);
