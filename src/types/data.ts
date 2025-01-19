@@ -83,6 +83,8 @@ export interface DataBank {
   getPotNamesByLang(tGeo: MyGeoMapping): string[];
   getPotMapSvgUrl(potCode: PotCode): string;
   getPotFlagSvgUrl(potCode: PotCode): string;
+  getLinkUrlWikipedia(potCode: string): string;
+  getLinkUrlGoogleMaps(potCode: string): string;
   getCities(tGeo: MyGeoMapping): string[];
   //getDistanceWithUnitBySetting(from: PotCode,to: PotCode): string;
   getDirectionEmoji(fromGuess: PotCode, toSolution: PotCode): string;

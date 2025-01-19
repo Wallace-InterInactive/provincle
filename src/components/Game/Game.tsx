@@ -155,7 +155,7 @@ export function Game() {
             setRoundResult={setRoundResult}
           />
         ) : (
-          <GameRoundFinale roundStats={gameState} />
+          <GameRoundFinale roundStats={gameState} dataBank={dataBank} />
         )}
       </div>
       {currentRound <= gameState.rounds.size ? (

@@ -562,6 +562,15 @@ function getGuessEmoji(): string {
   return "🍁";
 }
 
+//@ts-ignore
+function getLinkUrlWikipedia(potCode: string): string {
+  return "https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada";
+}
+
+function getLinkUrlGoogleMaps(potCode: string): string {
+  return `https://www.google.com/maps?q=${potCode},Canada`;
+}
+
 //export default dataBank;
 //export default dataBank;
 export const dataBank: DataBank = {
@@ -571,6 +580,8 @@ export const dataBank: DataBank = {
   getPotNamesByLang: getPotNamesByLang,
   getPotMapSvgUrl: getPotMapSvgUrl, // warning: does not work as I'd expect
   getPotFlagSvgUrl: getPotFlagSvgUrl,
+  getLinkUrlWikipedia: getLinkUrlWikipedia,
+  getLinkUrlGoogleMaps: getLinkUrlGoogleMaps,
   getCities: getCities,
   //getDistanceWithUnitBySetting:getDistanceWithUnitBySetting,
   getDirectionEmoji: getDirectionEmoji,

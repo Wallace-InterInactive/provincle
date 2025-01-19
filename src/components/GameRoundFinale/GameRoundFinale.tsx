@@ -1,17 +1,15 @@
 import { getColorOfStatus, mapGradeToEmoji } from "../../utils/utils.ts";
-import { getPotMapSvgUrl } from "../../canadata/dataBank.ts";
 import { useTranslation } from "react-i18next";
 //import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
-import { PotCode, GameState } from "../../types/data.ts";
+import { PotCode, GameState, DataBank } from "../../types/data.ts";
 
 export interface GameFinaleProps {
   roundStats: GameState;
+  dataBank: DataBank;
 }
 
 // TBD: Finale could be either generic or GameSpecific, leaving as-is for now
-function GameRoundFinale({
-  roundStats /*, setCurrentRoundStatus*/,
-}: GameFinaleProps) {
+function GameRoundFinale({ roundStats, dataBank }: GameFinaleProps) {
   const { t } = useTranslation();
   const { t: tGeo } = useTranslation("geo");
   const potCode = roundStats.potCode;
@@ -29,7 +27,7 @@ function GameRoundFinale({
       {/* page part 1: the problem statement */}
       <div>
         <img
-          src={getPotMapSvgUrl(potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(roundStats.potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-32 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -51,9 +49,7 @@ function GameRoundFinale({
           <div className="my-guess-div col-start-2 col-span-2">
             <a
               className="my-guess-p"
-              href={
-                "https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada"
-              } // TODO: corresponding wiki
+              href={dataBank.getLinkUrlWikipedia(potCode)}
               target="_blank"
             >
               Wikipedia
@@ -62,7 +58,7 @@ function GameRoundFinale({
           <div className="my-guess-div col-span-2">
             <a
               className="my-guess-p"
-              href={`https://www.google.com/maps?q=${potCode},Canada`}
+              href={dataBank.getLinkUrlGoogleMaps(potCode)}
               target="_blank"
             >
               Google Maps
