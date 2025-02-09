@@ -26,8 +26,6 @@ function GameRoundPot({
   const t: TFunction = dataBank.tLang;
   const tGeo = dataBank.tGeo;
 
-  const potCode: string = gameState.potCode;
-
   const maxAttempts = 3;
 
   const [guessNum, setGuessNum] = useState<number>(1);
@@ -52,7 +50,7 @@ function GameRoundPot({
   // prettier-ignore
   function grade(guess: string): GameRoundResult {
     //if (guess === gameState.potCode) {
-    if (sanitizeString(tGeo(potCode)) === sanitizeString(guess)) {
+    if (sanitizeString(tGeo(gameState.potCode)) === sanitizeString(guess)) {
       return guesses.length === 0 ? GameRoundResult.Excellent
            : guesses.length === 1 ? GameRoundResult.Good
            :                        GameRoundResult.Fair;
@@ -65,17 +63,21 @@ function GameRoundPot({
   const handleFormSubmission = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!dataBank.isValidCode(currentGuess, tGeo)) {
+    const guessedPot = dataBank.getPotCodeByName(currentGuess, tGeo); // sanitizeString(currentGuess) ??
+
+    if (guessedPot === "invalid") {
+      //if (!dataBank.isValidCode(currentGuess, tGeo)) {
       toastError(t("unknownPot"));
       return;
     }
 
-    if (guesses.includes(currentGuess)) {
+    if (guesses.includes(guessedPot)) {
       toastError(t("alreadyGuessed"));
       return;
     }
 
-    if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
+    //if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
+    if (guessedPot === gameState.potCode) {
       setTimeout(() => {
         setCurrentRoundStatus("won");
         const guessedItText = t("guessedItList", {
@@ -96,7 +98,8 @@ function GameRoundPot({
       setRoundResult(gameRoundId, grade(currentGuess));
     }
 
-    addGuess(currentGuess);
+    //addGuess(currentGuess);
+    addGuess(guessedPot);
     setTimeout(() => {
       incGuessNum();
     }, SQUARE_ANIMATION_LENGTH * squares.length);
@@ -116,7 +119,7 @@ function GameRoundPot({
        */}
       <div>
         <img
-          src={dataBank.getPotMapSvgUrl(potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(gameState.potCode as PotCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -142,7 +145,7 @@ function GameRoundPot({
         currentRoundStatus={currentRoundStatus}
         guesses={guesses}
         maxAttempts={maxAttempts}
-        solutionCode={potCode as PotCode}
+        solutionCode={gameState.potCode as PotCode}
         guessNum={guessNum}
         dataBank={dataBank}
       />

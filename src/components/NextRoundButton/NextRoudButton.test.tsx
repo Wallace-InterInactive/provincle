@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { NextRoundButton } from "./NextRoundButton.tsx";
 import { GameRoundStatus } from "../../types/data.ts";
+import { dataBank } from "../../canadata/dataBank.ts";
 
 describe("the NextRoundButton component", () => {
   const WRAPPER_DIV_TEST_ID = "next-round-btn-wrapper-div";
@@ -20,6 +21,7 @@ describe("the NextRoundButton component", () => {
         handleNextButtonClicked={mockedHandleNextButtonClicked}
         handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
         giveUpCnt={giveUpCnt}
+        dataBank={dataBank}
       />
     );
     expect(screen.getByTestId(WRAPPER_DIV_TEST_ID)).toBeTypeOf("object");
@@ -39,6 +41,7 @@ describe("the NextRoundButton component", () => {
           handleNextButtonClicked={mockedHandleNextButtonClicked}
           handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
           giveUpCnt={giveUpCnt}
+          dataBank={dataBank}
         />
       );
 
@@ -58,6 +61,7 @@ describe("the NextRoundButton component", () => {
         handleNextButtonClicked={mockedHandleNextButtonClicked}
         handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
         giveUpCnt={giveUpCnt}
+        dataBank={dataBank}
       />
     );
     expect(screen.queryByTestId(GIVE_UP_BTN_TEST_ID)).toBeNull();
@@ -77,6 +81,7 @@ describe("the NextRoundButton component", () => {
           handleNextButtonClicked={mockedHandleNextButtonClicked}
           handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
           giveUpCnt={giveUpCnt}
+          dataBank={dataBank}
         />
       );
 
@@ -97,6 +102,7 @@ describe("the NextRoundButton component", () => {
         handleNextButtonClicked={mockedHandleNextButtonClicked}
         handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
         giveUpCnt={giveUpCnt}
+        dataBank={dataBank}
       />
     );
     const btn = screen.getByTestId(NEXT_ROUND_BTN_TEST_ID);
@@ -115,6 +121,7 @@ describe("the NextRoundButton component", () => {
         handleNextButtonClicked={mockedHandleNextButtonClicked}
         handleGiveUpButtonClicked={mockedHandleGiveUpButtonClicked}
         giveUpCnt={giveUpCnt}
+        dataBank={dataBank}
       />
     );
     const btn = screen.getByTestId(GIVE_UP_BTN_TEST_ID);

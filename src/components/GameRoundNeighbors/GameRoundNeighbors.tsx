@@ -19,7 +19,11 @@ function GameRoundNeighbors({
   dataBank,
   setRoundResult,
 }: GameRoundProps) {
-  const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+  let potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
+
+  if (potNameOf === `of_${gameState.potCode}`) {
+    potNameOf = `of ${dataBank.tGeo(gameState.potCode)}`;
+  }
 
   const idPrefix: string = "roundNbor-";
 

@@ -17,8 +17,6 @@ export function Guesses({
   maxAttempts,
   solutionCode,
   guessNum,
-  //t,
-  //tGeo,
   dataBank,
 }: GuessesProps) {
   return (
@@ -43,10 +41,10 @@ export function Guesses({
       )}
       <div>
         {Array.from({ length: maxAttempts }, (_, i) => {
-          console.log(`guesses.${i} = ${guesses[i]}`);
+          //console.log(`guesses.${i} = ${guesses[i]}`);
           return (
             <GuessRow
-              guess={guesses[i]}
+              guessCode={guesses[i]}
               solutionCode={solutionCode as PotCode}
               dataBank={dataBank}
             />
