@@ -1,16 +1,25 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: CI Verify PR & Push
+name: CI Verify PR, Push, & Deploy
 
 on:
   push:
-    branches: ["*"]
+    branches:
+      - master
+    paths-ignore:
+      - '**.md' # ignore documentation-only changes
   pull_request:
-    branches: ["*"]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
 
 jobs:
   build:
+    if: github.event_name != 'push' || github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     strategy:
@@ -44,8 +53,11 @@ jobs:
           echo 'yarn cover'
 
       - name: Deploy
-        # if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo 'deploying to GitHub Pages'
-          yarn predeploy
-          yarn deploy
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          yarn add gh-pages
+          yarn gh-pages -d dist --repo=https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
