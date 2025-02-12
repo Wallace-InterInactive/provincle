@@ -36,6 +36,7 @@ jobs:
       - name: Build
         run: |
           echo 'installing dependencies'
+          ls -alr
           yarn
           echo 'building app'
           yarn build
