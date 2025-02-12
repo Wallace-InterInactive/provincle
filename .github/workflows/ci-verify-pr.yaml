@@ -21,16 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Runtime ${{ matrix.node-version }} & Dependency setup
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-        run: |
-          echo 'installing dependencies'
-          yarn
 
       - name: Build
         run: |
+          echo 'installing dependencies'
+          yarn
           echo 'building app'
           yarn build
 
@@ -43,3 +42,10 @@ jobs:
         run: |
           echo 'executing tests'
           echo 'yarn cover'
+
+      - name: Deploy
+        # if: github.ref == 'refs/heads/master'
+        run: |
+          echo 'deploying to GitHub Pages'
+          yarn predeploy
+          yarn deploy
