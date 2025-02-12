@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist -b gh-pages",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "npx eslint .",
