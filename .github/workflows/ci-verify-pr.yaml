@@ -57,7 +57,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          yarn add gh-pages
-          yarn gh-pages -d dist --repo=https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          yarn predeploy
+          yarn run gh-pages -d dist --repo=https://github.com/Wallace-InterInactive/provincle.git
