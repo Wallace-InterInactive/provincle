@@ -50,7 +50,7 @@ jobs:
       - name: Test
         run: |
           echo 'executing tests'
-          echo 'yarn cover'
+          yarn cover
 
       - name: Deploy
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
