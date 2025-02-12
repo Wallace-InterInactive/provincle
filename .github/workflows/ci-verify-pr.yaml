@@ -8,7 +8,7 @@ on:
     branches:
       - master
     paths-ignore:
-      - '**.md' # ignore documentation-only changes
+      - "**.md" # ignore documentation-only changes
   pull_request:
     types:
       - opened
@@ -53,7 +53,7 @@ jobs:
           echo 'yarn cover'
 
       - name: Deploy
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

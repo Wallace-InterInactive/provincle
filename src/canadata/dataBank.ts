@@ -521,7 +521,7 @@ export function getDirectionEmoji(
   // return directionEmojiMap.get(direction) as string;
 }
 
-export const potCodes = Object.keys(dataBankData) as PotCode[];
+export const potCodes = Object.keys(dataBankData);
 // export const potNamesEn: string[] = getPotNamesByLang("en-ca");
 // export const potNamesFr: string[] = getPotNamesByLang("fr-ca");
 
@@ -562,8 +562,8 @@ function getGuessEmoji(): string {
   return "🍁";
 }
 
-//@ts-ignore
 function getLinkUrlWikipedia(potCode: string): string {
+  console.log(`potCode: ${potCode}`);
   return "https://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada";
 }
 

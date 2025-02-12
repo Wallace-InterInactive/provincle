@@ -14,21 +14,6 @@ export type CardinalDirection =
   | "SE";
 
 export type PotCode = string; // YYYY make a superclass of GameCode ?
-export type PotCode2 =
-  | "on"
-  | "qc"
-  | "ns"
-  | "nb"
-  | "mb"
-  | "bc"
-  | "pe"
-  | "sk"
-  | "ab"
-  | "nl"
-  | "nt"
-  | "yt"
-  | "nu";
-export const CodeInvalid: string = "invalid";
 
 export type GeoNameKey = string;
 
@@ -55,6 +40,7 @@ export interface PotData {
   majorLeagueTeams: string[];
 }
 
+/* eslint-disable no-unused-vars */
 export enum GameRoundResult {
   NoRoundToday = 0,
   NotStarted = 1,
@@ -63,6 +49,7 @@ export enum GameRoundResult {
   Good = 4,
   Excellent = 5,
 }
+/* eslint-enable no-unused-vars */
 
 export interface GameRoundStat {
   i18nId: string; // TODO: shall we extract to type?

@@ -1,7 +1,6 @@
 import { getColorOfStatus, mapGradeToEmoji } from "../../utils/utils.ts";
 import { useTranslation } from "react-i18next";
-//import { GameFinaleProps } from "../../types/GameFinaleProps.ts";
-import { PotCode, GameState, DataBank } from "../../types/data.ts";
+import { GameState, DataBank } from "../../types/data.ts";
 
 export interface GameFinaleProps {
   roundStats: GameState;
@@ -19,15 +18,12 @@ function GameRoundFinale({ roundStats, dataBank }: GameFinaleProps) {
   //export function GameRound1( currentRoundStatus, setCurrentRoundStatus) {
 
   // TODO: should move to GameProps? as quasi-const it's of for the proof-of-concept
-  // TODO: remove ts-ignore
-  // @ts-ignore
-
   return (
     <div>
       {/* page part 1: the problem statement */}
       <div>
         <img
-          src={dataBank.getPotMapSvgUrl(roundStats.potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(roundStats.potCode)}
           alt="silhouette of a province or territory"
           className="max-h-32 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />

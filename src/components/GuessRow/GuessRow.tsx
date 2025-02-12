@@ -60,7 +60,7 @@ export function GuessRow({
         </div>
         <div className="my-guess-div">
           <p className="my-guess-p text-xl">
-            {dataBank.getDirectionEmoji(guessCode as PotCode, solutionCode)}
+            {dataBank.getDirectionEmoji(guessCode, solutionCode)}
           </p>
         </div>
       </div>
@@ -68,7 +68,7 @@ export function GuessRow({
       <div className="grid grid-cols-6 gap-1 text-center py-0.5 text-l w-full justify-evenly items-center border-2 h-8 overflow-hidden">
         {getSquaresByDistance(
           calculateDistanceInMeters(
-            dataBank.data[guessCode as PotCode].coordinates,
+            dataBank.data[guessCode].coordinates,
             dataBank.data[solutionCode].coordinates
           )
         ).map((character, index) => (

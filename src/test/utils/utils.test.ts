@@ -209,7 +209,7 @@ describe("getBullseyeEmoji returns an emoji based on the boolean input", () => {
 describe("shuffle shuffles an array", () => {
   it("should shuffle the array and not change its length", () => {
     const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const deep: number[] = JSON.parse(JSON.stringify(arr));
+    const deep = JSON.parse(JSON.stringify(arr)) as number[];
     shuffle(arr);
     expect(arr.length).toBe(deep.length);
     expect(arr).not.toEqual(deep);

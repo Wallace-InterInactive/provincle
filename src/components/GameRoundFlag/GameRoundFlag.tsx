@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getColorOfStatus, shuffle } from "../../utils/utils.ts";
 import "../../ImageGrid.css";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { GameRoundResult, PotCode } from "../../types/data.ts";
-import confetti from "canvas-confetti";
-import { toastSuccess } from "../../utils/animations.ts";
+import { handleConfetti, toastSuccess } from "../../utils/animations.ts";
 
 const maxAttempts = 3;
 const numFlagsToShow = 6;
@@ -18,7 +17,7 @@ function GameRoundFlag({
   setRoundResult,
 }: GameRoundProps) {
   const potNameOf: string = dataBank.tGeo(`of_${gameState.potCode}`);
-  const potCodes = Object.keys(dataBank.data) as PotCode[];
+  const potCodes = Object.keys(dataBank.data);
 
   // const gameState = defaultGameState; // TODO: why useState() ?, just a shortCut for here
   const myPotList: string[] = Array.from(
@@ -37,24 +36,24 @@ function GameRoundFlag({
     if (guesses.length === maxAttempts) {
       console.log(`Game over! (${currentRoundStatus})`);
     }
-    //setCurrentGuess("");
   }, [guesses]);
 
-  //const handleGuessButtonClickedRound2 = (guess:number): void => {
-  const handleFlagGuessClicked = (e: any): void => {
+  const handleFlagGuessClicked = (
+    e: React.MouseEvent<HTMLImageElement>
+  ): void => {
     // TODO: get the id of the image clicked at...
-    const guessedItem = `${e.target.id}`;
+    const guessedItem = `${e.currentTarget?.id}`;
     const guess = guessedItem.split("-")[1];
-    console.log(`Guess button clicked: '${e.target.id}'`);
+    // console.log(`Guess button clicked: '${e.currentTarget?.id}'`);
     if (currentRoundStatus !== "pending" || guesses.includes(guess)) {
       return;
     }
 
     console.log(`current guess ${guessedItem}`);
-    if (`guess-${gameState.potCode}` == guessedItem) {
+    if (`guess-${gameState.potCode}` === guessedItem) {
       setCurrentRoundStatus("won");
       toastSuccess(dataBank.tLang("guessedIt"));
-      confetti();
+      handleConfetti();
       setRoundResult(gameRoundId, grade(guess));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
@@ -70,8 +69,8 @@ function GameRoundFlag({
            : guesses.length === 1 ? GameRoundResult.Good
            :                        GameRoundResult.Fair;
     } else {
-      return guesses.length == 0 ? GameRoundResult.NotStarted
-                                 : GameRoundResult.Failed;
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
     }
   }
 
@@ -96,7 +95,7 @@ function GameRoundFlag({
                 ? 0
                 : myPotList.indexOf(gameState.potCode) - 4;
             const i1 = (i0 + i) % myPotList.length;
-            const aPot: PotCode = myPotList[i1] as PotCode;
+            const aPot: PotCode = myPotList[i1];
             const myBorder: string = !guesses.includes(aPot)
               ? "border-4 border-black"
               : aPot === gameState.potCode

@@ -5,11 +5,11 @@ import {
   changeHtmlItemClass,
   getColorOfStatus,
 } from "../../utils/utils.ts";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
+import { GameRoundResult } from "../../types/data.ts";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
-import confetti from "canvas-confetti";
+import { handleConfetti } from "../../utils/animations.ts";
 
 function GameRoundNeighbors({
   gameRoundId,
@@ -28,8 +28,7 @@ function GameRoundNeighbors({
   const idPrefix: string = "roundNbor-";
 
   // const gameState: GameState = defaultGameState;
-  const neighbors: string[] =
-    dataBank.data[gameState.potCode as PotCode].neighbors;
+  const neighbors: string[] = dataBank.data[gameState.potCode].neighbors;
 
   const maxAttempts = neighbors.length + 2;
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -64,16 +63,16 @@ function GameRoundNeighbors({
     );
     const guessedPot = dataBank.getPotCodeByName(currentGuess, dataBank.tGeo);
     if (isGuessCorrect) {
-      console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
+      // console.log(`You guessed it! : ${guessedPot} neighbors:${neighbors}`);
       changeHtmlItemClass(`guess-${idPrefix}-${guessedPot}`, "bg-green-500");
-      if (correctGuessNum == neighbors.length - 1) {
-        confetti();
+      if (correctGuessNum === neighbors.length - 1) {
+        handleConfetti();
         setCurrentRoundStatus("won");
         setRoundResult(gameRoundId, grade(isGuessCorrect));
         // setTimeout(() => {
         // }, SQUARE_ANIMATION_LENGTH * squares.length);
       } else {
-        confetti({ ticks: 50 });
+        handleConfetti(50);
       }
       setCorrectGuessNum(correctGuessNum + 1);
     } else if (guesses.length + 1 === maxAttempts) {
@@ -85,9 +84,7 @@ function GameRoundNeighbors({
 
     setGuesses([...guesses, currentGuess]);
     setGuessedCodes([...guessedCodes, guessedPot]);
-    console.log(
-      `guess:${guessedPot} status: ${currentRoundStatus} guesses:[${guesses}] neighbors:[${neighbors}]`
-    );
+    // console.log(`guess:${guessedPot} status: ${currentRoundStatus} guesses:[${guesses}] neighbors:[${neighbors}]`);
   };
 
   const handleGuessButtonClicked = (): void => {
@@ -104,15 +101,15 @@ function GameRoundNeighbors({
   };
   // prettier-ignore
   function grade(lastGuessOk: boolean): GameRoundResult {
-    //if (guess === gameState.potCode) {
     if (lastGuessOk) {
-      return guesses.length === correctGuessNum     ? GameRoundResult.Excellent
-           : guesses.length === correctGuessNum + 1 ? GameRoundResult.Good
-            :                                         GameRoundResult.Fair;
-    } else {
-      return guesses.length === 0 ? GameRoundResult.NotStarted
-                                  : GameRoundResult.Failed;
+      return guesses.length === correctGuessNum  ? GameRoundResult.Excellent
+        : guesses.length === correctGuessNum + 1 ? GameRoundResult.Good
+        :                                          GameRoundResult.Fair;
     }
+
+    return guesses.length === 0
+      ? GameRoundResult.NotStarted
+      : GameRoundResult.Failed;
   }
 
   //const numCols = 4;
@@ -124,8 +121,8 @@ function GameRoundNeighbors({
       </div>
       <div className={`grid grid-cols-4 gap-1 text-center py-0.5 my-5`}>
         {Array.from({ length: neighbors.length }, (_, i) => {
-          const aPot = dataBank.data[gameState.potCode as PotCode].neighbors[i];
-          const lastRowOdd = i == neighbors.length - 1 && i % 2 == 0;
+          const aPot = dataBank.data[gameState.potCode].neighbors[i];
+          const lastRowOdd = i === neighbors.length - 1 && i % 2 === 0;
           const bgColor: string = guessedCodes.includes(neighbors[i])
             ? getColorOfStatus("won")
             : getColorOfStatus(currentRoundStatus);
@@ -136,7 +133,7 @@ function GameRoundNeighbors({
               onClick={() => toggleZoom(aPot)}
             >
               <img
-                src={dataBank.getPotMapSvgUrl(aPot as PotCode)}
+                src={dataBank.getPotMapSvgUrl(aPot)}
                 alt="silhouette of a province or territory"
                 className="max-h-24 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
               />
@@ -158,7 +155,7 @@ function GameRoundNeighbors({
           onClick={() => toggleZoom(zoomedPot)}
         >
           <img
-            src={dataBank.getPotMapSvgUrl(zoomedPot as PotCode)}
+            src={dataBank.getPotMapSvgUrl(zoomedPot)}
             alt="silhouette of a province or territory"
             className="max-h-64 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
           />
@@ -206,7 +203,7 @@ function GameRoundNeighbors({
               >
                 <div className="my-guess-div col-span-6">
                   <p className="my-guess-p">
-                    {dataBank.tGeo(guessCode as PotCode)}
+                    {dataBank.tGeo(guessCode)}
                     {/*getPotName(guessCode as PotCode) || "-"*/}
                   </p>
                 </div>

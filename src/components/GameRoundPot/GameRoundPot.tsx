@@ -2,10 +2,11 @@ import { FormEvent, useState, useEffect } from "react";
 import { sanitizeString } from "../../utils/utils.ts";
 import { TFunction } from "i18next";
 import { GameRoundProps } from "../../types/GameRoundProps.ts";
-import { GameRoundResult, PotCode } from "../../types/data.ts";
+import { GameRoundResult } from "../../types/data.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import {
+  handleConfetti,
   SQUARE_ANIMATION_LENGTH,
   squares,
   toastError,
@@ -13,7 +14,6 @@ import {
   toastSuccess,
 } from "../../utils/animations.ts";
 import { Guesses } from "../Guesses/Guesses.tsx";
-import confetti from "canvas-confetti";
 
 function GameRoundPot({
   gameRoundId,
@@ -76,17 +76,19 @@ function GameRoundPot({
       return;
     }
 
-    //if (sanitizeString(tGeo(potCode)) === sanitizeString(currentGuess)) {
     if (guessedPot === gameState.potCode) {
       setTimeout(() => {
         setCurrentRoundStatus("won");
+
+        /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
         const guessedItText = t("guessedItList", {
           returnObjects: true,
         }) as string[];
+
         const randomText =
           guessedItText[Math.floor(Math.random() * guessedItText.length)];
         toastSuccess(randomText);
-        confetti();
+        handleConfetti();
       }, SQUARE_ANIMATION_LENGTH * squares.length);
       setRoundResult(gameRoundId, grade(currentGuess));
       console.log("grade " + grade(currentGuess));
@@ -119,7 +121,7 @@ function GameRoundPot({
        */}
       <div>
         <img
-          src={dataBank.getPotMapSvgUrl(gameState.potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(gameState.potCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />
@@ -145,7 +147,7 @@ function GameRoundPot({
         currentRoundStatus={currentRoundStatus}
         guesses={guesses}
         maxAttempts={maxAttempts}
-        solutionCode={gameState.potCode as PotCode}
+        solutionCode={gameState.potCode}
         guessNum={guessNum}
         dataBank={dataBank}
       />
