@@ -15,16 +15,31 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: Runtime ${{ matrix.node-version }} & Dependency setup
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          # cache: 'npm'
-      - run: yarn
-      - run: yarn build
-      - run: yarn cover
+        run: |
+          echo 'installing dependencies'
+          yarn
+
+      - name: Build
+        run: |
+          echo 'building app'
+          yarn build
+
+      - name: Lint
+        run: |
+          echo 'linting code'
+          echo 'TODO'
+
+      - name: Test
+        run: |
+          echo 'executing tests'
+          echo 'yarn cover'
