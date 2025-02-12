@@ -54,11 +54,6 @@ jobs:
           echo 'yarn cover'
 
       - name: Deploy
-        # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
-          # echo 'to be implemented'
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          yarn deploy -- -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          echo 'to be implemented'
