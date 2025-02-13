@@ -45,7 +45,7 @@ export function Guesses({
           return (
             <GuessRow
               guessCode={guesses[i]}
-              solutionCode={solutionCode as PotCode}
+              solutionCode={solutionCode}
               dataBank={dataBank}
             />
           );

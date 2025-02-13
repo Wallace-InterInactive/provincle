@@ -52,6 +52,7 @@ export function Game() {
   const updateGameState = (key: string, val: any): void => {
     setGameState(prevState => ({
       ...prevState,
+      /* eslint-disable @typescript-eslint/no-unsafe-assignment */
       [key]: val,
     }));
   };
@@ -59,10 +60,14 @@ export function Game() {
     updateGameState("currentRound", newCurrentRound);
   };
 
-  // prettier-ignore
   function getRoundStat(id: string): GameRoundStat {
-    console.log(`rounds ${typeof gameState.rounds} ==> ${gameState.rounds} ${Array.from(gameState.rounds.entries())}`);
-    return ( gameState.rounds.get(id) ?? { i18nId: "na", result: GameRoundResult.NotStarted } );
+    // console.log(`rounds ${typeof gameState.rounds} ==> ${gameState.rounds} ${Array.from(gameState.rounds.entries())}`);
+    return (
+      gameState.rounds.get(id) ?? {
+        i18nId: "na",
+        result: GameRoundResult.NotStarted,
+      }
+    );
   }
 
   const setRoundResult = (roundId: string, result: GameRoundResult): void => {
@@ -78,14 +83,16 @@ export function Game() {
     setGameState(newState);
   };
 
-  // TODO: remove ts-ignore
+  /* eslint-disable no-unused-vars */
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   const { potCode, currentRound } = gameState;
   const [giveupCnt, setGiveupCnt] = useState<number>(0);
 
   const [currentRoundStatus, setCurrentRoundStatus] =
     useState<GameRoundStatus>("pending");
-  // note: currentRound == 1 comes from gameState.ts default
+  // note: currentRound === 1 comes from gameState.ts default
 
   const handleNextButtonClicked = (): void => {
     console.log("Next button clicked.");

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getColorOfStatus, shuffle } from "../../utils/utils.ts";
 import "../../ImageGrid.css";
 import { useTranslation } from "react-i18next";
@@ -9,8 +9,7 @@ import {
   getMajorLeagueTeamKeys,
   getTeamLogoSvgUrl,
 } from "../../canadata/dataBank.ts";
-import confetti from "canvas-confetti";
-import { toastSuccess } from "../../utils/animations.ts";
+import { handleConfetti, toastSuccess } from "../../utils/animations.ts";
 import i18n from "../../canadata/i18n.ts";
 
 const maxAttempts = 3;
@@ -44,15 +43,15 @@ function GameRoundMajorLeague({
     shuffle(localTeams);
     shuffle(otherTeams);
   }
-  console.log(`Local teams: ${localTeams}`);
-  console.log(`Other teams: ${otherTeams}`);
+  // console.log(`Local teams: ${localTeams}`);
+  // console.log(`Other teams: ${otherTeams}`);
 
   // a single correct solution, the rest are decoys
   // TODO: perhaps make it multi-choice
   const solutionTeam = localTeams[0];
   const teamList = [solutionTeam, ...otherTeams.slice(0, numLogosToShow - 1)];
   shuffle(teamList);
-  console.log(`teamList: ${teamList}`);
+  // console.log(`teamList: ${teamList}`);
 
   const [guesses, setGuesses] = useState<string[]>([]);
 
@@ -67,10 +66,10 @@ function GameRoundMajorLeague({
     //setCurrentGuess("");
   }, [guesses]);
 
-  const handleLogoClicked = (e: any): void => {
-    const guessedItem = `${e.target.id}`;
+  const handleLogoClicked = (e: React.MouseEvent<HTMLImageElement>): void => {
+    const guessedItem = `${e.currentTarget?.id}`;
     const guess = guessedItem.split("-")[1];
-    console.log(`Guess button clicked: '${e.target.id}'`);
+    // console.log(`Guess button clicked: '${e.target?.id}'`);
     if (currentRoundStatus !== "pending" || guesses.includes(guess)) {
       return;
     }
@@ -79,7 +78,7 @@ function GameRoundMajorLeague({
     if (`guess-${solutionTeam}` === guessedItem) {
       setCurrentRoundStatus("won");
       toastSuccess(t("guessedIt"));
-      confetti();
+      handleConfetti();
       setRoundResult(gameRoundId, grade(guess));
     } else if (guesses.length + 1 === maxAttempts) {
       setCurrentRoundStatus("lost");
@@ -95,8 +94,8 @@ function GameRoundMajorLeague({
            : guesses.length === 1 ? GameRoundResult.Good
            :                        GameRoundResult.Fair;
     } else {
-      return guesses.length == 0 ? GameRoundResult.NotStarted
-                                 : GameRoundResult.Failed;
+      return guesses.length === 0 ? GameRoundResult.NotStarted
+                                  : GameRoundResult.Failed;
     }
   }
 

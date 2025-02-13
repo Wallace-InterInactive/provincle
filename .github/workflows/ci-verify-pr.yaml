@@ -5,26 +5,54 @@ name: CI Verify PR & Push
 
 on:
   push:
-    branches: ["*"]
+    branches:
+      - master
+    paths-ignore:
+      - "**.md" # ignore documentation-only changes
   pull_request:
-    branches: ["*"]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
 
 jobs:
   build:
+    if: github.event_name != 'push' || github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          # cache: 'npm'
-      - run: yarn
-      - run: yarn build
-      - run: yarn cover
+
+      - name: Build
+        run: |
+          echo 'installing dependencies'
+          yarn
+          echo 'building app'
+          yarn build
+
+      - name: Lint
+        run: |
+          echo 'linting code'
+          yarn lint
+
+      - name: Test
+        run: |
+          echo 'executing tests'
+          yarn cover
+
+      - name: Deploy
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          echo 'to be implemented'

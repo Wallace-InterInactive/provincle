@@ -111,7 +111,7 @@ export function calculateAngleGeo(
 }
 
 export function calculateAngle(pos1: Coordinates, pos2: Coordinates): number {
-  if (pos1 == pos2) {
+  if (pos1 === pos2) {
     return -1;
   }
   const c1 = latLonToMercator(pos1.latitude, pos1.longitude);

@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { GameRoundResult, PotCode, DataBank } from "../../types/data.ts";
+import { GameRoundResult, DataBank } from "../../types/data.ts";
 import {
   getOkNokEmoji,
   getColorOfStatus,
@@ -11,12 +11,12 @@ import { GameRoundPropsExtended } from "../../types/GameRoundPropsExtended.ts";
 import { AutoSuggestInput } from "../AutoSuggestInput/AutoSuggestInput.tsx";
 import { GuessButton } from "../GuessButton/GuessButton.tsx";
 import {
+  handleConfetti,
   SQUARE_ANIMATION_LENGTH,
   squares,
   toastError,
   toastSuccess,
 } from "../../utils/animations.ts";
-import confetti from "canvas-confetti";
 
 export function GameRoundCapital(props: GameRoundProps) {
   const gameState = props.gameState;
@@ -24,7 +24,7 @@ export function GameRoundCapital(props: GameRoundProps) {
   const extendedProps: GameRoundPropsExtended = {
     ...props,
     roundInstructionId: "gameCapitalRoundInstruction",
-    target: dataBank.data[gameState.potCode as PotCode].capital,
+    target: dataBank.data[gameState.potCode].capital,
     maxAttempts: 3,
   };
   return GameRoundTextInputWithImage(extendedProps);
@@ -97,7 +97,7 @@ function GameRoundTextInputWithImage({
 
     if (cityCode === target) {
       toastSuccess(dataBank.tLang("guessedIt"));
-      confetti();
+      handleConfetti();
       setCurrentRoundStatus("won");
       setRoundResult(gameRoundId, grade(cityCode));
     } else if (guesses.length + 1 === maxAttempts) {
@@ -130,7 +130,7 @@ function GameRoundTextInputWithImage({
       )}
       <div>
         <img
-          src={dataBank.getPotMapSvgUrl(gameState.potCode as PotCode)}
+          src={dataBank.getPotMapSvgUrl(gameState.potCode)}
           alt="silhouette of a province or territory"
           className="max-h-52 m-auto my-5 transition-transform duration-700 ease-in dark:invert h-full"
         />

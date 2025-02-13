@@ -1,4 +1,5 @@
 import { toast, Zoom } from "react-toastify";
+import confetti from "canvas-confetti";
 
 export const SQUARE_ANIMATION_LENGTH = 250;
 export const squares = ["🟩", "🟩", "🟨", "🟧", "🟥", "⬛️"];
@@ -53,4 +54,21 @@ export function toastSuccess(text: string): void {
     },
     transition: Zoom,
   });
+}
+
+export function handleConfetti(ticks?: number): void {
+  try {
+    if (ticks) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      confetti({ ticks: 50 });
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      confetti();
+    }
+  } catch (e) {
+    console.error(
+      "An error occurred when calling the floating promise function 'confetti'."
+    );
+    throw e;
+  }
 }

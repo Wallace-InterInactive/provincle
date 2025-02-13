@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 // preferably use title case, unless it is a sentence with punctuation
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 i18next
   .use(initReactI18next)
   .use(LanguageDetector)
